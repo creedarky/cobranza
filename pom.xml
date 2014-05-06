@@ -7,7 +7,6 @@
   <packaging>pom</packaging>
   <name>cl.acaya.cobranza</name>
   <modules>
-    <module>cl.acaya.business</module>
-    <module>cl.acaya.cobranza.api</module>
+    <module>cl.acaya.cobranza.business</module>
   </modules>
 </project>
