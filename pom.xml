@@ -8,5 +8,6 @@
   <name>cl.acaya.cobranza</name>
   <modules>
     <module>cl.acaya.cobranza.business</module>
+    <module>integration-test</module>
   </modules>
 </project>
