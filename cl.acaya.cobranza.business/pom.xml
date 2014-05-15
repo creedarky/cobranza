@@ -13,7 +13,7 @@
   <name>cl.acaya.cobranza.business</name>
   <modules>
     <module>cl.acaya.business-ejb</module>
-    <module>cl.acaya.api</module>
+    <module>cl.acaya.business.dao-ejb</module>
     <module>cl.acaya.business-web</module>
     <module>cl.acaya.business-ear</module>
     <module>cl.acaya.business-ejbClient</module>
