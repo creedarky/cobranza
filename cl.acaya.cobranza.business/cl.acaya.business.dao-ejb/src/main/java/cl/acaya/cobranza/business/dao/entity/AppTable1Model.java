@@ -1,4 +1,4 @@
-package cl.acaya.cobranza.business.dao;
+package cl.acaya.cobranza.business.dao.entity;
 
 import javax.persistence.Entity;
 
