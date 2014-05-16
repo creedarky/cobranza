@@ -16,6 +16,5 @@
     <module>cl.acaya.business.dao-ejb</module>
     <module>cl.acaya.business-web</module>
     <module>cl.acaya.business-ear</module>
-    <module>cl.acaya.business-ejbClient</module>
   </modules>
 </project>

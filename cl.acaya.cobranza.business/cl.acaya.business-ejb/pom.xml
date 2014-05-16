@@ -16,12 +16,47 @@
   <url>http://maven.apache.org</url>
 
   <dependencies>
-    <dependency>
-      <groupId>javaee</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>5</version>
-      <scope>provided</scope>
-    </dependency>
+
+      <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>cl.acaya.business.dao-ejb</artifactId>
+          <version>${project.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>cl.acaya.api</artifactId>
+          <version>${project.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+      </dependency>
+
+      <!-- test -->
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.openejb</groupId>
+          <artifactId>javaee-api</artifactId>
+          <version>6.0-5</version>
+      </dependency>
+      <dependency>
+          <groupId>weblogic</groupId>
+          <artifactId>wlfullclient</artifactId>
+      </dependency>
+
+      <dependency>
+          <groupId>org.quartz-scheduler</groupId>
+          <artifactId>quartz-jobs</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.quartz-scheduler</groupId>
+          <artifactId>quartz</artifactId>
+      </dependency>
+
 
       <dependency>
           <groupId>${project.groupId}</groupId>

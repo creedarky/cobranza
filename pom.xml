@@ -362,6 +362,7 @@
         <module>cl.acaya.cobranza.business</module>
         <module>integration-test</module>
         <module>cl.acaya.api</module>
+        <module>cl.acaya.business-ejbClient</module>
     </modules>
 
 </project>
