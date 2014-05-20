@@ -1,12 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    <display-name>cl.acaya.web</display-name>
+    <display-name>cl.entel.pcdc.ventas.web</display-name>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>1440</session-timeout>
     </session-config>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:conf/app-ctx-acaya-cobranza-web-controllers.xml
+        </param-value>
+    </context-param>
+    <context-param>
+        <param-name>pcuResourcesVersion</param-name>
+        <param-value>201403191500</param-value>
+    </context-param>
+    <filter>
+        <filter-name>BrowserDetectionFilter</filter-name>
+        <filter-class>cl.acaya.web.filters.BrowserDetectionFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>SecurityFilter</filter-name>
+        <filter-class>cl.acaya.web.filters.SecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>BrowserDetectionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>cl.acaya.web.listeners.Log4jConfListener</listener-class>
+    </listener>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>cl.acaya.web.listeners.ResourcesVersionListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>clientDispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/conf/app-ctx-acaya-cobranza-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>clientDispatcherServlet</servlet-name>
+        <url-pattern>*.htm</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-        </welcome-file-list>
-    </web-app>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>

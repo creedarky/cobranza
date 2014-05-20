@@ -33,7 +33,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>cl.acaya.business-web</artifactId>
             <version>${project.version}</version>
-            <type>ejb</type>
+            <type>war</type>
         </dependency>
 
     </dependencies>
