@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>cl.acaya</groupId>
-    <artifactId>cl.acaya.cobranza.business</artifactId>
+    <artifactId>cl.acaya.cobranza</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <groupId>cl.acaya</groupId>

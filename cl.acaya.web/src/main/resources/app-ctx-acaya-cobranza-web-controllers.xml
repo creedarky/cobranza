@@ -7,13 +7,11 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:conf/entel-pcdc-postventa-client.properties</value>
-                <value>classpath:conf/entel-pcdc-venta-client.properties</value>
+                <value>classpath:conf/acaya-cobranza-business-client.properties</value>
             </list>
         </property>
     </bean>
 
-    <import resource="classpath:conf/app-ctx-entel-pcdc-postventa-client.xml"/>
-    <import resource="classpath:conf/app-ctx-entel-pcdc-venta-client.xml"/>
+    <import resource="classpath:conf/app-ctx-acaya-cobranza-business-client.xml"/>
 
 </beans>

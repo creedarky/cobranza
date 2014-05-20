@@ -54,6 +54,9 @@
         <mqseriesapi.kio.version>1.0.0-kio</mqseriesapi.kio.version>
         <!-- FreeMarker -->
         <freemarker.version>2.3.19</freemarker.version>
+        <!-- sap jco -->
+        <sapjco.version>3.0.3</sapjco.version>
+        <!-- sap jco -->
         <!-- angel com -->
         <angecom.version>na</angecom.version>
         <org.apache.openejb.version>6.0-5</org.apache.openejb.version>
@@ -99,7 +102,7 @@
         </repository>
         <repository>
             <id>spring release</id>
-            <url>https://maven.springframework.org/release/</url>
+            <url>https://repo.springsource.org/release/</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>never</updatePolicy>
@@ -295,6 +298,12 @@
                 <type>jar</type>
                 <version>${poi.ooxml.schemas.version}</version>
             </dependency>
+            <dependency>
+                <artifactId>sap-jco</artifactId>
+                <groupId>com.sap</groupId>
+                <type>jar</type>
+                <version>${sapjco.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <!--
@@ -363,6 +372,7 @@
         <module>integration-test</module>
         <module>cl.acaya.api</module>
         <module>cl.acaya.business-ejbClient</module>
-    </modules>
+    <module>cl.acaya.web</module>
+  </modules>
 
 </project>

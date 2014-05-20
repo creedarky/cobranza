@@ -6,16 +6,16 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:conf/entel-pcdc-postventa-client.properties</value>
+                <value>classpath:conf/acaya-cobranza-business-client.properties</value>
             </list>
         </property>
     </bean>
 
+    <!--     CONF
     <bean id="autenticaServiceDelegate" class="cl.entel.pcdc.postventa.client.delegates.AutenticaServiceDelegate">
         <property name="jndiName" value="${jndiNameAutenticaServiceDelegate}"/>
     </bean>
-
-    <bean id="carroCompraServiceDelegate" class="cl.entel.pcdc.postventa.client.delegates.CarroCompraServiceDelegate">
+      <bean id="carroCompraServiceDelegate" class="cl.entel.pcdc.postventa.client.delegates.CarroCompraServiceDelegate">
         <property name="jndiName" value="${jndiNameCarroCompraServiceDelegate}"/>
     </bean>
 
@@ -60,5 +60,7 @@
     <bean id="anulacionPortabilidadServiceDelegate" class="cl.entel.pcdc.postventa.client.delegates.AnulacionPortabilidadServiceDelegate">
         <property name="jndiName" value="${jndiNameAnulacionPortabilidadServiceDelegate}" />
     </bean>
+    -->
+
 
 </beans>
