@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:conf/acaya-cobranza-business-client.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--     CONF
+    <bean id="autenticaServiceDelegate" class="cl.entel.pcdc.postventa.client.delegates.AutenticaServiceDelegate">
+        <property name="jndiName" value="${jndiNameAutenticaServiceDelegate}"/>
+    </bean>
+      <bean id="carroCompraServiceDelegate" class="cl.entel.pcdc.postventa.client.delegates.CarroCompraServiceDelegate">
+        <property name="jndiName" value="${jndiNameCarroCompraServiceDelegate}"/>
+    </bean>
+
+    <bean id="negocioRenunciaMigracionServiceDelegate"
+          class="cl.entel.pcdc.postventa.client.delegates.NegocioRenunciaMigracionServiceDelegate">
+        <property name="jndiName" value="${jndiNameNegocioRenunciaMigracionServiceDelegate}"/>
+    </bean>
+
+    <bean id="excepcionadorServiceDelegate"
+          class="cl.entel.pcdc.postventa.client.delegates.ExcepcionadorServiceDelegate">
+        <property name="jndiName" value="${jndiNameExcepcionadorServiceDelegate}"/>
+    </bean>
+
+    <bean id="sistemaFedServiceDelegate" class="cl.entel.pcdc.postventa.client.delegates.SistemaFedServiceDelegate">
+        <property name="jndiName" value="${jndiNameSistemaFedServiceDelegate}"/>
+    </bean>
+
+    <bean id="clienteServiceDelegate" class="cl.entel.pcdc.postventa.client.delegates.ClienteServiceDelegate">
+        <property name="jndiName" value="${jndiNameClienteServiceDelegate}"/>
+    </bean>
+
+    <bean id="systemStatusDelegate" class="cl.entel.pcdc.postventa.client.delegates.SystemStatusDelegate">
+        <property name="jndiName" value="${jndiNameSystemStatusDelegate}"/>
+    </bean>
+
+    <bean id="systemParameterServiceDelegate" class="cl.entel.pcdc.postventa.client.delegates.SystemParameterServiceDelegate">
+        <property name="jndiName" value="${jndiNameSystemParameterServiceDelegate}"/>
+    </bean>
+
+    <bean id="anulacionServiceRemote" class="cl.entel.pcdc.postventa.client.delegates.AnulacionServiceDelegate">
+        <property name="jndiName" value="${jndiNameAnulacionServiceDelegate}"/>
+    </bean>
+
+    <bean id="anulacionSinSuscripcionServiceRemote" class="cl.entel.pcdc.postventa.client.delegates.AnulacionSinSuscripcionServiceDelegate">
+        <property name="jndiName" value="${jndiNameAnulacionSinSuscripcionServiceDelegate}"/>
+    </bean>
+
+    <bean id="retomaServiceDelegate" class="cl.entel.pcdc.postventa.client.delegates.RetomaServiceDelegate">
+        <property name="jndiName" value="${jndiNameRetomaServiceDelegate}"/>
+    </bean>
+
+    <bean id="anulacionPortabilidadServiceDelegate" class="cl.entel.pcdc.postventa.client.delegates.AnulacionPortabilidadServiceDelegate">
+        <property name="jndiName" value="${jndiNameAnulacionPortabilidadServiceDelegate}" />
+    </bean>
+    -->
+
+
+</beans>
