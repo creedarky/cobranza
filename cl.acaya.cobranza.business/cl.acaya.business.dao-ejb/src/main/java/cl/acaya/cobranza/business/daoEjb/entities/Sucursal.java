@@ -2,6 +2,7 @@ package cl.acaya.cobranza.business.daoEjb.entities;
 
 import javax.persistence.*;
 
+
 /**
  * Created by darkmoorx on 19-05-14.
  */
@@ -18,7 +19,7 @@ public class Sucursal {
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SucursalSeq")
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SucursalSeq")
     private Long systemId;
 
     @Column(name = "cod_sucursal")

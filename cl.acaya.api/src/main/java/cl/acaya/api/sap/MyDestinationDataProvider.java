@@ -5,8 +5,6 @@ import java.util.Properties;
 import com.sap.conn.jco.ext.DestinationDataEventListener;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
-import modelo.SapSystem;
-import modelo.SapSystem;
 /**
  *
  * @author aruizp

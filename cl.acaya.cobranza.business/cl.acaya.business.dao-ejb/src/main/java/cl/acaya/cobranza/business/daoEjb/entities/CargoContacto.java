@@ -18,7 +18,7 @@ public class CargoContacto {
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CargoContactoSeq")
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CargoContactoSeq")
     private Long systemId;
 
     @Column(name = "cargo")

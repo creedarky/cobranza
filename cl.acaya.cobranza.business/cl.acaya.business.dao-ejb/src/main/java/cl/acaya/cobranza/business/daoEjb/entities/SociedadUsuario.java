@@ -5,13 +5,13 @@ import javax.persistence.*;
 /**
  * Created by darkmoorx on 19-05-14.
  */
-
+/*
 @Entity
 @Table(name = "TBL_SOCIEDAD_USUARIO")
 @NamedQueries({@NamedQuery(name="SociedadUsuario.findAll",query = "Select cn From SociedadUsuario cn")})
-
+*/
 public class SociedadUsuario {
-
+  /*
 
     @JoinColumn(name = "link_sociedad", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
@@ -40,4 +40,5 @@ public class SociedadUsuario {
     public void setUsuarios(Usuarios usuarios) {
         this.usuarios = usuarios;
     }
+    */
 }

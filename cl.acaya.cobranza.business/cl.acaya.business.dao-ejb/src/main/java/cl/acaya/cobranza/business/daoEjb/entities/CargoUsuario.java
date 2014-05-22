@@ -6,21 +6,21 @@ package cl.acaya.cobranza.business.daoEjb.entities;
 
 import javax.persistence.*;
 
-
+/*
 @Entity
 @Table(name = "TBL_CARGO_USUARIO")
 @NamedQueries({@NamedQuery(name="CargoUsuario.findAll",query = "Select cn From CargoUsuario cn")})
 @SequenceGenerator(name = "CargoUsuarioSeq",
         sequenceName = "SEQ_CargoUsuario", allocationSize = 1, initialValue = 1)
-
+  */
 
 public class CargoUsuario {
 
-
+    /*
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CargoUsuarioSeq")
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CargoUsuarioSeq")
     private Long systemId;
 
     @Id
@@ -47,4 +47,5 @@ public class CargoUsuario {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
+    */
 }

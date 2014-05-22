@@ -33,6 +33,8 @@
         <aopalliance-version>1.0</aopalliance-version>
         <!-- JPA -->
         <jpa.spec.version>2.0.0</jpa.spec.version>
+        <hibernate.version>4.2.12.Final</hibernate.version>
+        <jpa.hibernate.version>1.0.1.Final</jpa.hibernate.version>
         <eclipselink.version>2.0.2</eclipselink.version>
         <!--Logging-->
         <log4j.version>1.2.13</log4j.version>
@@ -206,18 +208,29 @@
                 <version>${spring.version}</version>
                 <scope>compile</scope>
             </dependency>
-
+            <!--
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>javax.persistence</artifactId>
                 <version>${jpa.spec.version}</version>
-                <!-- <scope>provided</scope> -->
             </dependency>
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>eclipselink</artifactId>
                 <version>${eclipselink.version}</version>
-                <!--<scope>provided</scope> -->
+            </dependency>
+                                -->
+
+
+            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.0-api</artifactId>
+                <version>${jpa.hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate.version}</version>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>

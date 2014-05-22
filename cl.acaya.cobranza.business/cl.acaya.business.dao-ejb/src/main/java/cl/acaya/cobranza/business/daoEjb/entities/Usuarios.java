@@ -33,9 +33,11 @@ public class Usuarios {
     @Column(name = "email")
     private String usuarioEmail;
 
-        @JoinColumn(name = "link_cargo", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-        @ManyToOne
-        private CargoUsuario cargo;
+    @JoinColumn(name = "link_cargo", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private CargoUsuario cargo;
+
+
 
         public Usuarios() {
 

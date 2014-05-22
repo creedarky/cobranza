@@ -6,7 +6,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "TBL_ASIG_CLI_USU")
+@Table(name = "TBL_ASIG_CLI_USU", schema = "dbo")
 @NamedQueries({@NamedQuery(name="AsigClienteUsuario.findAll",query = "Select cn From AsigClienteUsuario cn")})
 @SequenceGenerator(name = "AsigClienteUsuarioSeq",
         sequenceName = "SEQ_AsigClienteUsuario", allocationSize = 1, initialValue = 1)
@@ -17,7 +17,7 @@ public class AsigClienteUsuario implements Serializable {
         @Id
         @Basic(optional = false)
         @Column(name = "system_id")
-        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AsigClienteUsuarioSeq")
+        //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AsigClienteUsuarioSeq")
         private Long system_id;
 
         @Id

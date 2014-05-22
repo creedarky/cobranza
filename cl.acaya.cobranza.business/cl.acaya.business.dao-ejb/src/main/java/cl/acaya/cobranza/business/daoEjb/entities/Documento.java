@@ -8,7 +8,7 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "TBL_DOCUMENTO")
+@Table(name = "TBL_DOCUMENTO", schema = "dbo")
 @NamedQueries({@NamedQuery(name="Documento.findAll",query = "Select cn From Documento cn")})
 @SequenceGenerator(name = "DocumentoSeq",
         sequenceName = "SEQ_Documento", allocationSize = 1, initialValue = 1)

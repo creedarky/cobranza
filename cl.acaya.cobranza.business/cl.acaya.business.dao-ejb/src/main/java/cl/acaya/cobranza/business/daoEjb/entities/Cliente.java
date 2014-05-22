@@ -17,7 +17,7 @@ public class Cliente {
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ClienteSeq")
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ClienteSeq")
     private Long systemId;
 
     @Column(name = "rut")
