@@ -1,5 +1,7 @@
 package cl.acaya.cobranza.business.daoEjb.entities;
 
+import cl.acaya.api.business.BusinessType;
+
 import javax.persistence.*;
 
 
@@ -8,7 +10,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "TBL_SUCURSAL")
+@Table(name = "TBL_SUCURSAL", schema = BusinessType.DB_SCHEMA)
 @NamedQueries({@NamedQuery(name="Sucursal.findAll",query = "Select cn From Sucursal cn")})
 @SequenceGenerator(name = "SucursalSeq",
         sequenceName = "SEQ_Sucursal", allocationSize = 1, initialValue = 1)
@@ -19,7 +21,7 @@ public class Sucursal {
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SucursalSeq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SucursalSeq")
     private Long systemId;
 
     @Column(name = "cod_sucursal")

@@ -208,7 +208,7 @@
                 <version>${spring.version}</version>
                 <scope>compile</scope>
             </dependency>
-            <!--
+
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>javax.persistence</artifactId>
@@ -219,9 +219,9 @@
                 <artifactId>eclipselink</artifactId>
                 <version>${eclipselink.version}</version>
             </dependency>
-                                -->
 
 
+            <!--
             <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>
                 <artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -232,6 +232,7 @@
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.version}</version>
             </dependency>
+              -->
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
