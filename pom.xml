@@ -12,10 +12,8 @@
         <compiler-plugin-version>2.0.2</compiler-plugin-version>
         <ejb-plugin-version>2.1</ejb-plugin-version>
         <ear-plugin-version>2.6</ear-plugin-version>
-        <!-- Weblogic Environment -->
-        <weblogic-user>weblogic</weblogic-user>
-        <weblogic-password>weblogic11g</weblogic-password>
-        <weblogic.maven.version>10.3.4</weblogic.maven.version>
+        <!-- Jboss Environment -->
+        <jboss.directory>C:/Java/jboss-5.1.0</jboss.directory>
         <!-- JDK Java -->
         <java.version>1.6</java.version>
         <java.source>1.6</java.source>
@@ -27,6 +25,7 @@
         <jsp.api.version>2.1</jsp.api.version>
         <el.api.version>2.2</el.api.version>
         <jstl.version>1.2</jstl.version>
+
         <!-- Spring -->
         <spring.version>3.1.1.RELEASE</spring.version>
 
@@ -212,13 +211,13 @@
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>javax.persistence</artifactId>
                 <version>${jpa.spec.version}</version>
-                <scope>provided</scope>
+                <!-- <scope>provided</scope> -->
             </dependency>
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>eclipselink</artifactId>
                 <version>${eclipselink.version}</version>
-                <scope>provided</scope>
+                <!--<scope>provided</scope> -->
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
@@ -303,10 +302,12 @@
                 <groupId>com.sap</groupId>
                 <type>jar</type>
                 <version>${sapjco.version}</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
     <!--
+    cp cl.acaya.cobranza.business/cl.acaya.business-ear/target/cobranza-business-ear.ear /Users/mcastro/Documents/Desarrollo/java/appsrv/jboss-5.1.0.GA/server/default/deploy/cobranza-business-ear.ear
     <build>
         <plugins>
             <plugin>
@@ -371,7 +372,7 @@
         <module>cl.acaya.cobranza.business</module>
         <module>integration-test</module>
         <module>cl.acaya.api</module>
-        <module>cl.acaya.business-ejbClient</module>
+        <!--<module>cl.acaya.business-ejbClient</module> -->
     <module>cl.acaya.web</module>
   </modules>
 
