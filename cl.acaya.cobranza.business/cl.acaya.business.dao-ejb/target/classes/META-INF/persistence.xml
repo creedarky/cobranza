@@ -5,12 +5,12 @@
              version="1.0">
 
 <persistence-unit name="cobranza" transaction-type="JTA">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>java:/cobranza</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
         <property name="jboss.entity.manager.factory.jndi.name" value="java:/cobranza"/>
-        <property name="hibernate.default_schema" value="dbo"/>
+        <!--<property name="hibernate.default_schema" value="dbo"/>-->
         <!--
         <property name="hibernate.dialect" value="org.domain.spk.SQLServerDialectOverrider"/>
          <property name="hibernate.hbm2ddl.auto" value="update"/>
@@ -21,6 +21,7 @@
         <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
         -->
     </properties>
+
 
 </persistence-unit>
 </persistence>

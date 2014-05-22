@@ -3,3 +3,6 @@
 cl.acaya.cobranza.business/cl.acaya.business-ear/target/
 */target/*
 */target/**
+cl.acaya.cobranza.business/cl.acaya.business.dao-ejb/target/
+cl.acaya.cobranza.business/cl.acaya.business-ejb/target/
+**/target/**

@@ -5,7 +5,7 @@ import cl.acaya.api.sap.SapSystem;
 import cl.acaya.api.vo.DocumentoVO;
 import cl.acaya.api.vo.Request;
 import cl.acaya.api.vo.Response;
-import cl.acaya.business.service.ejb.CobranzaServiceEjb;
+import cl.acaya.api.service.CobranzaServiceRemote;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoTable;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by mcastro on 21-05-14.
  */
 @Remote
-public class CobranzaServiceEjbImpl implements CobranzaServiceEjb {
+public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
 
     public Response obtenerDocumentosSAP(Request request) {

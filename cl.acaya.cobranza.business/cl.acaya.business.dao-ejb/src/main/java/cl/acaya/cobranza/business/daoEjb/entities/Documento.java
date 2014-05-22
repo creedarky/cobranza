@@ -12,8 +12,6 @@ import java.util.Date;
 @NamedQueries({@NamedQuery(name="Documento.findAll",query = "Select cn From Documento cn")})
 @SequenceGenerator(name = "DocumentoSeq",
         sequenceName = "SEQ_Documento", allocationSize = 1, initialValue = 1)
-
-
 public class Documento {
 
     @Id
