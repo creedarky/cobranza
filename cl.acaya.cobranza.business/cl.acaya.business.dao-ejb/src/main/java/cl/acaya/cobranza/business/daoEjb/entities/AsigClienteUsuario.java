@@ -1,4 +1,4 @@
-package cl.acaya.cobranza.business.dao.entity.entities;
+package cl.acaya.cobranza.business.daoEjb.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;

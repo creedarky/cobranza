@@ -35,6 +35,10 @@
           <artifactId>commons-io</artifactId>
       </dependency>
       <dependency>
+          <artifactId>sap-jco</artifactId>
+          <groupId>com.sap</groupId>
+      </dependency>
+      <dependency>
           <groupId>org.codehaus.jackson</groupId>
           <artifactId>jackson-mapper-asl</artifactId>
           <version>${jackson.mapper.asl.version}</version>

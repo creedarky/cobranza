@@ -1,11 +1,9 @@
-package cl.acaya.cobranza.business.dao.entity.entities;
+package cl.acaya.cobranza.business.daoEjb.entities;
 
 /**
  * Created by darkmoorx on 19-05-14.
  */
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
 
 
 @Entity
