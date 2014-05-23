@@ -386,6 +386,7 @@
         <module>cl.acaya.cobranza.business</module>
         <module>integration-test</module>
         <module>cl.acaya.api</module>
+
         <!--<module>cl.acaya.business-ejbClient</module> -->
     <module>cl.acaya.web</module>
   </modules>

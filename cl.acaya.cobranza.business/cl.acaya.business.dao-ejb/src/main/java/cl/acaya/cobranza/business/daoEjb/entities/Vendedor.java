@@ -1,5 +1,7 @@
 package cl.acaya.cobranza.business.daoEjb.entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
@@ -9,15 +11,21 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TBL_VENDEDOR")
 @NamedQueries({@NamedQuery(name="Vendedor.findAll",query = "Select cn From Vendedor cn")})
-@SequenceGenerator(name = "VendedorSeq",
-        sequenceName = "SEQ_Vendedor", allocationSize = 1, initialValue = 1)
+//@SequenceGenerator(name = "VendedorSeq",
+//        sequenceName = "SEQ_Vendedor", allocationSize = 1, initialValue = 1)
 
 public class Vendedor {
 
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VendedorSeq")
+    @GenericGenerator(name = "SEQ_Vendedor", strategy = "org.hibernate.id.enhanced.TableGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "table_name", value = "hibernate_sequences"),
+                    @org.hibernate.annotations.Parameter(name = "segment_value", value = "SEQ_Vendedor"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_Vendedor")
     private Long systemId;
 
     @Column(name = "cod_vendedor")

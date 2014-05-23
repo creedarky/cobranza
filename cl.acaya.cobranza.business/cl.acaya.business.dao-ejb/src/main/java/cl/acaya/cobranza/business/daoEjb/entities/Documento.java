@@ -20,13 +20,13 @@ public class Documento {
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
-    @GenericGenerator(name = "clientesSequenceGenerator", strategy = "org.hibernate.id.enhanced.TableGenerator",
+    @GenericGenerator(name = "SEQ_Documento", strategy = "org.hibernate.id.enhanced.TableGenerator",
             parameters = {
             @Parameter(name = "table_name", value = "hibernate_sequences"),
-            @Parameter(name = "segment_value", value = "SEQ_CLIENTES"),
+            @Parameter(name = "segment_value", value = "SEQ_Documento"),
             @Parameter(name = "initial_value", value = "1"),
             @Parameter(name = "increment_size", value = "1") })
-    @GeneratedValue(generator = "clientesSequenceGenerator")
+    @GeneratedValue(generator = "SEQ_Documento")
     private Long systemId;
 
     @Column(name = "num_doc")

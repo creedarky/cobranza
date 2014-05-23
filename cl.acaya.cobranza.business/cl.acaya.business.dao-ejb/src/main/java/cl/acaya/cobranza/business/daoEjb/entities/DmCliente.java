@@ -1,6 +1,13 @@
 package cl.acaya.cobranza.business.daoEjb.entities;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Parameter;
+import javax.persistence.Table;
 
 /**
  * Created by darkmoorx on 20-05-14.
@@ -9,8 +16,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TBL_DM_CLIENTE")
 @NamedQueries({@NamedQuery(name="DmCliente.findAll",query = "Select cn From DmCliente cn")})
-@SequenceGenerator(name = "DmClienteSeq",
-        sequenceName = "SEQ_DmCliente", allocationSize = 1, initialValue = 1)
+//@SequenceGenerator(name = "DmClienteSeq",
+        //sequenceName = "SEQ_DmCliente", allocationSize = 1, initialValue = 1)
 
 
 public class DmCliente {
@@ -18,7 +25,13 @@ public class DmCliente {
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DmClienteSeq")
+    @GenericGenerator(name = "SEQ_DmCliente", strategy = "org.hibernate.id.enhanced.TableGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "table_name", value = "hibernate_sequences"),
+                    @org.hibernate.annotations.Parameter(name = "segment_value", value = "SEQ_DmCliente"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DmCliente")
     private Long systemId;
 
     @Column(name = "dm")

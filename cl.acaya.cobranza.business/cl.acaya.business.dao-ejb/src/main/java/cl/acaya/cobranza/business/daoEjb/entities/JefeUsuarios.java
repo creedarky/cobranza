@@ -9,8 +9,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TBL_JEFE_USUARIO")
 @NamedQueries({@NamedQuery(name="JefeUsuarios.findAll",query = "Select cn From JefeUsuarios cn")})
-@SequenceGenerator(name = "JefeUsuariosSeq",
-        sequenceName = "SEQ_JefeUsuarios", allocationSize = 1, initialValue = 1)
+//@SequenceGenerator(name = "JefeUsuariosSeq",
+//        sequenceName = "SEQ_JefeUsuarios", allocationSize = 1, initialValue = 1)
 
 public class JefeUsuarios {
 

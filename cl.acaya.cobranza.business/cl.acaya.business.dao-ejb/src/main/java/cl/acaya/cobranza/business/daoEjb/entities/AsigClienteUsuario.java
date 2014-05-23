@@ -17,7 +17,7 @@ public class AsigClienteUsuario implements Serializable {
         @Id
         @Basic(optional = false)
         @Column(name = "system_id")
-        //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AsigClienteUsuarioSeq")
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AsigClienteUsuarioSeq")
         private Long system_id;
 
         @Id
