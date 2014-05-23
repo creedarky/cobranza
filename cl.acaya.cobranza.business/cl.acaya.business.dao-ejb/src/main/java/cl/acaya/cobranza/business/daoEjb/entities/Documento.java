@@ -1,5 +1,8 @@
 package cl.acaya.cobranza.business.daoEjb.entities;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,14 +13,20 @@ import java.util.Date;
 @Entity
 @Table(name = "TBL_DOCUMENTO", schema = "dbo")
 @NamedQueries({@NamedQuery(name="Documento.findAll",query = "Select cn From Documento cn")})
-@SequenceGenerator(name = "DocumentoSeq",
-        sequenceName = "SEQ_Documento", allocationSize = 1, initialValue = 1)
+//@SequenceGenerator(name = "DocumentoSeq",
+  //      sequenceName = "SEQ_Documento", allocationSize = 1, initialValue = 1)
 public class Documento {
 
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DocumentoSeq")
+    @GenericGenerator(name = "clientesSequenceGenerator", strategy = "org.hibernate.id.enhanced.TableGenerator",
+            parameters = {
+            @Parameter(name = "table_name", value = "hibernate_sequences"),
+            @Parameter(name = "segment_value", value = "SEQ_CLIENTES"),
+            @Parameter(name = "initial_value", value = "1"),
+            @Parameter(name = "increment_size", value = "1") })
+    @GeneratedValue(generator = "clientesSequenceGenerator")
     private Long systemId;
 
     @Column(name = "num_doc")
