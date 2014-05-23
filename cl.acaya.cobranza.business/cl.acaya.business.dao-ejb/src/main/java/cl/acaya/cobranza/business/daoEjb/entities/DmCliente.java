@@ -37,7 +37,7 @@ public class DmCliente {
     @Column(name = "dm")
     private String dmCliente;
 
-    @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @JoinColumn(name = "link_cliente")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
     private Cliente cliente;
 

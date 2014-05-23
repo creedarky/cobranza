@@ -11,9 +11,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TBL_TIPO_DOCUMENTO")
 @NamedQueries({@NamedQuery(name="TipoDocumento.findAll",query = "Select cn From TipoDocumento cn")})
-//@SequenceGenerator(name = "TipoDocumentoSeq",
-//        sequenceName = "SEQ_TipoDocumento", allocationSize = 1, initialValue = 1)
-
 public class TipoDocumento {
 
     @Id

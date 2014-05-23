@@ -27,15 +27,12 @@ public final class RequestFactory {
             request.setContext(context);
         }
 
-        Object sau = SecurityUtil.getSesionSAU(httpRequest);
-        if (sau == null) {
-            throw new RuntimeException("No existe sesión"); //TODO: internacionalizar
-        }
+
         //
         //
         //
         //
-        // request.addParam(Parametros.PRM_USUARIO_SAU, sau);
+        //request.addParam(Parametros.PRM_USUARIO_SAU, sau);
         //request.addParam(Parametros.MQ_INVOKE_URL, SecurityUtil.getInvokeUrl(httpRequest));
 
         return request;

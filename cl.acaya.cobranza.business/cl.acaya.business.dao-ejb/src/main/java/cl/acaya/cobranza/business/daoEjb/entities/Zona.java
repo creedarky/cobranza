@@ -10,10 +10,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TBL_ZONA")
 @NamedQueries({@NamedQuery(name="Zona.findAll",query = "Select cn From Zona cn")})
-//@SequenceGenerator(name = "ZonaSeq",
-//        sequenceName = "SEQ_Zona", allocationSize = 1, initialValue = 1)
-
-
 public class Zona {
 
     @Id

@@ -43,11 +43,11 @@ public class ContactoCliente {
     @Column(name = "fono_contacto3" )
     private String fonoContacto3;
 
-    @JoinColumn(name = "link_cargo", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @JoinColumn(name = "link_cargo")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
     private CargoUsuario cargo;
 
-    @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @JoinColumn(name = "link_cliente")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
     private Cliente cliente;
 

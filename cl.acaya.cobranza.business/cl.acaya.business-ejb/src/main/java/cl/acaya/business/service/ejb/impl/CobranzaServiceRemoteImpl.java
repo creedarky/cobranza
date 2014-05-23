@@ -1,5 +1,6 @@
 package cl.acaya.business.service.ejb.impl;
 
+import cl.acaya.api.business.BusinessParameter;
 import cl.acaya.api.sap.Connect;
 import cl.acaya.api.sap.SapSystem;
 import cl.acaya.api.vo.DocumentoVO;
@@ -11,13 +12,15 @@ import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoTable;
 
 import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by mcastro on 21-05-14.
  */
-@Remote
+@Stateless(name = "CobranzaServiceRemote", mappedName = "ejb/CobranzaServiceRemote")
+@Remote(CobranzaServiceRemote.class)
 public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
 
@@ -29,16 +32,16 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
             JCoParameterList pl = function.getImportParameterList();
 
-            //System.out.println(function);
+            String rutCliente = request.getParam(BusinessParameter.RUT_CLIENTE, String.class);
+            Long sociedad = Long.valueOf(request.getParam(BusinessParameter.SOCIEDAD, String.class));
 
-            function.getImportParameterList().setValue("SOCIEDAD", "1000"); //Paso de parametros
-            function.getImportParameterList().setValue("RUTCLIE", "61704000K"); //Paso de parametros
-
+            function.getImportParameterList().setValue("SOCIEDAD", sociedad); //Paso de parametros
+            function.getImportParameterList().setValue("RUTCLIE", rutCliente); //Paso de parametros
+            System.out.println(function + "no ejecutada");
             connect.execute(function);
+            System.out.println(function + "ejecutada");
             JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
-            JCoTable table2 = function.getTableParameterList().getTable("TSALIDA1"); //Tabla de Salida
             System.out.println(table);
-            System.out.println(table2);
             List<DocumentoVO> documentosList = new ArrayList<DocumentoVO>(table.getNumRows());
             for (int i = 0; i < table.getNumRows(); i++) {
                 table.setRow(i);

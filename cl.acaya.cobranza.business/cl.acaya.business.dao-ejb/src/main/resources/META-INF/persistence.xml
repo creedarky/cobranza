@@ -11,10 +11,10 @@
     <properties>
         <property name="jboss.entity.manager.factory.jndi.name" value="java:/cobranza"/>
         <property name="hibernate.default_schema" value="dbo"/>
-        <property name="hibernate.hbm2ddl.auto" value="update"/>
+        <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
         <property name="hibernate.show_sql" value="true"/>
         <property name="hibernate.format_sql" value="true"/>
-        <property name="hibernate.default_catalog" value="spk"/>
+        <property name="hibernate.default_catalog" value="COBRANZA"/>
     </properties>
 
 

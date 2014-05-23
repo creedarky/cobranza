@@ -1,6 +1,6 @@
 package cl.acaya.cobranza.business.daoEjb.entities;
 
-import cl.acaya.api.business.BusinessType;
+import cl.acaya.api.business.BusinessParameter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "TBL_SUCURSAL", schema = BusinessType.DB_SCHEMA)
+@Table(name = "TBL_SUCURSAL", schema = BusinessParameter.DB_SCHEMA)
 @NamedQueries({@NamedQuery(name="Sucursal.findAll",query = "Select cn From Sucursal cn")})
 //@SequenceGenerator(name = "SucursalSeq",
 //        sequenceName = "SEQ_Sucursal", allocationSize = 1, initialValue = 1)
@@ -37,7 +37,7 @@ public class Sucursal {
     @Column(name = "nom_sucursal")
     private String nombreSucursal;
 
-    @JoinColumn(name = "link_zona", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @JoinColumn(name = "link_zona")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
     private Zona zona;
 

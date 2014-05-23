@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>cobranza-business</context-root>
+</jboss-web>

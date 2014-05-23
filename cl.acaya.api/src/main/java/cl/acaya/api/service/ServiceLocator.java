@@ -35,12 +35,15 @@ public final class ServiceLocator {
             return type.cast(initialContext.lookup(jndiName));
         } catch (NamingException e) {
             LOGGER.error(String.format("Error al intentar recuperar jndiName[%s]", jndiName));
+            e.printStackTrace();
             return null;
         } catch (ClassCastException e) {
             LOGGER.error(String.format("Tipo ingresado no es v\u00E1lido[%s]", type));
+            e.printStackTrace();
             return null;
         } catch (Exception e) {
             LOGGER.error(String.format("Error al recuperar servicio: jndiName[%s]", jndiName));
+            e.printStackTrace();
             return null;
         }
     }

@@ -35,7 +35,6 @@
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
-
     </dependencies>
 
 
@@ -56,7 +55,7 @@
                 for any modules that are needed to be included in the EAR file,
                 you need to specify them one by one, e.g. "ejbModule", "webModule",
                 "jarModule" and "appClientModule".
-            -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
@@ -81,7 +80,7 @@
                     </modules>
                 </configuration>
             </plugin>
-
+                         -->
             <!-- JBoss App Server
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
