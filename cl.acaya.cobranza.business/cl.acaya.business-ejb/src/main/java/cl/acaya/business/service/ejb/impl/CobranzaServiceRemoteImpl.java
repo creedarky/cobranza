@@ -41,7 +41,9 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
             connect.execute(function);
             System.out.println(function + "ejecutada");
             JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
+            System.out.println("filas " + table.getNumRows());
             System.out.println(table);
+
             List<DocumentoVO> documentosList = new ArrayList<DocumentoVO>(table.getNumRows());
             for (int i = 0; i < table.getNumRows(); i++) {
                 table.setRow(i);
