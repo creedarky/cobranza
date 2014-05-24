@@ -25,7 +25,7 @@ public class DocumentoVO implements Cloneable {
     private Date fechaCotizacion;
     private Date fechaDocumento;
     private String claseDocumento;
-    private Double montoCobrar;
+    private Integer montoCobrar;
     private String indicadorSentencia;
     private Date fechaVencimiento;
     private String nombreResponsable;
@@ -37,39 +37,12 @@ public class DocumentoVO implements Cloneable {
     private String grupoMateriales;
     private String ordenCompra;
     private String codigoCuenta;
+    private Integer montoPartida;
 
     public DocumentoVO() {
     }
 
 
-    public DocumentoVO(String codigoSociedad, String codigoCliente, String codigoOperacion, String indicacionOperacion, Date fechaCompensacion, String numeroDocumento, String numeroAsignacion, Integer numeroEjercicio, String numeroContable, Integer numeroApunte, String rutCliente, Date fechaCotizacion, Date fechaDocumento, String claseDocumento, Double montoCobrar, String indicadorSentencia, Date fechaVencimiento, String nombreResponsable, String oficinaResponsable, String numeroFactura, String folioSii, String clavePago, Integer codigoCobrador, String grupoMateriales, String ordenCompra, String codigoCuenta) {
-        this.codigoSociedad = codigoSociedad;
-        this.codigoCliente = codigoCliente;
-        this.codigoOperacion = codigoOperacion;
-        this.indicacionOperacion = indicacionOperacion;
-        this.fechaCompensacion = fechaCompensacion;
-        this.numeroDocumento = numeroDocumento;
-        this.numeroAsignacion = numeroAsignacion;
-        this.numeroEjercicio = numeroEjercicio;
-        this.numeroContable = numeroContable;
-        this.numeroApunte = numeroApunte;
-        this.rutCliente = rutCliente;
-        this.fechaCotizacion = fechaCotizacion;
-        this.fechaDocumento = fechaDocumento;
-        this.claseDocumento = claseDocumento;
-        this.montoCobrar = montoCobrar;
-        this.indicadorSentencia = indicadorSentencia;
-        this.fechaVencimiento = fechaVencimiento;
-        this.nombreResponsable = nombreResponsable;
-        this.oficinaResponsable = oficinaResponsable;
-        this.numeroFactura = numeroFactura;
-        this.folioSii = folioSii;
-        this.clavePago = clavePago;
-        this.codigoCobrador = codigoCobrador;
-        this.grupoMateriales = grupoMateriales;
-        this.ordenCompra = ordenCompra;
-        this.codigoCuenta = codigoCuenta;
-    }
 
     public String getCodigoSociedad() {
         return codigoSociedad;
@@ -183,12 +156,20 @@ public class DocumentoVO implements Cloneable {
         this.claseDocumento = claseDocumento;
     }
 
-    public Double getMontoCobrar() {
+    public Integer getMontoCobrar() {
         return montoCobrar;
     }
 
-    public void setMontoCobrar(Double montoCobrar) {
+    public void setMontoCobrar(Integer montoCobrar) {
         this.montoCobrar = montoCobrar;
+    }
+
+    public Integer getMontoPartida() {
+        return montoPartida;
+    }
+
+    public void setMontoPartida(Integer montoPartida) {
+        this.montoPartida = montoPartida;
     }
 
     public String getIndicadorSentencia() {

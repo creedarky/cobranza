@@ -7,10 +7,15 @@ import cl.acaya.api.vo.DocumentoVO;
 import cl.acaya.api.vo.Request;
 import cl.acaya.api.vo.Response;
 import cl.acaya.api.service.CobranzaServiceRemote;
+import cl.acaya.cobranza.business.daoEjb.dao.ClienteDAO;
+import cl.acaya.cobranza.business.daoEjb.dao.DocumentoDAO;
+import cl.acaya.cobranza.business.daoEjb.entities.Documento;
+import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoTable;
 
+import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
@@ -22,6 +27,12 @@ import java.util.List;
 @Stateless(name = "CobranzaServiceRemote", mappedName = "ejb/CobranzaServiceRemote")
 @Remote(CobranzaServiceRemote.class)
 public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
+
+    @EJB
+    DocumentoDAO documentoDAO;
+
+    @EJB
+    ClienteDAO clienteDAO;
 
 
     public Response obtenerDocumentosSAP(Request request) {
@@ -47,34 +58,37 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
             List<DocumentoVO> documentosList = new ArrayList<DocumentoVO>(table.getNumRows());
             for (int i = 0; i < table.getNumRows(); i++) {
                 table.setRow(i);
-                DocumentoVO documento = new DocumentoVO();
-                documento.setCodigoSociedad(table.getString("CODS"));
-                documento.setCodigoCliente(table.getString("CODDEST"));
-                documento.setCodigoOperacion(table.getString("C"));
-                documento.setIndicacionOperacion(table.getString("I"));
-                documento.setFechaCompensacion(table.getDate("FECCOMP"));
-                documento.setNumeroDocumento(table.getString("DOCCOMP"));
-                documento.setNumeroAsignacion(table.getString("NUMASIG"));
-                documento.setNumeroEjercicio(table.getInt("NUMA"));
-                documento.setNumeroContable(table.getString("DOCCONT"));
-                documento.setNumeroApunte(table.getInt("NUM"));
-                documento.setRutCliente(table.getString("RUTCLIE"));
-                documento.setFechaCotizacion(table.getDate("FECCONT"));
-                documento.setFechaDocumento(table.getDate("FECDOCU"));
-                documento.setClaseDocumento(table.getString("CL"));
-                documento.setMontoCobrar(table.getDouble("MTOCOBR"));
-                documento.setIndicadorSentencia(table.getString("I"));
-                documento.setFechaVencimiento(table.getDate("FECVCTO"));
-                documento.setNombreResponsable(table.getString("CODEMIS"));
-                documento.setOficinaResponsable(table.getString("SUCR"));
-                documento.setNumeroFactura(table.getString("NUMFACT"));
-                documento.setFolioSii(table.getString("FOLSII"));
-                documento.setClavePago(table.getString("CONP"));
-                documento.setCodigoCobrador(table.getInt("CODCOBR"));
-                documento.setGrupoMateriales(table.getString("COD"));
-                documento.setOrdenCompra(table.getString("ORDCOMP"));
-                documento.setCodigoCuenta(table.getString("CODCUEN"));
-                documentosList.add(documento);
+                DocumentoVO documentoVO = new DocumentoVO();
+                documentoVO.setCodigoSociedad(table.getString("CODSOCI"));
+                documentoVO.setCodigoCliente(table.getString("CODDEST"));
+                documentoVO.setCodigoOperacion(table.getString("CLAOPER"));
+                documentoVO.setIndicacionOperacion(table.getString("INDCME"));
+                documentoVO.setFechaCompensacion(table.getDate("FECCOMP"));
+                documentoVO.setNumeroDocumento(table.getString("DOCCOMP"));
+                documentoVO.setNumeroAsignacion(table.getString("NUMASIG"));
+                documentoVO.setNumeroEjercicio(table.getInt("NUMAGNO"));
+                documentoVO.setNumeroContable(table.getString("DOCCONT"));
+                documentoVO.setNumeroApunte(table.getInt("NUMCORR"));
+                documentoVO.setRutCliente(table.getString("RUTCLIE"));
+                documentoVO.setFechaCotizacion(table.getDate("FECCONT"));
+                documentoVO.setFechaDocumento(table.getDate("FECDOCU"));
+                documentoVO.setClaseDocumento(table.getString("CLADOCU"));
+                Double monto = table.getDouble("MTOCOBR");
+                documentoVO.setMontoCobrar(monto.intValue());
+                documentoVO.setIndicadorSentencia(table.getString("INDSENT"));
+                documentoVO.setFechaVencimiento(table.getDate("FECVCTO"));
+                documentoVO.setNombreResponsable(table.getString("CODEMIS"));
+                documentoVO.setOficinaResponsable(table.getString("SUCRESP"));
+                documentoVO.setNumeroFactura(table.getString("NUMFACT"));
+                documentoVO.setFolioSii(table.getString("FOLSII"));
+                documentoVO.setClavePago(table.getString("CONPAGO"));
+                documentoVO.setCodigoCobrador(table.getInt("CODCOBR"));
+                documentoVO.setGrupoMateriales(table.getString("CODCANAL"));
+                documentoVO.setOrdenCompra(table.getString("ORDCOMP"));
+                documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
+                Documento d = TypesAdaptor.adaptar(documentoVO);
+                documentoDAO.create(d);
+                documentosList.add(documentoVO);
             }
 
         } catch (Exception e) {
