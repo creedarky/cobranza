@@ -16,11 +16,16 @@ public class TypesAdaptor {
 
         public static Documento adaptar(DocumentoVO documentoVO) {
             Documento d = new Documento();
-            d.setMontoDocumento(documentoVO.getMontoCobrar());
-            d.setNumeroDocumento(documentoVO.getNumeroDocumento());
+            d.setNumeroFactura(documentoVO.getNumeroFactura());
+            d.setNumeroDocumento(documentoVO.getNumeroFactura());
+            d.setFolioSII(documentoVO.getFolioSii());
+            d.setNumeroPedido(documentoVO.getOrdenCompra());
+            d.setFechaContable(documentoVO.getFechaContable());
             d.setFechaEmision(documentoVO.getFechaDocumento());
-            d.setFechaCompensacion(documentoVO.getFechaCompensacion());
             d.setFechaVencimiento(documentoVO.getFechaVencimiento());
+            d.setDocumentoCompensacion(documentoVO.getNumeroDocumentoCompensacion());
+            d.setFechaCompensacion(documentoVO.getFechaCompensacion());
+            d.setMontoDocumento(documentoVO.getMontoCobrar());
             // TODO por definir el resto de los campos
             return d;
         }

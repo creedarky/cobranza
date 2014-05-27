@@ -15,9 +15,7 @@ import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoTable;
 
-import javax.ejb.EJB;
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
+import javax.ejb.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     @EJB
     ClienteDAO clienteDAO;
 
-
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Response obtenerDocumentosSAP(Request request) {
         try {
             SapSystem system = new SapSystem("PRD", "10.1.24.52", "300", "1", "intranet", "informat"); //Conexion a sap
@@ -64,13 +62,13 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
                 documentoVO.setCodigoOperacion(table.getString("CLAOPER"));
                 documentoVO.setIndicacionOperacion(table.getString("INDCME"));
                 documentoVO.setFechaCompensacion(table.getDate("FECCOMP"));
-                documentoVO.setNumeroDocumento(table.getString("DOCCOMP"));
+                documentoVO.setNumeroDocumentoCompensacion(table.getString("DOCCOMP"));
                 documentoVO.setNumeroAsignacion(table.getString("NUMASIG"));
                 documentoVO.setNumeroEjercicio(table.getInt("NUMAGNO"));
                 documentoVO.setNumeroContable(table.getString("DOCCONT"));
                 documentoVO.setNumeroApunte(table.getInt("NUMCORR"));
                 documentoVO.setRutCliente(table.getString("RUTCLIE"));
-                documentoVO.setFechaCotizacion(table.getDate("FECCONT"));
+                documentoVO.setFechaContable(table.getDate("FECCONT"));
                 documentoVO.setFechaDocumento(table.getDate("FECDOCU"));
                 documentoVO.setClaseDocumento(table.getString("CLADOCU"));
                 Double monto = table.getDouble("MTOCOBR");

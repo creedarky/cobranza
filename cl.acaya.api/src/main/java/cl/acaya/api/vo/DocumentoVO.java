@@ -4,7 +4,6 @@
  */
 package cl.acaya.api.vo;
 
-import java.text.DecimalFormat;
 import java.util.Date;
 
 /**
@@ -16,13 +15,13 @@ public class DocumentoVO implements Cloneable {
     private String codigoOperacion;
     private String indicacionOperacion;
     private Date fechaCompensacion;
-    private String numeroDocumento;
+    private String numeroDocumentoCompensacion;
     private String numeroAsignacion;
     private Integer numeroEjercicio;
     private String numeroContable;
     private Integer numeroApunte;
     private String rutCliente;
-    private Date fechaCotizacion;
+    private Date fechaContable;
     private Date fechaDocumento;
     private String claseDocumento;
     private Integer montoCobrar;
@@ -84,12 +83,12 @@ public class DocumentoVO implements Cloneable {
         this.fechaCompensacion = fechaCompensacion;
     }
 
-    public String getNumeroDocumento() {
-        return numeroDocumento;
+    public String getNumeroDocumentoCompensacion() {
+        return numeroDocumentoCompensacion;
     }
 
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
+    public void setNumeroDocumentoCompensacion(String numeroDocumentoCompensacion) {
+        this.numeroDocumentoCompensacion = numeroDocumentoCompensacion;
     }
 
     public String getNumeroAsignacion() {
@@ -132,12 +131,12 @@ public class DocumentoVO implements Cloneable {
         this.rutCliente = rutCliente;
     }
 
-    public Date getFechaCotizacion() {
-        return fechaCotizacion;
+    public Date getFechaContable() {
+        return fechaContable;
     }
 
-    public void setFechaCotizacion(Date fechaCotizacion) {
-        this.fechaCotizacion = fechaCotizacion;
+    public void setFechaContable(Date fechaContable) {
+        this.fechaContable = fechaContable;
     }
 
     public Date getFechaDocumento() {

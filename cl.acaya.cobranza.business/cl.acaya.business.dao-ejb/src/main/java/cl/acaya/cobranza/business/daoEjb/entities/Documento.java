@@ -32,6 +32,18 @@ public class Documento {
     @Column(name = "num_doc")
     private String numeroDocumento;
 
+    @Column(name = "num_fact")
+    private String numeroFactura;
+
+    @Column(name = "folio_sii")
+    private String folioSII;
+
+    @Column(name = "num_pedido")
+    private String numeroPedido;
+
+    @Column(name = "doc_comp")
+    private String documentoCompensacion;
+
     @JoinColumn(name = "link_sociedad", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
     private Sociedad sociedad;
@@ -44,6 +56,9 @@ public class Documento {
 
     @Column(name = "fecha_compensacion")
     private Date fechaCompensacion;
+
+    @Column(name = "fecha_contable")
+    private Date fechaContable;
 
     @Column(name = "monto")
     private Integer montoDocumento;
@@ -105,6 +120,38 @@ public class Documento {
         this.numeroDocumento = numeroDocumento;
     }
 
+    public String getNumeroFactura() {
+        return numeroFactura;
+    }
+
+    public void setNumeroFactura(String numeroFactura) {
+        this.numeroFactura = numeroFactura;
+    }
+
+    public String getFolioSII() {
+        return folioSII;
+    }
+
+    public void setFolioSII(String folioSII) {
+        this.folioSII = folioSII;
+    }
+
+    public String getNumeroPedido() {
+        return numeroPedido;
+    }
+
+    public void setNumeroPedido(String numeroPedido) {
+        this.numeroPedido = numeroPedido;
+    }
+
+    public String getDocumentoCompensacion() {
+        return documentoCompensacion;
+    }
+
+    public void setDocumentoCompensacion(String documentoCompensacion) {
+        this.documentoCompensacion = documentoCompensacion;
+    }
+
     public Sociedad getSociedad() {
         return sociedad;
     }
@@ -135,6 +182,14 @@ public class Documento {
 
     public void setFechaCompensacion(Date fechaCompensacion) {
         this.fechaCompensacion = fechaCompensacion;
+    }
+
+    public Date getFechaContable() {
+        return fechaContable;
+    }
+
+    public void setFechaContable(Date fechaContable) {
+        this.fechaContable = fechaContable;
     }
 
     public Integer getMontoDocumento() {
