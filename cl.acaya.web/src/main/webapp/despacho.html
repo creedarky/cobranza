@@ -1,0 +1,152 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation | Welcome</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+</head>
+<body>
+
+<div>
+    <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+            <li class="name">
+                <h1><a href="#">Pantalla Inicial</a></h1>
+            </li>
+        </ul>
+
+        <section class="top-bar-section">
+            <ul class="left">
+                <li><a href="#">Despacho</a></li>
+            </ul>
+            <ul class="left">
+                <li><a href="#">Gestión</a></li>
+            </ul>
+            <ul class="left">
+                <li><a href="#">Contingencias</a></li>
+            </ul>
+            <ul class="left">
+                <li><a href="#">Email a clientes</a></li>
+            </ul>
+            <ul class="left">
+                <li><a href="#">Informes</a></li>
+            </ul>
+            <ul class="left">
+                <li><a href="#">Administración</a></li>
+            </ul>
+        </section>
+    </nav>
+
+</div>
+
+<div id="cuerpo" style="padding-top: 50px;">
+
+    <form>
+            <div class="row">
+            <div class="large-6 columns">
+                <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Sin despacho</label>
+                <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Despachadas</label>
+            </div>
+            </div>
+            <div class="row">
+            <div class="large-6 columns">
+                <label>Zona
+                    <select>
+                        <option value="husker">Husker</option>
+                        <option value="starbuck">Starbuck</option>
+                        <option value="hotdog">Hot Dog</option>
+                        <option value="apollo">Apollo</option>
+                    </select>
+                </label>
+            </div>
+            <div class="large-6 columns">
+                <label>Negocio
+                    <select>
+                        <option value="husker">Husker</option>
+                        <option value="starbuck">Starbuck</option>
+                        <option value="hotdog">Hot Dog</option>
+                        <option value="apollo">Apollo</option>
+                    </select>
+                </label>
+            </div>
+            </div>
+            <div class="row">
+            <div class="large-6 columns">
+                <label>Sucursal
+                    <select>
+                        <option value="husker">Husker</option>
+                        <option value="starbuck">Starbuck</option>
+                        <option value="hotdog">Hot Dog</option>
+                        <option value="apollo">Apollo</option>
+                    </select>
+                </label>
+            </div>
+            <div class="large-6 columns">
+                <label>Cliente
+                    <input type="text" placeholder="Ingresar Cliente" />
+                </label>
+            </div>
+            </div>
+    </form>
+
+</div>
+
+    <div id="cuerpo_inferior" style="padding-top: 10px;">
+        <div class="row" data-equalizer>
+            <div style="padding-left:15px;padding-left: 15px;">
+                <table style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Al día</th>
+                        <th>Tramo 1: 1-30</th>
+                        <th>Tramo 2: 31-60</th>
+                        <th>Tramo 3: 61-90</th>
+                        <th>Tramo 4: >90</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="text-align: center;"><input type="checkbox" /></td>
+                        <td>This is longer cont</td>
+                        <td>Content Goes Here</td>
+                        <td>Content Goes Here</td>
+                        <td>Content Goes Here</td>
+                        <td>Content Goes Here</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><input type="checkbox" /></td>
+                        <td>This is longer Co</td>
+                        <td>Content Goes Here</td>
+                        <td>Content Goes Here</td>
+                        <td>Content Goes Here</td>
+                        <td>Content Goes Here</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;><input type="checkbox" /></td>
+                        <td>Content Goes Here</td>
+                        <td>Content Goes Here</td>
+                        <td>This is longer Co</td>
+                        <td>Content Goes Here</td>
+                        <td>Content Goes Here</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="text-align: right;">
+                <a href="http://zurb.com/university/responsive-design" class="button">Generar ruta</a>
+                <a href="http://zurb.com/university/responsive-design" class="button">Exportar excel</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+</body>
+</html>

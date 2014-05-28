@@ -41,7 +41,7 @@ public class Documento {
     @Column(name = "num_pedido")
     private String numeroPedido;
 
-    @Column(name = "doc_comp")
+    @Column(name = "doc_compensacion")
     private String documentoCompensacion;
 
     @JoinColumn(name = "link_sociedad", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
@@ -57,26 +57,11 @@ public class Documento {
     @Column(name = "fecha_compensacion")
     private Date fechaCompensacion;
 
-    @Column(name = "fecha_contable")
-    private Date fechaContable;
-
     @Column(name = "monto")
     private Integer montoDocumento;
 
     @Column(name = "saldo")
     private Integer saldoDocumento;
-
-    @Column(name = "seguro")
-    private String seguroDocumento;
-
-    @Column(name = "tipo_seguro")
-    private String tipoSeguro;
-
-    @Column(name = "monto_seguro")
-    private Integer montoSeguro;
-
-    @Column(name = "linea_credito")
-    private Integer lineaCredito;
 
     @Column(name = "estado_doc")
     private boolean estadoDocumento;
@@ -184,14 +169,6 @@ public class Documento {
         this.fechaCompensacion = fechaCompensacion;
     }
 
-    public Date getFechaContable() {
-        return fechaContable;
-    }
-
-    public void setFechaContable(Date fechaContable) {
-        this.fechaContable = fechaContable;
-    }
-
     public Integer getMontoDocumento() {
         return montoDocumento;
     }
@@ -206,38 +183,6 @@ public class Documento {
 
     public void setSaldoDocumento(Integer saldoDocumento) {
         this.saldoDocumento = saldoDocumento;
-    }
-
-    public String getSeguroDocumento() {
-        return seguroDocumento;
-    }
-
-    public void setSeguroDocumento(String seguroDocumento) {
-        this.seguroDocumento = seguroDocumento;
-    }
-
-    public String getTipoSeguro() {
-        return tipoSeguro;
-    }
-
-    public void setTipoSeguro(String tipoSeguro) {
-        this.tipoSeguro = tipoSeguro;
-    }
-
-    public Integer getMontoSeguro() {
-        return montoSeguro;
-    }
-
-    public void setMontoSeguro(Integer montoSeguro) {
-        this.montoSeguro = montoSeguro;
-    }
-
-    public Integer getLineaCredito() {
-        return lineaCredito;
-    }
-
-    public void setLineaCredito(Integer lineaCredito) {
-        this.lineaCredito = lineaCredito;
     }
 
     public boolean isEstadoDocumento() {

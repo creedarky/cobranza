@@ -37,6 +37,7 @@ public class DocumentoVO implements Cloneable {
     private String ordenCompra;
     private String codigoCuenta;
     private Integer montoPartida;
+    private String nombreCliente;
 
     public DocumentoVO() {
     }
@@ -257,6 +258,15 @@ public class DocumentoVO implements Cloneable {
 
     public void setCodigoCuenta(String codigoCuenta) {
         this.codigoCuenta = codigoCuenta;
+    }
+
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
 

@@ -20,7 +20,7 @@ public class TypesAdaptor {
             d.setNumeroDocumento(documentoVO.getNumeroFactura());
             d.setFolioSII(documentoVO.getFolioSii());
             d.setNumeroPedido(documentoVO.getOrdenCompra());
-            d.setFechaContable(documentoVO.getFechaContable());
+            //d.setFechaContable(documentoVO.getFechaContable());
             d.setFechaEmision(documentoVO.getFechaDocumento());
             d.setFechaVencimiento(documentoVO.getFechaVencimiento());
             d.setDocumentoCompensacion(documentoVO.getNumeroDocumentoCompensacion());

@@ -3,12 +3,13 @@ package cl.acaya.business.service.ejb.impl;
 import cl.acaya.api.business.BusinessParameter;
 import cl.acaya.api.sap.Connect;
 import cl.acaya.api.sap.SapSystem;
-import cl.acaya.api.vo.DocumentoVO;
-import cl.acaya.api.vo.Request;
-import cl.acaya.api.vo.Response;
+import cl.acaya.api.vo.*;
 import cl.acaya.api.service.CobranzaServiceRemote;
 import cl.acaya.cobranza.business.daoEjb.dao.ClienteDAO;
+import cl.acaya.cobranza.business.daoEjb.dao.DmClienteDAO;
 import cl.acaya.cobranza.business.daoEjb.dao.DocumentoDAO;
+import cl.acaya.cobranza.business.daoEjb.entities.Cliente;
+import cl.acaya.cobranza.business.daoEjb.entities.DmCliente;
 import cl.acaya.cobranza.business.daoEjb.entities.Documento;
 import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
 import com.sap.conn.jco.JCoFunction;
@@ -32,6 +33,9 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     @EJB
     ClienteDAO clienteDAO;
 
+    @EJB
+    DmClienteDAO dmClienteDAO;
+
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Response obtenerDocumentosSAP(Request request) {
         try {
@@ -52,7 +56,8 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
             JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
             System.out.println("filas " + table.getNumRows());
             System.out.println(table);
-
+            Cliente cliente = null;
+            DmCliente dmCliente = null;
             List<DocumentoVO> documentosList = new ArrayList<DocumentoVO>(table.getNumRows());
             for (int i = 0; i < table.getNumRows(); i++) {
                 table.setRow(i);
@@ -84,7 +89,20 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
                 documentoVO.setGrupoMateriales(table.getString("CODCANAL"));
                 documentoVO.setOrdenCompra(table.getString("ORDCOMP"));
                 documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
+                documentoVO.setNombreCliente(table.getString("NOMCLIE"));
                 Documento d = TypesAdaptor.adaptar(documentoVO);
+                if(cliente == null) {
+                    cliente = new Cliente();
+                    dmCliente = new DmCliente();
+                    cliente.setRutCliente(documentoVO.getRutCliente());
+                    cliente.setNombreCliente(documentoVO.getNombreCliente());
+                    cliente = clienteDAO.create(cliente);
+                    dmCliente.setCliente(cliente);
+                    dmCliente.setDmCliente(documentoVO.getCodigoCliente());
+                    dmCliente = dmClienteDAO.create(dmCliente);
+
+                }
+                d.setDmCliente(dmCliente);
                 documentoDAO.create(d);
                 documentosList.add(documentoVO);
             }
@@ -96,5 +114,30 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         return new Response();
     }
 
+
+    public Response getDatosPantallaInicial(Request request) {
+        ClienteVO clienteVO = new ClienteVO();
+        clienteVO.setIdCliente(1l);
+        clienteVO.setNombreCliente("Cliente Prueba");
+        clienteVO.setRutCliente("1-9");
+        UsuarioVO usuarioVO = new UsuarioVO();
+        usuarioVO.setCorreoUsuario("correo@gmail.com");
+        usuarioVO.setNombreUsuario("Usuario");
+        usuarioVO.setRutUsuario("2-7");
+        usuarioVO.setIdUsuario(1l);
+
+        List<AgendaVO> agendaVOList = new ArrayList<AgendaVO>();
+        AgendaVO agendaVO = new AgendaVO();
+        agendaVO.setUsuarioVO(usuarioVO);
+        agendaVO.setCliente(clienteVO);
+
+
+
+        return null;
+
+
+
+
+    }
 
 }
