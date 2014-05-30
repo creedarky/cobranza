@@ -5,12 +5,8 @@ import cl.acaya.api.sap.Connect;
 import cl.acaya.api.sap.SapSystem;
 import cl.acaya.api.vo.*;
 import cl.acaya.api.service.CobranzaServiceRemote;
-import cl.acaya.cobranza.business.daoEjb.dao.ClienteDAO;
-import cl.acaya.cobranza.business.daoEjb.dao.DmClienteDAO;
-import cl.acaya.cobranza.business.daoEjb.dao.DocumentoDAO;
-import cl.acaya.cobranza.business.daoEjb.entities.Cliente;
-import cl.acaya.cobranza.business.daoEjb.entities.DmCliente;
-import cl.acaya.cobranza.business.daoEjb.entities.Documento;
+import cl.acaya.cobranza.business.daoEjb.dao.*;
+import cl.acaya.cobranza.business.daoEjb.entities.*;
 import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoParameterList;
@@ -38,6 +34,12 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
     @EJB
     DmClienteDAO dmClienteDAO;
+
+    @EJB
+    UsuarioDAO usuarioDAO;
+
+    @EJB
+    AsignacionClienteDAO asignacionClienteDAO;
 
     private final static DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -219,6 +221,48 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         response.success();
         response.addResp(Parametros.PANTALLA_INICIAL,resumenInicialVO );
         return  response;
+    }
+
+    public Response getDatosAsignacion(Request request) {
+        List<Usuario> usuarioList = usuarioDAO.findAll();
+        List<Cliente> clienteList = clienteDAO.findAll();
+        List<UsuarioVO> usuarioVOList = new ArrayList<UsuarioVO>();
+        List<ClienteVO> clienteVOList = new ArrayList<ClienteVO>();
+        for(Usuario usuario: usuarioList) {
+            usuarioVOList.add(TypesAdaptor.adaptar(usuario));
+        }
+
+        for(Cliente cliente : clienteList) {
+            ClienteVO clienteVO = TypesAdaptor.adaptar(cliente);
+            Usuario usuario = usuarioDAO.getUsuarioByIdCliente(clienteVO.getIdCliente());
+            if(usuario != null)
+                clienteVO.setUsuarioAsignado(TypesAdaptor.adaptar(usuario));
+            clienteVOList.add(clienteVO);
+        }
+
+        Response response = new Response();
+        response.addResp(Parametros.USUARIOS, usuarioVOList);
+        response.addResp(Parametros.CLIENTES, clienteVOList);
+
+        return response;
+    }
+
+    public Response guardarDatosAsignacion(Request request) {
+        List<Long> idClienteList = request.getParam(Parametros.CLIENTES, List.class);
+        Long idUsuario = request.getParam(Parametros.USUARIO, Long.class);
+
+        Usuario usuario = usuarioDAO.find(idUsuario);
+        List<Cliente> clienteList = clienteDAO.findAllByIds(idClienteList);
+        for(Cliente cliente: clienteList) {
+            asignacionClienteDAO.disableAllAsignacionCLienteByIdCliente(cliente.getSystemId());
+            AsignacionClienteUsuario asignacionClienteUsuario = new AsignacionClienteUsuario();
+            asignacionClienteUsuario.setCliente(cliente);
+            asignacionClienteUsuario.setUsuario(usuario);
+            asignacionClienteDAO.create(asignacionClienteUsuario);
+        }
+        Response response = new Response();
+        response.success();
+        return response;
     }
 
 }

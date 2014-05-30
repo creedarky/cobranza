@@ -10,12 +10,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_USUARIO")
-@NamedQueries({@NamedQuery(name="Usuarios.findAll",query = "Select cn From Usuarios cn")})
+@NamedQueries({@NamedQuery(name="Usuario.findAll",query = "Select cn From Usuario cn order by cn.nombreCompleto asc")})
 //@SequenceGenerator(name = "UsuariosSeq",
 //        sequenceName = "SEQ_Usuarios", allocationSize = 1, initialValue = 1)
 
 
-public class Usuarios {
+public class Usuario {
 
     @Id
     @Basic(optional = false)
@@ -47,7 +47,7 @@ public class Usuarios {
 
 
 
-    public Usuarios() {
+    public Usuario() {
 
     }
 

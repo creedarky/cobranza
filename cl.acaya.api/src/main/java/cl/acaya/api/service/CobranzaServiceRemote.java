@@ -11,4 +11,8 @@ public interface CobranzaServiceRemote {
     Response obtenerDocumentosSAP(Request request);
 
     Response getDatosPantallaInicial(Request request);
+
+    Response getDatosAsignacion(Request request);
+
+    Response guardarDatosAsignacion(Request request);
 }

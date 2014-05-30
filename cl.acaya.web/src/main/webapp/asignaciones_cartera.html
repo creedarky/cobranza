@@ -1,0 +1,188 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation | Welcome</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+</head>
+<body>
+
+<div>
+    <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+            <li class="name">
+                <h1><a href="#">Pantalla Inicial</a></h1>
+            </li>
+        </ul>
+
+        <section class="top-bar-section">
+            <ul class="left">
+                <li><a href="#">Despacho</a></li>
+            </ul>
+            <ul class="left">
+                <li><a href="#">Gestión</a></li>
+            </ul>
+            <ul class="left">
+                <li><a href="#">Contingencias</a></li>
+            </ul>
+            <ul class="left">
+                <li><a href="#">Email a clientes</a></li>
+            </ul>
+            <ul class="left">
+                <li><a href="#">Informes</a></li>
+            </ul>
+            <ul class="left">
+                <li><a href="#">Administración</a></li>
+            </ul>
+        </section>
+    </nav>
+
+</div>
+
+<div id="cuerpo" style="display:none;padding-top: 50px;">
+
+    <form>
+        <fieldset>
+            <legend>Filtros de búsqueda</legend>
+        <div class="row">
+            <div class="large-4 columns">
+                <label>Zona
+                    <select>
+                        <option value="husker">Husker</option>
+                        <option value="starbuck">Starbuck</option>
+                        <option value="hotdog">Hot Dog</option>
+                        <option value="apollo">Apollo</option>
+                    </select>
+                </label>
+            </div>
+            <div class="large-4 columns">
+                <label>Sucursal
+                    <select>
+                        <option value="husker">Husker</option>
+                        <option value="starbuck">Starbuck</option>
+                        <option value="hotdog">Hot Dog</option>
+                        <option value="apollo">Apollo</option>
+                    </select>
+                </label>
+            </div>
+            <div class="large-4 columns">
+                <label>Negocio
+                    <select>
+                        <option value="husker">Husker</option>
+                        <option value="starbuck">Starbuck</option>
+                        <option value="hotdog">Hot Dog</option>
+                        <option value="apollo">Apollo</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-4 columns">
+                <label>Canal
+                    <select>
+                        <option value="husker">Husker</option>
+                        <option value="starbuck">Starbuck</option>
+                        <option value="hotdog">Hot Dog</option>
+                        <option value="apollo">Apollo</option>
+                    </select>
+                </label>
+            </div>
+            <div class="large-4 columns">
+                <label>Condición
+                    <input type="text" placeholder="Ingresar Cliente" />
+                </label>
+            </div>
+            <div class="large-4 columns">
+                <label>Condición
+                    <input type="text" placeholder="Ingresar Cliente" />
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-4 columns">
+                <label>Rut
+                    <input type="text" placeholder="Ingrese Rut" />
+                </label>
+            </div>
+            <div class="large-4 columns">
+                <label>Tramos
+                    <select>
+                        <option value="husker">Husker</option>
+                        <option value="starbuck">Starbuck</option>
+                        <option value="hotdog">Hot Dog</option>
+                        <option value="apollo">Apollo</option>
+                    </select>
+                </label>
+            </div>
+            <div class="large-4 columns">
+
+            </div>
+        </div>
+            <div style="text-align: right;">
+                <a href="http://zurb.com/university/responsive-design" class="button">Buscar</a>
+            </div>
+        </fieldset>
+    </form>
+
+</div>
+
+<div id="cuerpo_inferior" style="padding-top: 10px;">
+        <div  >
+            <div class="row">
+                <div class="large-7 columns">
+                    <fieldset>
+                        <legend>Listado de Clientes</legend>
+                    <table >
+                        <thead>
+                        <tr>
+                            <th>Acción</th>
+                            <th>Rut</th>
+                            <th>Nombre</th>
+                            <th>Monto deuda</th>
+                            <th>Asignado a</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="text-align: center;"><input type="checkbox" /></td>
+                            <td>17.123.123-2</td>
+                            <td>Felipe Castro</td>
+                            <td>$123.123</td>
+                            <td>Usuario 1</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </fieldset>
+                </div>
+                <div class="large-5 columns">
+                    <fieldset>
+                        <legend>Listado de Usuarios</legend>
+                    <table >
+                        <thead>
+                        <tr>
+                            <th style="width: 100px">Acción</th>
+                            <th style="width: 300px">Nombre</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="text-align: center;"><input type="checkbox" /></td>
+                            <td>Usuario 1</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+</div>
+
+<script src="js/vendor/jquery.js"></script>
+<script src="js/foundation.min.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+</html>

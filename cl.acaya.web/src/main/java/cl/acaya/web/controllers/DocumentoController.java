@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by mcastro on 22-05-14.
@@ -51,6 +55,34 @@ public class DocumentoController {
         jsonResponse.setBody(resumenInicialVO);
         return jsonResponse;
 
+    }
+
+    @RequestMapping(value = "/asignaciones-inicio", method = RequestMethod.GET)
+    public @ResponseBody
+    JsonResponse getDatosAsignaciones(HttpServletRequest httpServletRequest) {
+        Request request = RequestFactory.newRequest(httpServletRequest);
+        Response response = cobranzaServiceRemote.getDatosAsignacion(request);
+        Map<String,Object> body = new HashMap<String, Object>();
+        body.put(Parametros.CLIENTES, response.getResp(Parametros.CLIENTES));
+        body.put(Parametros.USUARIOS, response.getResp(Parametros.USUARIOS));
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setSuccessToTrue();
+        jsonResponse.setBody(body);
+        return jsonResponse;
+    }
+
+    @RequestMapping(value = "/guardar-asignaciones", method = RequestMethod.POST)
+    public @ResponseBody
+    JsonResponse guardarDatosAsignaciones(HttpServletRequest httpServletRequest,
+                                          @RequestParam(Parametros.USUARIO) Long usuario,
+                                          @RequestParam(Parametros.CLIENTES) Long[] clientes) {
+        Request request = RequestFactory.newRequest(httpServletRequest);
+        request.addParam(Parametros.CLIENTES, Arrays.asList(clientes));
+        request.addParam(Parametros.USUARIO, usuario);
+        Response response = cobranzaServiceRemote.guardarDatosAsignacion(request);
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setSuccess(response.isOK());
+        return jsonResponse;
     }
 
 

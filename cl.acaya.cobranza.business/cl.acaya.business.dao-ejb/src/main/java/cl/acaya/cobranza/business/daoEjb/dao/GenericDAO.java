@@ -1,5 +1,7 @@
 package cl.acaya.cobranza.business.daoEjb.dao;
 
+import cl.acaya.cobranza.business.daoEjb.entities.Usuario;
+
 import java.io.Serializable;
 
 public interface GenericDAO<T, PK extends Serializable> {

@@ -10,9 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_CLIENTE")
-@NamedQueries({@NamedQuery(name="Cliente.findAll",query = "Select cn From Cliente cn")})
-//@SequenceGenerator(name = "ClienteSeq",
-//        sequenceName = "SEQ_Cliente", allocationSize = 1, initialValue = 1)
+@NamedQueries({@NamedQuery(name="Cliente.findAll",query = "Select cn From Cliente cn order by cn.nombreCliente asc")})
 
 public class Cliente {
 

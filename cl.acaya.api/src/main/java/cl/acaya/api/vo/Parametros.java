@@ -7,4 +7,7 @@ package cl.acaya.api.vo;
 public interface Parametros {
 
     String PANTALLA_INICIAL = "pantallaInicial";
+    String USUARIOS = "usuarios";
+    String CLIENTES = "clientes";
+    String USUARIO = "usuario";
 }

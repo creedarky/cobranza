@@ -25,4 +25,14 @@ public class CobranzaServiceDelegate extends AbstractServiceDelegate implements 
     public Response getDatosPantallaInicial(Request request) {
         return cobranzaServiceRemote.getDatosPantallaInicial(request);
     }
+
+    @Override
+    public Response getDatosAsignacion(Request request) {
+        return cobranzaServiceRemote.getDatosAsignacion(request);
+    }
+
+    @Override
+    public Response guardarDatosAsignacion(Request request) {
+        return cobranzaServiceRemote.guardarDatosAsignacion(request);
+    }
 }

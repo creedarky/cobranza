@@ -9,6 +9,7 @@ public class ClienteVO {
     private Long idCliente;
     private String nombreCliente;
     private String rutCliente;
+    private UsuarioVO usuarioAsignado;
 
 
     public Long getIdCliente() {
@@ -33,5 +34,13 @@ public class ClienteVO {
 
     public void setRutCliente(String rutCliente) {
         this.rutCliente = rutCliente;
+    }
+
+    public UsuarioVO getUsuarioAsignado() {
+        return usuarioAsignado;
+    }
+
+    public void setUsuarioAsignado(UsuarioVO usuarioAsignado) {
+        this.usuarioAsignado = usuarioAsignado;
     }
 }
