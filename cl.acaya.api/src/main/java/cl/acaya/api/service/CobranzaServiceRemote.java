@@ -9,4 +9,6 @@ import cl.acaya.api.vo.Response;
 public interface CobranzaServiceRemote {
 
     Response obtenerDocumentosSAP(Request request);
+
+    Response getDatosPantallaInicial(Request request);
 }

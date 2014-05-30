@@ -20,4 +20,9 @@ public class CobranzaServiceDelegate extends AbstractServiceDelegate implements 
     public Response obtenerDocumentosSAP(Request request) {
         return cobranzaServiceRemote.obtenerDocumentosSAP(request);
     }
+
+    @Override
+    public Response getDatosPantallaInicial(Request request) {
+        return cobranzaServiceRemote.getDatosPantallaInicial(request);
+    }
 }

@@ -17,7 +17,10 @@ import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoTable;
 
 import javax.ejb.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -35,6 +38,8 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
     @EJB
     DmClienteDAO dmClienteDAO;
+
+    private final static DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Response obtenerDocumentosSAP(Request request) {
@@ -116,6 +121,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
 
     public Response getDatosPantallaInicial(Request request) {
+        Response response = new Response();
         ClienteVO clienteVO = new ClienteVO();
         clienteVO.setIdCliente(1l);
         clienteVO.setNombreCliente("Cliente Prueba");
@@ -125,19 +131,94 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         usuarioVO.setNombreUsuario("Usuario");
         usuarioVO.setRutUsuario("2-7");
         usuarioVO.setIdUsuario(1l);
-
         List<AgendaVO> agendaVOList = new ArrayList<AgendaVO>();
-        AgendaVO agendaVO = new AgendaVO();
-        agendaVO.setUsuarioVO(usuarioVO);
-        agendaVO.setCliente(clienteVO);
+        List<CampanhaVO> campanhaVOList = new ArrayList<CampanhaVO>();
+        List<TramoVO> tramoVOList = new ArrayList<TramoVO>();
+        List<CarteraVO> carteraVOList = new ArrayList<CarteraVO>();
+        try {
+            AgendaVO agendaVO = new AgendaVO();
+            agendaVO.setUsuarioVO(usuarioVO);
+            agendaVO.setCliente(clienteVO);
+            agendaVO.setIdAgenda(1l);
+            agendaVO.setFechaAgendada(sdf.parse("10-05-2014"));
+            agendaVO.setTipoAgenda("TIPO");
+            agendaVOList.add(agendaVO);
+            agendaVO = new AgendaVO();
+            agendaVO.setUsuarioVO(usuarioVO);
+            agendaVO.setCliente(clienteVO);
+            agendaVO.setIdAgenda(1l);
+            agendaVO.setFechaAgendada(sdf.parse("13-05-2014"));
+            agendaVO.setTipoAgenda("TIPO");
+            agendaVOList.add(agendaVO);
+            agendaVO = new AgendaVO();
+            agendaVO.setUsuarioVO(usuarioVO);
+            agendaVO.setCliente(clienteVO);
+            agendaVO.setIdAgenda(1l);
+            agendaVO.setFechaAgendada(sdf.parse("13-04-2014"));
+            agendaVO.setTipoAgenda("TIPO");
+            agendaVOList.add(agendaVO);
+            agendaVO = new AgendaVO();
+            agendaVO.setUsuarioVO(usuarioVO);
+            agendaVO.setCliente(clienteVO);
+            agendaVO.setIdAgenda(1l);
+            agendaVO.setFechaAgendada(sdf.parse("02-03-2014"));
+            agendaVO.setTipoAgenda("TIPO");
+            agendaVOList.add(agendaVO);
+            CampanhaVO campanhaVO = new CampanhaVO();
+            campanhaVO.setFechaInicio(sdf.parse("02-03-2014"));
+            campanhaVO.setFechaTermino(sdf.parse("06-06-2014"));
+            campanhaVO.setNombre("Campanha 1");
+            campanhaVO.setId(1l);
+            campanhaVOList.add(campanhaVO);
+            campanhaVO = new CampanhaVO();
+            campanhaVO.setFechaInicio(sdf.parse("15-04-2014"));
+            campanhaVO.setFechaTermino(sdf.parse("15-07-2014"));
+            campanhaVO.setNombre("Campanha 2");
+            campanhaVO.setId(1l);
+            campanhaVOList.add(campanhaVO);
+            campanhaVO = new CampanhaVO();
+            campanhaVO.setFechaInicio(sdf.parse("07-05-2014"));
+            campanhaVO.setFechaTermino(sdf.parse("07-06-2014"));
+            campanhaVO.setNombre("Campanha 3");
+            campanhaVO.setId(1l);
+            campanhaVOList.add(campanhaVO);
+        }catch (Exception e) {}
 
-
-
-        return null;
-
-
-
-
+        TramoVO tramoVO = new TramoVO();
+        tramoVO.setDiaInicial(1);
+        tramoVO.setDiaFinal(30);
+        tramoVO.setTramo("Tramo 1");
+        tramoVOList.add(tramoVO);
+        tramoVO = new TramoVO();
+        tramoVO.setDiaInicial(31);
+        tramoVO.setDiaFinal(60);
+        tramoVO.setTramo("Tramo 2");
+        tramoVOList.add(tramoVO);
+        tramoVO = new TramoVO();
+        tramoVO.setDiaInicial(61);
+        tramoVO.setDiaFinal(90);
+        tramoVO.setTramo("Tramo 3");
+        tramoVOList.add(tramoVO);
+        tramoVO = new TramoVO();
+        tramoVO.setDiaInicial(91);
+        tramoVO.setTramo("Tramo 4");
+        tramoVOList.add(tramoVO);
+        CarteraVO carteraVO = new CarteraVO();
+        carteraVO.setCliente(clienteVO);
+        carteraVO.setId(1l);
+        carteraVO.setAlDia("1323300");
+        String[] tramos = {"1000000", "1250000", "750000","676700"};
+        carteraVO.setTramosList(Arrays.asList(tramos));
+        carteraVO.setTotal("5000000");
+        carteraVOList.add(carteraVO);
+        ResumenInicialVO resumenInicialVO = new ResumenInicialVO();
+        resumenInicialVO.setAgendaVOList(agendaVOList);
+        resumenInicialVO.setCampanhaVOList(campanhaVOList);
+        resumenInicialVO.setCarteraVOList(carteraVOList);
+        resumenInicialVO.setTramoVOList(tramoVOList);
+        response.success();
+        response.addResp(Parametros.PANTALLA_INICIAL,resumenInicialVO );
+        return  response;
     }
 
 }

@@ -8,4 +8,5 @@ public interface BusinessParameter {
     String DB_SCHEMA = "dbo";
     String RUT_CLIENTE = "rutCliente";
     String SOCIEDAD = "sociedad";
+
 }
