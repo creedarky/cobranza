@@ -79,6 +79,8 @@ public class DocumentoController {
         Request request = RequestFactory.newRequest(httpServletRequest);
         request.addParam(Parametros.CLIENTES, Arrays.asList(clientes));
         request.addParam(Parametros.USUARIO, usuario);
+        System.out.println("usuario " + usuario);
+        System.out.println("clientes" + clientes);
         Response response = cobranzaServiceRemote.guardarDatosAsignacion(request);
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccess(response.isOK());

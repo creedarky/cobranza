@@ -41,10 +41,10 @@
 
 </div>
 
-<div id="cuerpo" style="display:none;padding-top: 50px;">
+<div id="cuerpo" style="padding-top: 50px;">
 
     <form>
-        <fieldset>
+        <fieldset style="display: none;">
             <legend>Filtros de búsqueda</legend>
         <div class="row">
             <div class="large-4 columns">
@@ -144,14 +144,8 @@
                             <th>Asignado a</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td style="text-align: center;"><input type="checkbox" /></td>
-                            <td>17.123.123-2</td>
-                            <td>Felipe Castro</td>
-                            <td>$123.123</td>
-                            <td>Usuario 1</td>
-                        </tr>
+                        <tbody id="tabla_cliente">
+
                         </tbody>
                     </table>
                     </fieldset>
@@ -166,21 +160,22 @@
                             <th style="width: 300px">Nombre</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td style="text-align: center;"><input type="checkbox" /></td>
-                            <td>Usuario 1</td>
-                        </tr>
+                        <tbody id="tabla_usuarios">
+
                         </tbody>
                     </table>
+                    <div style="text-align: right;">
+                        <a href="#" onclick="guardar();" class="button">Guardar</a>
+                    </div>
                     </fieldset>
                 </div>
             </div>
         </div>
 </div>
 
-<script src="js/vendor/jquery.js"></script>
+<script src="js/jquery-2.1.1.js"></script>
 <script src="js/foundation.min.js"></script>
+<script src="js/asignaciones_cartera.js"></script>
 <script>
     $(document).foundation();
 </script>

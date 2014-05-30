@@ -31,4 +31,13 @@ public class UsuarioDaoImpl extends  GenericDAOImpl<Usuario,Long> implements Usu
         }
         return null;
     }
+
+    public Usuario findById(Long id) {
+        List<Usuario> usuarioList = em.createQuery("from Usuario  where systemId = :id")
+                .setParameter("id",id)
+                .setMaxResults(1).getResultList();
+        if(usuarioList != null && !usuarioList.isEmpty())
+            return usuarioList.get(0);
+        return null;
+    }
 }

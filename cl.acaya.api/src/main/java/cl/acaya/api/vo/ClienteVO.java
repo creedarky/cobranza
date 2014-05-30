@@ -43,4 +43,21 @@ public class ClienteVO {
     public void setUsuarioAsignado(UsuarioVO usuarioAsignado) {
         this.usuarioAsignado = usuarioAsignado;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ClienteVO clienteVO = (ClienteVO) o;
+
+        if (!idCliente.equals(clienteVO.idCliente)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return idCliente.hashCode();
+    }
 }

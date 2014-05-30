@@ -8,15 +8,18 @@ import cl.acaya.api.service.CobranzaServiceRemote;
 import cl.acaya.cobranza.business.daoEjb.dao.*;
 import cl.acaya.cobranza.business.daoEjb.entities.*;
 import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
+import cl.acaya.cobranza.business.daoEjb.util.comparator.TramoVOComparator;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoTable;
 
 import javax.ejb.*;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,6 +45,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     AsignacionClienteDAO asignacionClienteDAO;
 
     private final static DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    private final static TramoVOComparator TRAMO_VO_COMPARATOR = new TramoVOComparator();
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Response obtenerDocumentosSAP(Request request) {
@@ -135,8 +139,6 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         usuarioVO.setIdUsuario(1l);
         List<AgendaVO> agendaVOList = new ArrayList<AgendaVO>();
         List<CampanhaVO> campanhaVOList = new ArrayList<CampanhaVO>();
-        List<TramoVO> tramoVOList = new ArrayList<TramoVO>();
-        List<CarteraVO> carteraVOList = new ArrayList<CarteraVO>();
         try {
             AgendaVO agendaVO = new AgendaVO();
             agendaVO.setUsuarioVO(usuarioVO);
@@ -185,7 +187,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
             campanhaVO.setId(1l);
             campanhaVOList.add(campanhaVO);
         }catch (Exception e) {}
-
+        /*
         TramoVO tramoVO = new TramoVO();
         tramoVO.setDiaInicial(1);
         tramoVO.setDiaFinal(30);
@@ -214,10 +216,13 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         carteraVO.setTotal("5000000");
         carteraVOList.add(carteraVO);
         ResumenInicialVO resumenInicialVO = new ResumenInicialVO();
+        //resumenInicialVO.setCarteraVOList(carteraVOList);
+        //resumenInicialVO.setTramoVOList(tramoVOList);
+
+        */
+        ResumenInicialVO resumenInicialVO = getCarteraPorTramos();
         resumenInicialVO.setAgendaVOList(agendaVOList);
         resumenInicialVO.setCampanhaVOList(campanhaVOList);
-        resumenInicialVO.setCarteraVOList(carteraVOList);
-        resumenInicialVO.setTramoVOList(tramoVOList);
         response.success();
         response.addResp(Parametros.PANTALLA_INICIAL,resumenInicialVO );
         return  response;
@@ -250,8 +255,11 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     public Response guardarDatosAsignacion(Request request) {
         List<Long> idClienteList = request.getParam(Parametros.CLIENTES, List.class);
         Long idUsuario = request.getParam(Parametros.USUARIO, Long.class);
-
-        Usuario usuario = usuarioDAO.find(idUsuario);
+        System.out.println(idUsuario);
+        for(Long id: idClienteList) {
+            System.out.println(id);
+        }
+        Usuario usuario = usuarioDAO.findById(idUsuario);
         List<Cliente> clienteList = clienteDAO.findAllByIds(idClienteList);
         for(Cliente cliente: clienteList) {
             asignacionClienteDAO.disableAllAsignacionCLienteByIdCliente(cliente.getSystemId());
@@ -265,4 +273,55 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         return response;
     }
 
+
+    private ResumenInicialVO getCarteraPorTramos() {
+        List<Object[]> resultList = documentoDAO.getCarteraClientes();
+        List<TramoVO> tramoVOList = new ArrayList<TramoVO>();
+        List<ClienteVO> clienteVOList = new ArrayList<ClienteVO>();
+        List<CarteraVO> carteraVOList = new ArrayList<CarteraVO>();
+        for(Object[] result: resultList) {
+            System.out.println("0 " + result[0] + " 1" + result [1] + " 2" + result[2] + " 3 " + result[3]
+                + " 4 " + result[4] + " 5 " + result[5]);
+            ClienteVO clienteVO = new ClienteVO();
+            clienteVO.setIdCliente(((BigDecimal) result[1]).longValue());
+            CarteraVO carteraVO = new CarteraVO();
+            carteraVO.setCliente(clienteVO);
+            if(carteraVOList.contains(carteraVO)) {
+                carteraVO = carteraVOList.get(carteraVOList.indexOf(carteraVO));
+            }else {
+                carteraVO.getCliente().setNombreCliente((String) result[0]);
+                carteraVO.getCliente().setRutCliente((String) result[2]);
+                carteraVOList.add(carteraVO);
+            }
+            TramoVO tramoVO = new TramoVO();
+            tramoVO.setTramo((String) result[3]);
+            if(tramoVOList.contains(tramoVO)) {
+                tramoVO = tramoVOList.get(tramoVOList.indexOf(tramoVO));
+            }else {
+                tramoVO.setDiaMenor((Integer) result[4]);
+                tramoVOList.add(tramoVO);
+            }
+            try {
+                TramoVO clone = tramoVO.clone();
+                BigDecimal monto = (BigDecimal) result[5];
+                clone.setMonto(monto.toString());
+                carteraVO.getTramosList().add(clone);
+            }catch (Exception e) {}
+        }
+        Collections.sort(tramoVOList,TRAMO_VO_COMPARATOR);
+        for(CarteraVO carteraVO : carteraVOList) {
+            Collections.sort(carteraVO.getTramosList(), TRAMO_VO_COMPARATOR);
+            Long monto = 0l;
+            for(TramoVO tramoVO: carteraVO.getTramosList()) {
+                monto += Long.valueOf(tramoVO.getMonto());
+            }
+            carteraVO.setTotal(monto.toString());
+        }
+        ResumenInicialVO resumenInicialVO = new ResumenInicialVO();
+        resumenInicialVO.setTramoVOList(tramoVOList);
+        resumenInicialVO.setCarteraVOList(carteraVOList);
+
+        return resumenInicialVO;
+
+    }
 }

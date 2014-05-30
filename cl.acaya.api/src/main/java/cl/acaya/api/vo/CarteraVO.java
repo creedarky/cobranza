@@ -1,5 +1,6 @@
 package cl.acaya.api.vo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class CarteraVO {
     private ClienteVO cliente;
     private String alDia;
     private String total;
-    private List<String> tramosList;
+    private List<TramoVO> tramosList = new ArrayList<TramoVO>();
 
 
     public Long getId() {
@@ -47,11 +48,28 @@ public class CarteraVO {
         this.total = total;
     }
 
-    public List<String> getTramosList() {
+    public List<TramoVO> getTramosList() {
         return tramosList;
     }
 
-    public void setTramosList(List<String> tramosList) {
+    public void setTramosList(List<TramoVO> tramosList) {
         this.tramosList = tramosList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CarteraVO carteraVO = (CarteraVO) o;
+
+        if (cliente != null ? !cliente.equals(carteraVO.cliente) : carteraVO.cliente != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return cliente != null ? cliente.hashCode() : 0;
     }
 }
