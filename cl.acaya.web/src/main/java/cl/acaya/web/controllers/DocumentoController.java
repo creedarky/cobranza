@@ -87,5 +87,18 @@ public class DocumentoController {
         return jsonResponse;
     }
 
+    @RequestMapping(value = "/prueba_2")
+    public @ResponseBody
+    JsonResponse cargarDocumentos2(HttpServletRequest httpRequest,
+                                   @RequestParam("cliente") String cliente,
+                                   @RequestParam("sociedad") String sociedad)  {
+        System.out.println("rut :  " + cliente + " sociedad " + sociedad);
+        Request request = RequestFactory.newRequest(httpRequest);
+        request.addParam(BusinessParameter.RUT_CLIENTE,cliente);
+        request.addParam(BusinessParameter.SOCIEDAD, sociedad);
+        cobranzaServiceRemote.obtenerDocumentosSAP(request);
+        return new JsonResponse();
+    }
+
 
 }

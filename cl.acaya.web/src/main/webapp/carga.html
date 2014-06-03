@@ -1,0 +1,41 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation | Welcome</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+  </head>
+  <body>
+    
+
+    <label for="sociedad">Sociedad</label>
+    <input id="sociedad" value="1000" type="text">
+    <br/>
+    <label for="rut">RUT</label>
+    <input id="rut" value="762011646" type="text">
+    <br/>
+    <a href="javascript:void(0);" onclick="cargar();">Guardar</a>
+    <script src="js/vendor/jquery.js"></script>
+
+
+    <script>
+        function cargar() {
+            var data = new Object();
+            data.sociedad = $('#sociedad').val();
+            data.cliente = $('#rut').val();
+
+            $.ajax({
+                data:  data,
+                url:   'prueba_2.htm',
+                type:  'post',
+                success:  function (response) {
+                    alert("Datos cargos correctamente");
+                }
+            });
+        }
+
+    </script>
+  </body>
+</html>
