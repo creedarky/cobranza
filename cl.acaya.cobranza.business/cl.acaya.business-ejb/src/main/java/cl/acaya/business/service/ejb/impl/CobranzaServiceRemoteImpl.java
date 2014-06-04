@@ -107,14 +107,14 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
                     dmCliente = new DmCliente();
                     cliente.setRutCliente(documentoVO.getRutCliente());
                     cliente.setNombreCliente(documentoVO.getNombreCliente());
-                    cliente = clienteDAO.create(cliente);
+                    cliente = clienteDAO.findOrCreate(cliente);
                     dmCliente.setCliente(cliente);
                     dmCliente.setDmCliente(documentoVO.getCodigoCliente());
-                    dmCliente = dmClienteDAO.create(dmCliente);
+                    dmCliente = dmClienteDAO.findOrCreate(dmCliente);
 
                 }
                 d.setDmCliente(dmCliente);
-                documentoDAO.create(d);
+                documentoDAO.findOrCreate(d);
                 documentosList.add(documentoVO);
             }
 
@@ -187,39 +187,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
             campanhaVO.setId(1l);
             campanhaVOList.add(campanhaVO);
         }catch (Exception e) {}
-        /*
-        TramoVO tramoVO = new TramoVO();
-        tramoVO.setDiaInicial(1);
-        tramoVO.setDiaFinal(30);
-        tramoVO.setTramo("Tramo 1");
-        tramoVOList.add(tramoVO);
-        tramoVO = new TramoVO();
-        tramoVO.setDiaInicial(31);
-        tramoVO.setDiaFinal(60);
-        tramoVO.setTramo("Tramo 2");
-        tramoVOList.add(tramoVO);
-        tramoVO = new TramoVO();
-        tramoVO.setDiaInicial(61);
-        tramoVO.setDiaFinal(90);
-        tramoVO.setTramo("Tramo 3");
-        tramoVOList.add(tramoVO);
-        tramoVO = new TramoVO();
-        tramoVO.setDiaInicial(91);
-        tramoVO.setTramo("Tramo 4");
-        tramoVOList.add(tramoVO);
-        CarteraVO carteraVO = new CarteraVO();
-        carteraVO.setCliente(clienteVO);
-        carteraVO.setId(1l);
-        carteraVO.setAlDia("1323300");
-        String[] tramos = {"1000000", "1250000", "750000","676700"};
-        carteraVO.setTramosList(Arrays.asList(tramos));
-        carteraVO.setTotal("5000000");
-        carteraVOList.add(carteraVO);
-        ResumenInicialVO resumenInicialVO = new ResumenInicialVO();
-        //resumenInicialVO.setCarteraVOList(carteraVOList);
-        //resumenInicialVO.setTramoVOList(tramoVOList);
 
-        */
         ResumenInicialVO resumenInicialVO = getCarteraPorTramos();
         resumenInicialVO.setAgendaVOList(agendaVOList);
         resumenInicialVO.setCampanhaVOList(campanhaVOList);
@@ -277,7 +245,6 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     private ResumenInicialVO getCarteraPorTramos() {
         List<Object[]> resultList = documentoDAO.getCarteraClientes();
         List<TramoVO> tramoVOList = new ArrayList<TramoVO>();
-        List<ClienteVO> clienteVOList = new ArrayList<ClienteVO>();
         List<CarteraVO> carteraVOList = new ArrayList<CarteraVO>();
         for(Object[] result: resultList) {
             System.out.println("0 " + result[0] + " 1" + result [1] + " 2" + result[2] + " 3 " + result[3]

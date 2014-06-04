@@ -10,7 +10,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_CLIENTE")
-@NamedQueries({@NamedQuery(name="Cliente.findAll",query = "Select cn From Cliente cn order by cn.nombreCliente asc")})
+@NamedQueries({@NamedQuery(name="Cliente.findAll",query = "Select cn From Cliente cn order by cn.nombreCliente asc"),
+@NamedQuery(name = "Cliente.findByRut", query = "from Cliente where rutCliente = :rutCliente")})
 
 public class Cliente {
 

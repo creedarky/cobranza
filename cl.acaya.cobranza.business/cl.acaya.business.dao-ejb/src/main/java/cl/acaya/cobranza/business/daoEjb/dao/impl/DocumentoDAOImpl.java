@@ -18,6 +18,8 @@ import java.util.List;
 public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements DocumentoDAO {
 
 
+    private Documento documento;
+
     public List<Object[]> getCarteraClientes() {
         return em.createNativeQuery(
                 "select cast(c.nom_cliente as varchar) as nom_cliente, c.system_id,cast(c.rut as varchar) as rut" +
@@ -27,5 +29,18 @@ public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements
                 "inner join cobranza.dbo.tbl_cliente c on dm.link_cliente = c.system_id "  +
                 "group by c.system_id,c.rut,vw.link_dm,c.nom_cliente, tramo order by c.nom_cliente, min(dias) asc")
                 .getResultList();
+    }
+
+    public Documento findOrCreate(Documento documento) {
+        List<Documento> documentoList = em.createNamedQuery("Documento.findByNumeroFactura")
+                .setParameter("numeroFactura", documento.getNumeroFactura())
+                .setMaxResults(1)
+                .getResultList();
+
+        if(documentoList == null || documentoList.isEmpty())
+            documento = create(documento);
+        else
+            documento = documentoList.get(0);
+        return documento;
     }
 }

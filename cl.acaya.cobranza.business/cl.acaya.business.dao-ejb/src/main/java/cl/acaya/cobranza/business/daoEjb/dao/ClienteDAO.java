@@ -11,4 +11,6 @@ public interface ClienteDAO extends GenericDAO<Cliente, Long> {
     List<Cliente> findAll();
 
     List<Cliente> findAllByIds(List<Long> idClienteList);
+
+    Cliente findOrCreate(Cliente cliente);
 }

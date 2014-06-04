@@ -15,7 +15,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TBL_DM_CLIENTE")
-@NamedQueries({@NamedQuery(name="DmCliente.findAll",query = "Select cn From DmCliente cn")})
+@NamedQueries({@NamedQuery(name="DmCliente.findAll",query = "Select cn From DmCliente cn"),
+@NamedQuery(name = "DmCliente.findByDmCliente", query = "from DmCliente where dmCliente = :dmCliente")})
 //@SequenceGenerator(name = "DmClienteSeq",
         //sequenceName = "SEQ_DmCliente", allocationSize = 1, initialValue = 1)
 

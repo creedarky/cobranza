@@ -12,7 +12,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "TBL_DOCUMENTO", schema = "dbo")
-@NamedQueries({@NamedQuery(name="Documento.findAll",query = "Select cn From Documento cn")})
+@NamedQueries({@NamedQuery(name="Documento.findAll",query = "Select cn From Documento cn"),
+@NamedQuery(name="Documento.findByNumeroFactura",query = "from Documento where numeroFactura = :numeroFactura")})
 //@SequenceGenerator(name = "DocumentoSeq",
   //      sequenceName = "SEQ_Documento", allocationSize = 1, initialValue = 1)
 public class Documento {

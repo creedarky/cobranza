@@ -26,4 +26,16 @@ public class ClienteDAOImpl extends  GenericDAOImpl<Cliente,Long> implements Cli
         return clienteList;
     }
 
+    public Cliente findOrCreate(Cliente cliente) {
+        List<Cliente> clienteList = em.createNamedQuery("Cliente.findByRut")
+                .setParameter("rutCliente", cliente.getRutCliente())
+                .setMaxResults(1)
+                .getResultList();
+        if(clienteList == null || clienteList.isEmpty())
+            cliente = create(cliente);
+        else
+            cliente = clienteList.get(0);
+        return cliente;
+    }
+
 }

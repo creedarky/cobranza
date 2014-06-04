@@ -9,4 +9,6 @@ public interface DocumentoDAO extends GenericDAO<Documento, Long> {
 
 
     List<Object[]> getCarteraClientes();
+
+    Documento findOrCreate(Documento documento);
 }
