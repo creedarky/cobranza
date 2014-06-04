@@ -10,4 +10,5 @@ public interface Parametros {
     String USUARIOS = "usuarios";
     String CLIENTES = "clientes";
     String USUARIO = "usuario";
+    String ID_CLIENTE = "idCliente";
 }

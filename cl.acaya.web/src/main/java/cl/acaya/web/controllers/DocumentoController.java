@@ -45,16 +45,13 @@ public class DocumentoController {
     @RequestMapping(value = "/inicio", method = RequestMethod.GET)
     public @ResponseBody
     JsonResponse getDatosPantallaInicial(HttpServletRequest httpServletRequest) {
-
         Request request = RequestFactory.newRequest(httpServletRequest);
-
         Response response = cobranzaServiceRemote.getDatosPantallaInicial(request);
         ResumenInicialVO resumenInicialVO = response.getResp(Parametros.PANTALLA_INICIAL, ResumenInicialVO.class);
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccessToTrue();
         jsonResponse.setBody(resumenInicialVO);
         return jsonResponse;
-
     }
 
     @RequestMapping(value = "/asignaciones-inicio", method = RequestMethod.GET)
