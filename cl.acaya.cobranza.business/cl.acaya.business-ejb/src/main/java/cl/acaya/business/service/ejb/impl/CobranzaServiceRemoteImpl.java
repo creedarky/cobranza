@@ -379,7 +379,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         Long idDMCliente = request.getParam("dmCliente", Long.class);
         Long idCliente = request.getParam(Parametros.ID_CLIENTE, Long.class);
 
-        return
+        return response;
 
 
 

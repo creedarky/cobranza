@@ -33,8 +33,14 @@ public class ClienteController {
 
     @RequestMapping(value = "/gestioncliente", method = RequestMethod.GET)
     public String cargarCliente(HttpServletRequest httpRequest,
-                                   @ModelAttribute(Parametros.ID_CLIENTE) Long idCliente, Model model
+                                   @ModelAttribute(Parametros.ID_CLIENTE) Long idCliente,
+                                   @ModelAttribute(Parametros.ID_DMCLIENTE) Long idDMCLiente,
+                                   Model model
                                    ) {
+        Request request = RequestFactory.newRequest(httpRequest);
+        request.addParam(Parametros.ID_CLIENTE, idCliente);
+        request.addParam(Parametros.ID_DMCLIENTE, idDMCLiente);
+
         model.addAttribute(Parametros.CLIENTE, new ClienteVO());
         return "gestion_cliente";
     }

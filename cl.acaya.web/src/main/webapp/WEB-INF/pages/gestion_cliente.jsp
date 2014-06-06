@@ -147,7 +147,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${}"></c:forEach>
+
                     <tr>
                         <td style="text-align: center"><input type="checkbox" /></td>
                         <td>Content Goes Here</td>

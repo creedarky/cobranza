@@ -35,4 +35,9 @@ public class CobranzaServiceDelegate extends AbstractServiceDelegate implements 
     public Response guardarDatosAsignacion(Request request) {
         return cobranzaServiceRemote.guardarDatosAsignacion(request);
     }
+
+    @Override
+    public Response getDocumentosByCliente(Request request) {
+        return cobranzaServiceRemote.getDocumentosByCliente(request);
+    }
 }

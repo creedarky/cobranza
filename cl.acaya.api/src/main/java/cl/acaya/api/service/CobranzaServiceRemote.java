@@ -15,4 +15,6 @@ public interface CobranzaServiceRemote {
     Response getDatosAsignacion(Request request);
 
     Response guardarDatosAsignacion(Request request);
+
+    Response getDocumentosByCliente(Request request);
 }
