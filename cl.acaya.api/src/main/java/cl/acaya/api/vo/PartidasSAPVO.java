@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @author aruizp
  */
-public class DocumentoVO implements Cloneable {
+public class PartidasSAPVO implements Cloneable {
     private String codigoSociedad;
     private String codigoCliente;
     private String codigoOperacion;
@@ -39,7 +39,7 @@ public class DocumentoVO implements Cloneable {
     private Integer montoPartida;
     private String nombreCliente;
 
-    public DocumentoVO() {
+    public PartidasSAPVO() {
     }
 
 

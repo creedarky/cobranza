@@ -1,7 +1,7 @@
 package cl.acaya.cobranza.business.daoEjb.util;
 
 import cl.acaya.api.vo.ClienteVO;
-import cl.acaya.api.vo.DocumentoVO;
+import cl.acaya.api.vo.PartidasSAPVO;
 import cl.acaya.api.vo.UsuarioVO;
 import cl.acaya.cobranza.business.daoEjb.entities.Cliente;
 import cl.acaya.cobranza.business.daoEjb.entities.Documento;
@@ -18,7 +18,7 @@ public class TypesAdaptor {
     public static final Logger LOGGER = Logger.getLogger(TypesAdaptor.class);
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    public static Documento adaptar(DocumentoVO documentoVO) {
+    public static Documento adaptar(PartidasSAPVO documentoVO) {
         Documento d = new Documento();
         d.setNumeroFactura(documentoVO.getNumeroFactura());
         d.setNumeroDocumento(documentoVO.getNumeroFactura());

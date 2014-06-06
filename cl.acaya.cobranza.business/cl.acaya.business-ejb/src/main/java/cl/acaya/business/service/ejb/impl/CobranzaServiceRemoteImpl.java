@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -72,10 +71,10 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
             System.out.println(table);
             Cliente cliente = null;
             DmCliente dmCliente = null;
-            List<DocumentoVO> documentosList = new ArrayList<DocumentoVO>(table.getNumRows());
+            List<PartidasSAPVO> documentosList = new ArrayList<PartidasSAPVO>(table.getNumRows());
             for (int i = 0; i < table.getNumRows(); i++) {
                 table.setRow(i);
-                DocumentoVO documentoVO = new DocumentoVO();
+                PartidasSAPVO documentoVO = new PartidasSAPVO();
                 documentoVO.setCodigoSociedad(table.getString("CODSOCI"));
                 documentoVO.setCodigoCliente(table.getString("CODDEST"));
                 documentoVO.setCodigoOperacion(table.getString("CLAOPER"));
@@ -319,10 +318,10 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
             System.out.println(table);
             Cliente cliente = null;
             DmCliente dmCliente = null;
-            List<DocumentoVO> documentosList = new ArrayList<DocumentoVO>(table.getNumRows());
+            List<PartidasSAPVO> documentosList = new ArrayList<PartidasSAPVO>(table.getNumRows());
             for (int i = 0; i < table.getNumRows(); i++) {
                 table.setRow(i);
-                DocumentoVO documentoVO = new DocumentoVO();
+                PartidasSAPVO documentoVO = new PartidasSAPVO();
                 documentoVO.setCodigoSociedad(table.getString("CODSOCI"));
                 documentoVO.setCodigoCliente(table.getString("CODDEST"));
                 documentoVO.setCodigoOperacion(table.getString("CLAOPER"));
