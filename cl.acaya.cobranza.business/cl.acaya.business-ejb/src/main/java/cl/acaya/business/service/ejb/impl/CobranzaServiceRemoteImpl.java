@@ -13,7 +13,10 @@ import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoTable;
 
+import javax.annotation.Resource;
 import javax.ejb.*;
+import javax.transaction.Status;
+import javax.transaction.UserTransaction;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,6 +30,7 @@ import java.util.List;
  */
 @Stateless(name = "CobranzaServiceRemote", mappedName = "ejb/CobranzaServiceRemote")
 @Remote(CobranzaServiceRemote.class)
+@TransactionManagement(TransactionManagementType.BEAN)
 public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
     @EJB
@@ -53,16 +57,20 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     @EJB
     VendedorDAO vendedorDAO;
 
+    @Resource
+    private UserTransaction userTransaction;
+
+
     private final static DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     private final static TramoVOComparator TRAMO_VO_COMPARATOR = new TramoVOComparator();
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    //@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Response obtenerDocumentosSAP(Request request) {
         try {
-            /*pruebasap(request);
+            pruebasap(request);
             if(true)
                 return null;
-                */
+
             Connect connect = SapConnectionFactory.newConecction();
             JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS"); //Nombre RFC
 
@@ -78,66 +86,78 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
             System.out.println(function + "ejecutada");
             JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
             System.out.println("filas " + table.getNumRows());
-            System.out.println(table);
+            //System.out.println(table);
             Cliente cliente = null;
             DmCliente dmCliente = null;
             List<PartidasSAPVO> documentosList = new ArrayList<PartidasSAPVO>(table.getNumRows());
-            for (int i = 0; i < table.getNumRows(); i++) {
-                table.setRow(i);
-                PartidasSAPVO documentoVO = new PartidasSAPVO();
-                documentoVO.setCodigoSociedad(table.getString("CODSOCI"));
-                documentoVO.setCodigoCliente(table.getString("CODDEST"));
-                documentoVO.setCodigoOperacion(table.getString("CLAOPER"));
-                documentoVO.setIndicacionOperacion(table.getString("INDCME"));
-                documentoVO.setFechaCompensacion(table.getDate("FECCOMP"));
-                documentoVO.setNumeroDocumentoCompensacion(table.getString("DOCCOMP"));
-                documentoVO.setNumeroAsignacion(table.getString("NUMASIG"));
-                documentoVO.setNumeroEjercicio(table.getInt("NUMAGNO"));
-                documentoVO.setNumeroContable(table.getString("DOCCONT"));
-                documentoVO.setNumeroApunte(table.getInt("NUMCORR"));
-                documentoVO.setRutCliente(table.getString("RUTCLIE"));
-                documentoVO.setFechaContable(table.getDate("FECCONT"));
-                documentoVO.setFechaDocumento(table.getDate("FECDOCU"));
-                documentoVO.setClaseDocumento(table.getString("CLADOCU"));
-                Double monto = table.getDouble("MTOCOBR");
-                documentoVO.setMontoCobrar(monto.intValue());
-                documentoVO.setIndicadorSentido(table.getString("INDSENT"));
-                documentoVO.setFechaVencimiento(table.getDate("FECVCTO"));
-                documentoVO.setNombreResponsable(table.getString("CODEMIS"));
-                documentoVO.setOficinaResponsable(table.getString("SUCRESP"));
-                documentoVO.setNumeroFactura(table.getString("NUMFACT"));
-                documentoVO.setFolioSii(table.getString("FOLSII"));
-                documentoVO.setClavePago(table.getString("CONPAGO"));
-                documentoVO.setCodigoCobrador(table.getInt("CODCOBR"));
-                documentoVO.setGrupoMateriales(table.getString("CODCANAL"));
-                documentoVO.setOrdenCompra(table.getString("ORDCOMP"));
-                documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
-                documentoVO.setNombreCliente(table.getString("NOMCLIE"));
-                Documento d = TypesAdaptor.adaptar(documentoVO);
-                cliente = new Cliente();
-                dmCliente = new DmCliente();
-                cliente.setRutCliente(documentoVO.getRutCliente());
-                cliente.setNombreCliente(documentoVO.getNombreCliente());
-                cliente = clienteDAO.findOrCreate(cliente);
-                dmCliente.setCliente(cliente);
-                dmCliente.setDmCliente(documentoVO.getCodigoCliente());
-                dmCliente = dmClienteDAO.findOrCreate(dmCliente);
-                TipoDocumento tipoDocumento = new TipoDocumento();
-                tipoDocumento.setCodigoTipo(documentoVO.getClaseDocumento());
-                tipoDocumento.setIndicadorSentido(documentoVO.getIndicadorSentido());
-                tipoDocumento = tipoDocumentoDAO.findOrCreate(tipoDocumento);
-                d.setTipoDocumento(tipoDocumento);
-                Sociedad sociedad = new Sociedad();
-                sociedad.setCodigoSociedad(documentoVO.getCodigoSociedad());
-                sociedad = sociedadDAO.findOrCreate(sociedad);
-                Vendedor vendedor = new Vendedor();
-                vendedor.setCodigoVendedor(documentoVO.getNombreResponsable());
-                vendedor = vendedorDAO.findOrCreate(vendedor);
-                d.setVendedor(vendedor);
-                d.setDmCliente(dmCliente);
-                d.setSociedad(sociedad);
-                documentoDAO.findOrCreate(d);
-                documentosList.add(documentoVO);
+
+            try {
+                    userTransaction.begin();
+                    for (int i = 0; i < table.getNumRows(); i++) {
+                        table.setRow(i);
+                        PartidasSAPVO documentoVO = new PartidasSAPVO();
+                        documentoVO.setCodigoSociedad(table.getString("CODSOCI"));
+                        documentoVO.setCodigoCliente(table.getString("CODDEST"));
+                        documentoVO.setCodigoOperacion(table.getString("CLAOPER"));
+                        documentoVO.setIndicacionOperacion(table.getString("INDCME"));
+                        documentoVO.setFechaCompensacion(table.getDate("FECCOMP"));
+                        documentoVO.setNumeroDocumentoCompensacion(table.getString("DOCCOMP"));
+                        documentoVO.setNumeroAsignacion(table.getString("NUMASIG"));
+                        documentoVO.setNumeroEjercicio(table.getInt("NUMAGNO"));
+                        documentoVO.setNumeroContable(table.getString("DOCCONT"));
+                        documentoVO.setNumeroApunte(table.getInt("NUMCORR"));
+                        documentoVO.setRutCliente(table.getString("RUTCLIE"));
+                        documentoVO.setFechaContable(table.getDate("FECCONT"));
+                        documentoVO.setFechaDocumento(table.getDate("FECDOCU"));
+                        documentoVO.setClaseDocumento(table.getString("CLADOCU"));
+                        Double monto = table.getDouble("MTOCOBR");
+                        documentoVO.setMontoCobrar(monto.intValue());
+                        documentoVO.setIndicadorSentido(table.getString("INDSENT"));
+                        documentoVO.setFechaVencimiento(table.getDate("FECVCTO"));
+                        documentoVO.setNombreResponsable(table.getString("CODEMIS"));
+                        documentoVO.setOficinaResponsable(table.getString("SUCRESP"));
+                        documentoVO.setNumeroFactura(table.getString("NUMFACT"));
+                        documentoVO.setFolioSii(table.getString("FOLSII"));
+                        documentoVO.setClavePago(table.getString("CONPAGO"));
+                        documentoVO.setCodigoCobrador(table.getInt("CODCOBR"));
+                        documentoVO.setGrupoMateriales(table.getString("CODCANAL"));
+                        documentoVO.setOrdenCompra(table.getString("ORDCOMP"));
+                        documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
+                        documentoVO.setNombreCliente(table.getString("NOMCLIE"));
+                        Documento d = TypesAdaptor.adaptar(documentoVO);
+                        cliente = new Cliente();
+                        dmCliente = new DmCliente();
+                        cliente.setRutCliente(documentoVO.getRutCliente());
+                        cliente.setNombreCliente(documentoVO.getNombreCliente());
+                        cliente = clienteDAO.findOrCreate(cliente);
+                        dmCliente.setCliente(cliente);
+                        dmCliente.setDmCliente(documentoVO.getCodigoCliente());
+                        dmCliente = dmClienteDAO.findOrCreate(dmCliente);
+                        TipoDocumento tipoDocumento = new TipoDocumento();
+                        tipoDocumento.setCodigoTipo(documentoVO.getClaseDocumento());
+                        tipoDocumento.setIndicadorSentido(documentoVO.getIndicadorSentido());
+                        tipoDocumento = tipoDocumentoDAO.findOrCreate(tipoDocumento);
+                        d.setTipoDocumento(tipoDocumento);
+                        Sociedad sociedad = new Sociedad();
+                        sociedad.setCodigoSociedad(documentoVO.getCodigoSociedad());
+                        sociedad = sociedadDAO.findOrCreate(sociedad);
+                        Vendedor vendedor = new Vendedor();
+                        vendedor.setCodigoVendedor(documentoVO.getNombreResponsable());
+                        vendedor = vendedorDAO.findOrCreate(vendedor);
+                        d.setVendedor(vendedor);
+                        d.setDmCliente(dmCliente);
+                        d.setSociedad(sociedad);
+                        documentoDAO.findOrCreate(d);
+                        documentosList.add(documentoVO);
+                        if(i%50 == 0 || table.getNumRows() - i == 1) {
+                            userTransaction.commit();
+                            userTransaction.begin();;
+                        }
+                    }
+
+
+            }catch (Exception e) {
+                userTransaction.rollback();
             }
 
 
@@ -150,7 +170,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
 
 
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
+
     private Response pruebasap(Request request) {
         try {
             Connect connect = SapConnectionFactory.newConecction();
@@ -158,75 +178,99 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
             JCoParameterList pl = function.getImportParameterList();
 
+            Integer inicio = 0;
+            Integer fin = 500;
 
-            function.getImportParameterList().setValue("IND1", "101"); //Paso de parametros
-            function.getImportParameterList().setValue("IND2", "300"); //Paso de parametros
+            function.getImportParameterList().setValue("IND1", inicio.toString()); //Paso de parametros
+            function.getImportParameterList().setValue("IND2", fin.toString()); //Paso de parametros
             System.out.println(function + "no ejecutada");
             connect.execute(function);
             System.out.println(function + "ejecutada");
             JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
-            System.out.println("filas " + table.getNumRows());
-            System.out.println(table);
             Cliente cliente = null;
             DmCliente dmCliente = null;
-            List<PartidasSAPVO> documentosList = new ArrayList<PartidasSAPVO>(table.getNumRows());
-            for (int i = 0; i < table.getNumRows(); i++) {
-                table.setRow(i);
-                PartidasSAPVO documentoVO = new PartidasSAPVO();
-                documentoVO.setCodigoSociedad(table.getString("CODSOCI"));
-                documentoVO.setCodigoCliente(table.getString("CODDEST"));
-                documentoVO.setCodigoOperacion(table.getString("CLAOPER"));
-                documentoVO.setIndicacionOperacion(table.getString("INDCME"));
-                documentoVO.setFechaCompensacion(table.getDate("FECCOMP"));
-                documentoVO.setNumeroDocumentoCompensacion(table.getString("DOCCOMP"));
-                documentoVO.setNumeroAsignacion(table.getString("NUMASIG"));
-                documentoVO.setNumeroEjercicio(table.getInt("NUMAGNO"));
-                documentoVO.setNumeroContable(table.getString("DOCCONT"));
-                documentoVO.setNumeroApunte(table.getInt("NUMCORR"));
-                documentoVO.setRutCliente(table.getString("RUTCLIE"));
-                documentoVO.setFechaContable(table.getDate("FECCONT"));
-                documentoVO.setFechaDocumento(table.getDate("FECDOCU"));
-                documentoVO.setClaseDocumento(table.getString("CLADOCU"));
-                Double monto = table.getDouble("MTOCOBR");
-                documentoVO.setMontoCobrar(monto.intValue());
-                documentoVO.setIndicadorSentido(table.getString("INDSENT"));
-                documentoVO.setFechaVencimiento(table.getDate("FECVCTO"));
-                documentoVO.setNombreResponsable(table.getString("CODEMIS"));
-                documentoVO.setOficinaResponsable(table.getString("SUCRESP"));
-                documentoVO.setNumeroFactura(table.getString("NUMFACT"));
-                documentoVO.setFolioSii(table.getString("FOLSII"));
-                documentoVO.setClavePago(table.getString("CONPAGO"));
-                documentoVO.setCodigoCobrador(table.getInt("CODCOBR"));
-                documentoVO.setGrupoMateriales(table.getString("CODCANAL"));
-                documentoVO.setOrdenCompra(table.getString("ORDCOMP"));
-                documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
-                documentoVO.setNombreCliente(table.getString("NOMCLIE"));
-                Documento d = TypesAdaptor.adaptar(documentoVO);
-                cliente = new Cliente();
-                dmCliente = new DmCliente();
-                cliente.setRutCliente(documentoVO.getRutCliente());
-                cliente.setNombreCliente(documentoVO.getNombreCliente());
-                cliente = clienteDAO.findOrCreate(cliente);
-                dmCliente.setCliente(cliente);
-                dmCliente.setDmCliente(documentoVO.getCodigoCliente());
-                dmCliente = dmClienteDAO.findOrCreate(dmCliente);
-                TipoDocumento tipoDocumento = new TipoDocumento();
-                tipoDocumento.setCodigoTipo(documentoVO.getClaseDocumento());
-                tipoDocumento.setIndicadorSentido(documentoVO.getIndicadorSentido());
-                tipoDocumento = tipoDocumentoDAO.findOrCreate(tipoDocumento);
-                d.setTipoDocumento(tipoDocumento);
-                Sociedad sociedad = new Sociedad();
-                sociedad.setCodigoSociedad(documentoVO.getCodigoSociedad());
-                sociedad = sociedadDAO.findOrCreate(sociedad);
-                Vendedor vendedor = new Vendedor();
-                vendedor.setCodigoVendedor(documentoVO.getNombreResponsable());
-                vendedor = vendedorDAO.findOrCreate(vendedor);
-                d.setVendedor(vendedor);
-                d.setDmCliente(dmCliente);
-                d.setSociedad(sociedad);
-                documentoDAO.findOrCreate(d);
-                documentosList.add(documentoVO);
-            }
+            do {
+                try {
+                    userTransaction.begin();
+                    List<PartidasSAPVO> documentosList = new ArrayList<PartidasSAPVO>(table.getNumRows());
+                    for (int i = 0; i < table.getNumRows(); i++) {
+                        table.setRow(i);
+                        PartidasSAPVO documentoVO = new PartidasSAPVO();
+                        documentoVO.setCodigoSociedad(table.getString("CODSOCI"));
+                        documentoVO.setCodigoCliente(table.getString("CODDEST"));
+                        documentoVO.setCodigoOperacion(table.getString("CLAOPER"));
+                        documentoVO.setIndicacionOperacion(table.getString("INDCME"));
+                        documentoVO.setFechaCompensacion(table.getDate("FECCOMP"));
+                        documentoVO.setNumeroDocumentoCompensacion(table.getString("DOCCOMP"));
+                        documentoVO.setNumeroAsignacion(table.getString("NUMASIG"));
+                        documentoVO.setNumeroEjercicio(table.getInt("NUMAGNO"));
+                        documentoVO.setNumeroContable(table.getString("DOCCONT"));
+                        documentoVO.setNumeroApunte(table.getInt("NUMCORR"));
+                        documentoVO.setRutCliente(table.getString("RUTCLIE"));
+                        documentoVO.setFechaContable(table.getDate("FECCONT"));
+                        documentoVO.setFechaDocumento(table.getDate("FECDOCU"));
+                        documentoVO.setClaseDocumento(table.getString("CLADOCU"));
+                        Double monto = table.getDouble("MTOCOBR");
+                        documentoVO.setMontoCobrar(monto.intValue());
+                        documentoVO.setIndicadorSentido(table.getString("INDSENT"));
+                        documentoVO.setFechaVencimiento(table.getDate("FECVCTO"));
+                        documentoVO.setNombreResponsable(table.getString("CODEMIS"));
+                        documentoVO.setOficinaResponsable(table.getString("SUCRESP"));
+                        documentoVO.setNumeroFactura(table.getString("NUMFACT"));
+                        documentoVO.setFolioSii(table.getString("FOLSII"));
+                        documentoVO.setClavePago(table.getString("CONPAGO"));
+                        documentoVO.setCodigoCobrador(table.getInt("CODCOBR"));
+                        documentoVO.setGrupoMateriales(table.getString("CODCANAL"));
+                        documentoVO.setOrdenCompra(table.getString("ORDCOMP"));
+                        documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
+                        documentoVO.setNombreCliente(table.getString("NOMCLIE"));
+                        Documento d = TypesAdaptor.adaptar(documentoVO);
+                        cliente = new Cliente();
+                        dmCliente = new DmCliente();
+                        cliente.setRutCliente(documentoVO.getRutCliente());
+                        cliente.setNombreCliente(documentoVO.getNombreCliente());
+                        cliente = clienteDAO.findOrCreate(cliente);
+                        dmCliente.setCliente(cliente);
+                        dmCliente.setDmCliente(documentoVO.getCodigoCliente());
+                        dmCliente = dmClienteDAO.findOrCreate(dmCliente);
+                        TipoDocumento tipoDocumento = new TipoDocumento();
+                        tipoDocumento.setCodigoTipo(documentoVO.getClaseDocumento());
+                        tipoDocumento.setIndicadorSentido(documentoVO.getIndicadorSentido());
+                        tipoDocumento = tipoDocumentoDAO.findOrCreate(tipoDocumento);
+                        d.setTipoDocumento(tipoDocumento);
+                        Sociedad sociedad = new Sociedad();
+                        sociedad.setCodigoSociedad(documentoVO.getCodigoSociedad());
+                        sociedad = sociedadDAO.findOrCreate(sociedad);
+                        Vendedor vendedor = new Vendedor();
+                        vendedor.setCodigoVendedor(documentoVO.getNombreResponsable());
+                        vendedor = vendedorDAO.findOrCreate(vendedor);
+                        d.setVendedor(vendedor);
+                        d.setDmCliente(dmCliente);
+                        d.setSociedad(sociedad);
+                        documentoDAO.findOrCreate(d);
+                        documentosList.add(documentoVO);
+                        if(i%50 == 0 || table.getNumRows() - i == 1) {
+                            userTransaction.commit();
+                            userTransaction.begin();;
+                        }
+                    }
+                    if(userTransaction.getStatus() == Status.STATUS_ACTIVE) {
+                        userTransaction.commit();
+                    }
+                }catch (Exception e) {
+                    userTransaction.rollback();
+                }
+                inicio = inicio + 501;
+                fin = fin + 500 ;
+
+                function.getImportParameterList().setValue("IND1", inicio.toString()); //Paso de parametros
+                function.getImportParameterList().setValue("IND2", fin.toString()); //Paso de parametros
+                System.out.println(function + "no ejecutada");
+                connect.execute(function);
+                System.out.println(function + "ejecutada");
+                table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
+
+            }while (table != null && table.getNumRows() > 0);
 
         } catch (Exception e) {
             System.out.println(e.toString());
