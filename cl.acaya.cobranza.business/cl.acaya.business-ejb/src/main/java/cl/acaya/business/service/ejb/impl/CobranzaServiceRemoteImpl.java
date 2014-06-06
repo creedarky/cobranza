@@ -50,8 +50,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     public Response obtenerDocumentosSAP(Request request) {
         try {
             pruebasap(request);
-            if(true)
-                return null;
+
             SapSystem system = new SapSystem("PRD", "10.1.24.52", "300", "1", "intranet", "informat"); //Conexion a sap
             Connect connect = new Connect(system);
             JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS"); //Nombre RFC
