@@ -36,7 +36,7 @@ public class DocumentoController {
     @RequestMapping(value = "/prueba")
     public String cargarDocumentos(HttpServletRequest httpRequest) {
         Request request = RequestFactory.newRequest(httpRequest);
-        request.addParam(BusinessParameter.RUT_CLIENTE,"762011646");
+        request.addParam(BusinessParameter.RUT_CLIENTE,"796332204");
         request.addParam(BusinessParameter.SOCIEDAD, "1000");
         cobranzaServiceRemote.obtenerDocumentosSAP(request);
         return "";

@@ -59,18 +59,19 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Response obtenerDocumentosSAP(Request request) {
         try {
-            pruebasap(request);
+            /*pruebasap(request);
             if(true)
                 return null;
+                */
             Connect connect = SapConnectionFactory.newConecction();
             JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS"); //Nombre RFC
 
             JCoParameterList pl = function.getImportParameterList();
 
             String rutCliente = request.getParam(BusinessParameter.RUT_CLIENTE, String.class);
-            Long sociedad = Long.valueOf(request.getParam(BusinessParameter.SOCIEDAD, String.class));
+            Long codigoSociedad = Long.valueOf(request.getParam(BusinessParameter.SOCIEDAD, String.class));
 
-            function.getImportParameterList().setValue("SOCIEDAD", sociedad); //Paso de parametros
+            function.getImportParameterList().setValue("SOCIEDAD", codigoSociedad); //Paso de parametros
             function.getImportParameterList().setValue("RUTCLIE", rutCliente); //Paso de parametros
             System.out.println(function + "no ejecutada");
             connect.execute(function);
@@ -113,21 +114,32 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
                 documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
                 documentoVO.setNombreCliente(table.getString("NOMCLIE"));
                 Documento d = TypesAdaptor.adaptar(documentoVO);
-                if(cliente == null) {
-                    cliente = new Cliente();
-                    dmCliente = new DmCliente();
-                    cliente.setRutCliente(documentoVO.getRutCliente());
-                    cliente.setNombreCliente(documentoVO.getNombreCliente());
-                    cliente = clienteDAO.findOrCreate(cliente);
-                    dmCliente.setCliente(cliente);
-                    dmCliente.setDmCliente(documentoVO.getCodigoCliente());
-                    dmCliente = dmClienteDAO.findOrCreate(dmCliente);
-
-                }
+                cliente = new Cliente();
+                dmCliente = new DmCliente();
+                cliente.setRutCliente(documentoVO.getRutCliente());
+                cliente.setNombreCliente(documentoVO.getNombreCliente());
+                cliente = clienteDAO.findOrCreate(cliente);
+                dmCliente.setCliente(cliente);
+                dmCliente.setDmCliente(documentoVO.getCodigoCliente());
+                dmCliente = dmClienteDAO.findOrCreate(dmCliente);
+                TipoDocumento tipoDocumento = new TipoDocumento();
+                tipoDocumento.setCodigoTipo(documentoVO.getClaseDocumento());
+                tipoDocumento.setIndicadorSentido(documentoVO.getIndicadorSentido());
+                tipoDocumento = tipoDocumentoDAO.findOrCreate(tipoDocumento);
+                d.setTipoDocumento(tipoDocumento);
+                Sociedad sociedad = new Sociedad();
+                sociedad.setCodigoSociedad(documentoVO.getCodigoSociedad());
+                sociedad = sociedadDAO.findOrCreate(sociedad);
+                Vendedor vendedor = new Vendedor();
+                vendedor.setCodigoVendedor(documentoVO.getNombreResponsable());
+                vendedor = vendedorDAO.findOrCreate(vendedor);
+                d.setVendedor(vendedor);
                 d.setDmCliente(dmCliente);
+                d.setSociedad(sociedad);
                 documentoDAO.findOrCreate(d);
                 documentosList.add(documentoVO);
             }
+
 
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -138,7 +150,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
 
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     private Response pruebasap(Request request) {
         try {
             Connect connect = SapConnectionFactory.newConecction();
