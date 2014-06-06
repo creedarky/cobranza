@@ -3,6 +3,7 @@ package cl.acaya.business.service.ejb.impl;
 import cl.acaya.api.business.BusinessParameter;
 import cl.acaya.api.sap.Connect;
 import cl.acaya.api.sap.SapSystem;
+import cl.acaya.api.util.SapConnectionFactory;
 import cl.acaya.api.vo.*;
 import cl.acaya.api.service.CobranzaServiceRemote;
 import cl.acaya.cobranza.business.daoEjb.dao.*;
@@ -51,8 +52,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         try {
             pruebasap(request);
 
-            SapSystem system = new SapSystem("PRD", "10.1.24.52", "300", "1", "intranet", "informat"); //Conexion a sap
-            Connect connect = new Connect(system);
+            Connect connect = SapConnectionFactory.newConecction();
             JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS"); //Nombre RFC
 
             JCoParameterList pl = function.getImportParameterList();
@@ -295,8 +295,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
     private Response pruebasap(Request request) {
         try {
-            SapSystem system = new SapSystem("PRD", "10.1.24.52", "300", "1", "intranet", "informat"); //Conexion a sap
-            Connect connect = new Connect(system);
+            Connect connect = SapConnectionFactory.newConecction();
             JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS_T"); //Nombre RFC
 
             JCoParameterList pl = function.getImportParameterList();
@@ -377,6 +376,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         Response response = new Response();
         Long idDMCliente = request.getParam("dmCliente", Long.class);
         Long idCliente = request.getParam(Parametros.ID_CLIENTE, Long.class);
+        List<Documento> documentoList = documentoDAO.getDocumentosByDMCliente(idDMCliente);
 
         return response;
 

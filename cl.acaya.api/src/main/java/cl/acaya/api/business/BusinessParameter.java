@@ -8,12 +8,12 @@ public interface BusinessParameter {
     String DB_SCHEMA = "dbo";
     String RUT_CLIENTE = "rutCliente";
     String SOCIEDAD = "sociedad";
-    String IP_SAP = "10.1.24.52";
+    String IP_SAP = "10.1.24.56";
     String NAME_SAP = "PRD";
     String CLIENTE_SAP = "300";
-    String SYSTEM_NUMBER = "1";
-    String USER_SAP = "intranet";
-    String PASSWORD_SAP = "informat";
+    String SYSTEM_NUMBER = "0";
+    String USER_SAP = "SPKII";
+    String PASSWORD_SAP = "acero2013";
 
 
 
