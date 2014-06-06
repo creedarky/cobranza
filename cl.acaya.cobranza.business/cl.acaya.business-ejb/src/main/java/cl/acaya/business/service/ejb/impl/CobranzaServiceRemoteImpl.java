@@ -374,4 +374,15 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
         return new Response();
     }
+
+    public Response getDocumentosByCliente(Request request) {
+        Response response = new Response();
+        Long idDMCliente = request.getParam("dmCliente", Long.class);
+        Long idCliente = request.getParam(Parametros.ID_CLIENTE, Long.class);
+
+        return
+
+
+
+    }
 }

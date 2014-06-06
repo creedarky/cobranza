@@ -48,8 +48,8 @@
         <div class="row" data-equalizer>
             <div style="height: 100px;padding-top:53px;">
                 <fieldset style="float:left;">
-                    <label>RUT :1-9</label>
-                    <label>Razón Social : Cliente 1 </label>
+                    <label>RUT :${cliente.rutCliente}</label>
+                    <label>Razón Social : ${cliente.nombreCliente} </label>
                     <label>Email empresa : empresa@gmail.com</label>
                     <label>Clasificación de riesgo : 4 </label>
                     <label>Pedidos en progreso : 4 </label>
@@ -147,6 +147,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:forEach items="${}"></c:forEach>
                     <tr>
                         <td style="text-align: center"><input type="checkbox" /></td>
                         <td>Content Goes Here</td>

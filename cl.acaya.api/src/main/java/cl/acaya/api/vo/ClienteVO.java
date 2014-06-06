@@ -15,6 +15,7 @@ public class ClienteVO {
     private String vigencia;
     private String estadoCliente;
     private String estadoLinea;
+    private String
     private UsuarioVO usuarioAsignado;
 
 

@@ -43,4 +43,10 @@ public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements
             documento = documentoList.get(0);
         return documento;
     }
+
+    public List<Documento> getDocumentosByDMCliente(Long idDMCliente) {
+        return em.createQuery("from Documento dm where dm.dmCliente.systemId = :idDmcliente")
+                .setParameter("idDmcliente", idDMCliente)
+                .getResultList();
+    }
 }
