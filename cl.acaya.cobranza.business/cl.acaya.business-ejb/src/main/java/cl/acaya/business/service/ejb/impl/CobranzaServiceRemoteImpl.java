@@ -50,6 +50,9 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Response obtenerDocumentosSAP(Request request) {
         try {
+            pruebasap(request);
+            if(true)
+                return null;
             SapSystem system = new SapSystem("PRD", "10.1.24.52", "300", "1", "intranet", "informat"); //Conexion a sap
             Connect connect = new Connect(system);
             JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS"); //Nombre RFC
@@ -290,5 +293,85 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
         return resumenInicialVO;
 
+    }
+
+    private Response pruebasap(Request request) {
+        try {
+            SapSystem system = new SapSystem("PRD", "10.1.24.52", "300", "1", "intranet", "informat"); //Conexion a sap
+            Connect connect = new Connect(system);
+            JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS_T"); //Nombre RFC
+
+            JCoParameterList pl = function.getImportParameterList();
+
+            String rutCliente = request.getParam(BusinessParameter.RUT_CLIENTE, String.class);
+            Long sociedad = Long.valueOf(request.getParam(BusinessParameter.SOCIEDAD, String.class));
+
+            function.getImportParameterList().setValue("IND1", "0"); //Paso de parametros
+            function.getImportParameterList().setValue("IND2", "5000"); //Paso de parametros
+            System.out.println(function + "no ejecutada");
+            connect.execute(function);
+            System.out.println(function + "ejecutada");
+            JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
+            System.out.println("filas " + table.getNumRows());
+            System.out.println(table);
+            table = function.getTableParameterList().getTable("TSALIDA1"); //Tabla de Salida
+            System.out.println("filas " + table.getNumRows());
+            System.out.println(table);
+            Cliente cliente = null;
+            DmCliente dmCliente = null;
+            List<DocumentoVO> documentosList = new ArrayList<DocumentoVO>(table.getNumRows());
+            for (int i = 0; i < table.getNumRows(); i++) {
+                table.setRow(i);
+                DocumentoVO documentoVO = new DocumentoVO();
+                documentoVO.setCodigoSociedad(table.getString("CODSOCI"));
+                documentoVO.setCodigoCliente(table.getString("CODDEST"));
+                documentoVO.setCodigoOperacion(table.getString("CLAOPER"));
+                documentoVO.setIndicacionOperacion(table.getString("INDCME"));
+                documentoVO.setFechaCompensacion(table.getDate("FECCOMP"));
+                documentoVO.setNumeroDocumentoCompensacion(table.getString("DOCCOMP"));
+                documentoVO.setNumeroAsignacion(table.getString("NUMASIG"));
+                documentoVO.setNumeroEjercicio(table.getInt("NUMAGNO"));
+                documentoVO.setNumeroContable(table.getString("DOCCONT"));
+                documentoVO.setNumeroApunte(table.getInt("NUMCORR"));
+                documentoVO.setRutCliente(table.getString("RUTCLIE"));
+                documentoVO.setFechaContable(table.getDate("FECCONT"));
+                documentoVO.setFechaDocumento(table.getDate("FECDOCU"));
+                documentoVO.setClaseDocumento(table.getString("CLADOCU"));
+                Double monto = table.getDouble("MTOCOBR");
+                documentoVO.setMontoCobrar(monto.intValue());
+                documentoVO.setIndicadorSentencia(table.getString("INDSENT"));
+                documentoVO.setFechaVencimiento(table.getDate("FECVCTO"));
+                documentoVO.setNombreResponsable(table.getString("CODEMIS"));
+                documentoVO.setOficinaResponsable(table.getString("SUCRESP"));
+                documentoVO.setNumeroFactura(table.getString("NUMFACT"));
+                documentoVO.setFolioSii(table.getString("FOLSII"));
+                documentoVO.setClavePago(table.getString("CONPAGO"));
+                documentoVO.setCodigoCobrador(table.getInt("CODCOBR"));
+                documentoVO.setGrupoMateriales(table.getString("CODCANAL"));
+                documentoVO.setOrdenCompra(table.getString("ORDCOMP"));
+                documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
+                documentoVO.setNombreCliente(table.getString("NOMCLIE"));
+                Documento d = TypesAdaptor.adaptar(documentoVO);
+                if(cliente == null) {
+                    cliente = new Cliente();
+                    dmCliente = new DmCliente();
+                    cliente.setRutCliente(documentoVO.getRutCliente());
+                    cliente.setNombreCliente(documentoVO.getNombreCliente());
+                    cliente = clienteDAO.findOrCreate(cliente);
+                    dmCliente.setCliente(cliente);
+                    dmCliente.setDmCliente(documentoVO.getCodigoCliente());
+                    dmCliente = dmClienteDAO.findOrCreate(dmCliente);
+
+                }
+                d.setDmCliente(dmCliente);
+                documentoDAO.findOrCreate(d);
+                documentosList.add(documentoVO);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        return new Response();
     }
 }

@@ -9,6 +9,12 @@ public class ClienteVO {
     private Long idCliente;
     private String nombreCliente;
     private String rutCliente;
+    private String clasificacionRiesgo;
+    private Long pedidosProceso;
+    private String tipoSeguro;
+    private String vigencia;
+    private String estadoCliente;
+    private String estadoLinea;
     private UsuarioVO usuarioAsignado;
 
 
@@ -42,6 +48,54 @@ public class ClienteVO {
 
     public void setUsuarioAsignado(UsuarioVO usuarioAsignado) {
         this.usuarioAsignado = usuarioAsignado;
+    }
+
+    public String getClasificacionRiesgo() {
+        return clasificacionRiesgo;
+    }
+
+    public void setClasificacionRiesgo(String clasificacionRiesgo) {
+        this.clasificacionRiesgo = clasificacionRiesgo;
+    }
+
+    public Long getPedidosProceso() {
+        return pedidosProceso;
+    }
+
+    public void setPedidosProceso(Long pedidosProceso) {
+        this.pedidosProceso = pedidosProceso;
+    }
+
+    public String getTipoSeguro() {
+        return tipoSeguro;
+    }
+
+    public void setTipoSeguro(String tipoSeguro) {
+        this.tipoSeguro = tipoSeguro;
+    }
+
+    public String getVigencia() {
+        return vigencia;
+    }
+
+    public void setVigencia(String vigencia) {
+        this.vigencia = vigencia;
+    }
+
+    public String getEstadoCliente() {
+        return estadoCliente;
+    }
+
+    public void setEstadoCliente(String estadoCliente) {
+        this.estadoCliente = estadoCliente;
+    }
+
+    public String getEstadoLinea() {
+        return estadoLinea;
+    }
+
+    public void setEstadoLinea(String estadoLinea) {
+        this.estadoLinea = estadoLinea;
     }
 
     @Override

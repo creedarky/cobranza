@@ -35,7 +35,7 @@ public class ClienteController {
     public String cargarCliente(HttpServletRequest httpRequest,
                                    @ModelAttribute(Parametros.ID_CLIENTE) Long idCliente, Model model
                                    ) {
-        model.addAttribute("data", "data");
+        model.addAttribute(Parametros.CLIENTE, new ClienteVO());
         return "gestion_cliente";
     }
 
