@@ -13,4 +13,8 @@ public interface DocumentoDAO extends GenericDAO<Documento, Long> {
     Documento findOrCreate(Documento documento);
 
     List<Documento> getDocumentosByDMCliente(Long idDMCliente);
+
+    List<Object[]> getCarteraClienteByIdCliente(Long idDMCliente);
+
+    List<Object[]> getTotalCarteraClientesByIdCliente(Long idCliente);
 }

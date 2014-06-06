@@ -1,8 +1,11 @@
 package cl.acaya.cobranza.business.daoEjb.entities;
 
+
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by darkmoorx on 19-05-14.
@@ -10,19 +13,21 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_TIPO_DOCUMENTO")
-@NamedQueries({@NamedQuery(name="TipoDocumento.findAll",query = "Select cn From TipoDocumento cn")})
+@NamedQueries({@NamedQuery(name="TipoDocumento.findAll",query = "Select cn From TipoDocumento cn")
+        ,@NamedQuery(name="TipoDocumento.findByCodigo", query = "from TipoDocumento t where codigoTipo = :codigoTipo")
+})
 public class TipoDocumento {
 
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
-    @GenericGenerator(name = "SEQ_TipoDocumento", strategy = "org.hibernate.id.enhanced.TableGenerator",
+    @GenericGenerator(name = "SEQ_tipoDocumento", strategy = "org.hibernate.id.enhanced.TableGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "table_name", value = "hibernate_sequences"),
-                    @org.hibernate.annotations.Parameter(name = "segment_value", value = "SEQ_TipoDocumento"),
-                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
-                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TipoDocumento")
+                    @Parameter(name = "table_name", value = "hibernate_sequences"),
+                    @Parameter(name = "segment_value", value = "SEQ_tipoDocumento"),
+                    @Parameter(name = "initial_value", value = "1"),
+                    @Parameter(name = "increment_size", value = "1") })
+    @GeneratedValue(generator = "SEQ_tipoDocumento")
     private Long systemId;
 
     @Column(name = "cod_tipo")
@@ -30,6 +35,9 @@ public class TipoDocumento {
 
     @Column(name = "nom_tipo")
     private String nombreTipo;
+
+    @Column(name = "ind")
+    private String indicadorSentido;
 
     public TipoDocumento(){
 
@@ -57,5 +65,13 @@ public class TipoDocumento {
 
     public void setNombreTipo(String nombreTipo) {
         this.nombreTipo = nombreTipo;
+    }
+
+    public String getIndicadorSentido() {
+        return indicadorSentido;
+    }
+
+    public void setIndicadorSentido(String indicadorSentido) {
+        this.indicadorSentido = indicadorSentido;
     }
 }

@@ -7,4 +7,5 @@ import cl.acaya.cobranza.business.daoEjb.entities.Sociedad;
 public interface SociedadDAO extends GenericDAO<Sociedad, Long> {
 
 
+    Sociedad findOrCreate(Sociedad sociedad);
 }

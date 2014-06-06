@@ -46,37 +46,39 @@
 
     <div id="cuerpo">
         <div class="row" data-equalizer>
-            <div style="height: 100px;padding-top:53px;">
-                <fieldset style="float:left;">
+            <div  class="large-7" style="height: 90px;padding-top:103px;">
+                <fieldset style="float:left;height: 178px;">
+                    <div class="large-6 columns">
                     <label>RUT :${cliente.rutCliente}</label>
                     <label>Razón Social : ${cliente.nombreCliente} </label>
-                    <label>Email empresa : empresa@gmail.com</label>
-                    <label>Clasificación de riesgo : 4 </label>
-                    <label>Pedidos en progreso : 4 </label>
-                    <label>Tipo Seguro : 123</label>
-                    <label>Vigencia : enero</label>
-                    <label>Estado Cliente : DESBLOQ</label>
-                    <label>Estado linea : DESBLOQ</label>
+                    <label>Email empresa : ''</label>
+                    <label>Clasificación de riesgo : ${cliente.clasificacionRiesgo}</label>
+                    <label>Pedidos en progreso : $${cliente.pedidosProceso} </label>
+                    </div>
+                    <div class="large-5 columns">
+                        <label>Tipo Seguro : ${cliente.tipoSeguro}</label>
+                        <label>Vigencia : ${cliente.vigencia}</label>
+                        <label>Estado Cliente : ${cliente.bloqueo ? 'BLOQ' : 'DESBLOQ'}</label>
+                        <label>Estado linea : ${cliente.bloqueo ? 'BLOQ' : 'DESBLOQ'}</label>
+                    </div>
                 </fieldset>
             </div>
-            <div class="large-7 columns">
+            <div class="large-5 columns">
                 <fieldset>
-                    <label>Total Deuda : $000.000.000</label>
+                    <label>Total Deuda : $${carteraCliente.total}</label>
                     <table style="padding-top: 5px;">
                         <tr>
-                            <th>Al día</th>
-                            <th>1-30 días</th>
-                            <th>31-50 días</th>
-                            <th>61-90 días</th>
-                            <th>< 90 días</th>
+                            <c:forEach items="${tramos}" var="tramo">
+                                <th>${tramo.tramo}</th>
+                            </c:forEach>
                         </tr>
+
                         <tr>
-                            <td>$000.000</td>
-                            <td>$000.000</td>
-                            <td>$000.000</td>
-                            <td>$000.000</td>
-                            <td>$000.000</td>
+                            <c:forEach items="${carteraCliente.tramosList}" var="tramo">
+                                <td>$${tramo.monto}</td>
+                            </c:forEach>
                         </tr>
+
                     </table>
                 </fieldset>
             </div>
@@ -147,60 +149,28 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${doc}" var="documento">
-                        ${documento.numeroDocumento}
-                        ${documento.documentoCompensacion}
-                        ${documento.montoDocumento}
-                        ${documento.fechaEmision}
-                        ${documento.fechaVencimiento}
-                        ${documento.estadoDocumento}
-                        ${documento.despacho}
-                        ${documento.fechaCompensacion}
-                        ${documento.folioSII}
-                        ${documento.numeroFactura}
-                        ${documento.numeroPedido}
-                        ${documento.saldoDocumento}
-                        ${documento.systemId}
+
+
+
+
+
+
+
+                    <c:forEach items="${documentosCliente}" var="documento">
+                    <tr>
+                        <td style="text-align: center"><input class="checkbox" type="checkbox" /></td>
+                        <td>${documento.numDoc}</td>
+                        <td>${documento.codigoTipo}</td>
+                        <td>${documento.monto}</td>
+                        <td>${documento.fechaEmision}</td>
+                        <td>${documento.fechaVencimiento}</td>
+                        <td>${documento.diasVencidos}</td>
+                        <td>${documento.vendedor}</td>
+                        <td>${documento.tramo}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                     </c:forEach>
-                    <tr>
-                        <td style="text-align: center"><input type="checkbox" /></td>
-                        <td>Content Goes Here</td>
-                        <td>This is longer cont</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>This is longer cont</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center"><input type="checkbox" /></td>
-                        <td>Content Goes Here</td>
-                        <td>This is longer cont</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>This is longer cont</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center"><input type="checkbox" /></td>
-                        <td>Content Goes Here</td>
-                        <td>This is longer cont</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                        <td>This is longer cont</td>
-                        <td>Content Goes Here</td>
-                        <td>Content Goes Here</td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -245,61 +215,59 @@
         </fieldset>
     </div>
 
-    <div id="agendar" class="reveal-modal" data-reveal>
-        <fieldset>
-            <legend>AGENDA</legend>
-            <div class="row" data-equalizer>
-                <div class="large-5 columns">
-                    <label>Fecha Agenda</label>
-                    <select style="width: 50px;padding-right: 5px">
-                        <option>dd</option>
-                    </select >
-                    <select style="width: 50px;padding-right: 5px">
-                        <option>mm</option>
-                    </select>
-                    <select style="width: 50px;padding-right: 5px">
-                        <option>yyyy</option>
-                    </select>
-                    <label>Hora Agenda</label>
-                    <select style="width: 50px;padding-right: 5px">
-                        <option>HH</option>
-                    </select>
-                    <select style="width: 50px;padding-right: 5px">
-                        <option>MM</option>
-                    </select><br>
-                    Observación
-                    <textarea></textarea><br>
-                    Contacto
-                    <input type="text" /><br>
-                    Cargo
-                    <input type="text" />
-                </div>
-                <div class="large-6 columns">
-                    <label>Documentos Seleccionados</label>
-                    <table style="padding-top: 5px;overflow-x: auto">
+<div id="agendar" class="reveal-modal" data-reveal>
+    <fieldset>
+        <legend>AGENDA</legend>
+        <div class="row" data-equalizer>
+            <div class="large-5 columns">
+                <label>Fecha Agenda</label>
+                <select style="width: 50px;padding-right: 5px">
+                    <option>dd</option>
+                </select >
+                <select style="width: 50px;padding-right: 5px">
+                    <option>mm</option>
+                </select>
+                <select style="width: 50px;padding-right: 5px">
+                    <option>yyyy</option>
+                </select>
+                <label>Hora Agenda</label>
+                <select style="width: 50px;padding-right: 5px">
+                    <option>HH</option>
+                </select>
+                <select style="width: 50px;padding-right: 5px">
+                    <option>MM</option>
+                </select><br>
+                Observación
+                <textarea></textarea><br>
+                Contacto
+                <input type="text" /><br>
+                Cargo
+                <input type="text" />
+            </div>
+            <div class="large-6 columns">
+                <label>Documentos Seleccionados</label>
+                <table style="padding-top: 5px;overflow-x: auto">
+                    <table id="tabla_doc_seleccionados">
+                        <thead>
                         <tr>
-                            <th>Al día</th>
-                            <th>1-30 días</th>
-                            <th>31-50 días</th>
-                            <th>61-90 días</th>
-                            <th>< 90 días</th>
+                            <th>Nª Documento</th>
+                            <th>Monto</th>
+                            <th>Fecha Vcto.</th>
                         </tr>
-                        <tr>
-                            <td>$000.000</td>
-                            <td>$000.000</td>
-                            <td>$000.000</td>
-                            <td>$000.000</td>
-                            <td>$000.000</td>
-                        </tr>
+                        </thead>
+                        <tbody id="mostrar_docs">
+
+                        </tbody>
                     </table>
-                    <div style="text-align: right;">
-                        <a href="#" class="button [tiny small large]"  >Aceptar</a>
-                        <a href="#" class="button [tiny small large]" >Cancelar</a>
-                    </div>
+                </table>
+                <div style="text-align: right;">
+                    <a href="#" class="button [tiny small large]"  >Aceptar</a>
+                    <a href="#" class="button [tiny small large]" id="cancelaAgendar" >Cancelar</a>
                 </div>
             </div>
-        </fieldset>
-    </div>
+        </div>
+    </fieldset>
+</div>
 
     <div id="recaudar" class="reveal-modal" data-reveal>
         <fieldset>
@@ -417,6 +385,7 @@
 
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
+    <script src="js/gestion_cliente.js"></script>
     <script>
         $(document).foundation();
     </script>

@@ -15,6 +15,7 @@ import java.util.List;
  */
 @Local(DocumentoDAO.class)
 @Stateless
+@SuppressWarnings({"unchecked"})
 public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements DocumentoDAO {
 
 
@@ -23,13 +24,50 @@ public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements
     public List<Object[]> getCarteraClientes() {
         return em.createNativeQuery(
                 "select cast(c.nom_cliente as varchar) as nom_cliente, c.system_id,cast(c.rut as varchar) as rut" +
-                ",cast(vw.tramo as varchar) as tramo ,min(vw.dias) as dias, sum(vw.monto) as monto " +
+                ",cast(vw.tramo as varchar) as tramo ,min(vw.dias) as dias, sum(vw.monto) as monto, vw.link_dm " +
                 "FROM cobranza.dbo.vw_docs_tramos vw " +
                 "inner join cobranza.dbo.tbl_dm_cliente dm on dm.system_id = vw.link_dm " +
                 "inner join cobranza.dbo.tbl_cliente c on dm.link_cliente = c.system_id "  +
+                "inner join cobranza.dbo.tbl_tipo_documento td on td.system_id = vw.link_tipo_doc " +
+                "inner join cobranza.dbo.tbl_vendedor v on v.system_id = vw.link_vendedor " +
                 "group by c.system_id,c.rut,vw.link_dm,c.nom_cliente, tramo order by c.nom_cliente, min(dias) asc")
                 .getResultList();
     }
+
+    public List<Object[]> getTotalCarteraClientesByIdCliente(Long idCliente) {
+        return em.createNativeQuery(
+                "select cast(c.nom_cliente as varchar) as nom_cliente, c.system_id,cast(c.rut as varchar) as rut" +
+                        ",cast(vw.tramo as varchar) as tramo ,min(vw.dias) as dias, sum(vw.monto) as monto, vw.link_dm " +
+                        "FROM cobranza.dbo.vw_docs_tramos vw " +
+                        "inner join cobranza.dbo.tbl_dm_cliente dm on dm.system_id = vw.link_dm " +
+                        "inner join cobranza.dbo.tbl_cliente c on dm.link_cliente = c.system_id "  +
+                        "inner join cobranza.dbo.tbl_tipo_documento td on td.system_id = vw.link_tipo_doc " +
+                        "inner join cobranza.dbo.tbl_vendedor v on v.system_id = vw.link_vendedor " +
+                        "where c.system_id = :idCliente " +
+                        "group by c.system_id,c.rut,vw.link_dm,c.nom_cliente, tramo order by c.nom_cliente, min(dias) asc")
+                .setParameter("idCliente", idCliente)
+                .getResultList();
+    }
+
+
+    public List<Object[]> getCarteraClienteByIdCliente(Long idCliente) {
+        return em.createNativeQuery(
+                "select cast(c.nom_cliente as varchar) as nom_cliente,cast(c.rut as varchar) as rut," +
+                "cast(vw.tramo as varchar) as tramo ,vw.dias as dias, vw.monto as monto, " +
+                "cast(vw.num_doc as varchar) as num_doc, cast(v.cod_vendedor as varchar) as vendedor, " +
+                "cast(td.cod_tipo as varchar) as codTipo, vw.fecha_emision, vw.fecha_vencimiento, vw.system_id " +
+                "FROM cobranza.dbo.vw_docs_tramos vw " +
+                "inner join cobranza.dbo.tbl_dm_cliente dm on dm.system_id = vw.link_dm " +
+                "inner join cobranza.dbo.tbl_cliente c on dm.link_cliente = c.system_id "  +
+                "inner join cobranza.dbo.tbl_tipo_documento td on td.system_id = vw.link_tipo_doc " +
+                "inner join cobranza.dbo.tbl_vendedor v on v.system_id = vw.link_vendedor " +
+                "where c.system_id = :idCliente " +
+                "order by vw.fecha_emision ")
+                .setParameter("idCliente", idCliente)
+                .getResultList();
+    }
+
+
 
     public Documento findOrCreate(Documento documento) {
         List<Documento> documentoList = em.createNamedQuery("Documento.findByNumeroFactura")

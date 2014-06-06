@@ -37,7 +37,7 @@ public class CobranzaServiceDelegate extends AbstractServiceDelegate implements 
     }
 
     @Override
-    public Response getDocumentosByCliente(Request request) {
-        return cobranzaServiceRemote.getDocumentosByCliente(request);
+    public Response getDatosGestionCliente(Request request) {
+        return cobranzaServiceRemote.getDatosGestionCliente(request);
     }
 }

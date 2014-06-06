@@ -25,7 +25,7 @@ public class PartidasSAPVO implements Cloneable {
     private Date fechaDocumento;
     private String claseDocumento;
     private Integer montoCobrar;
-    private String indicadorSentencia;
+    private String indicadorSentido;
     private Date fechaVencimiento;
     private String nombreResponsable;
     private String oficinaResponsable;
@@ -172,12 +172,12 @@ public class PartidasSAPVO implements Cloneable {
         this.montoPartida = montoPartida;
     }
 
-    public String getIndicadorSentencia() {
-        return indicadorSentencia;
+    public String getIndicadorSentido() {
+        return indicadorSentido;
     }
 
-    public void setIndicadorSentencia(String indicadorSentencia) {
-        this.indicadorSentencia = indicadorSentencia;
+    public void setIndicadorSentido(String indicadorSentido) {
+        this.indicadorSentido = indicadorSentido;
     }
 
     public Date getFechaVencimiento() {

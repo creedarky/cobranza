@@ -35,6 +35,13 @@ public class TypesAdaptor {
         clienteVO.setIdCliente(cliente.getSystemId());
         clienteVO.setNombreCliente(cliente.getNombreCliente());
         clienteVO.setRutCliente(cliente.getRutCliente());
+        clienteVO.setPedidosProceso(cliente.getPedidosEnProceso());
+        clienteVO.setTipoSeguro(cliente.getTipoSeguro());
+        clienteVO.setVigencia(cliente.getVigencia());
+        clienteVO.setClasificacionRiesgo(cliente.getClasificacionRiesgo());
+        clienteVO.setMontoSeguro(cliente.getMontoSeguro());
+        clienteVO.setLineaCredito(cliente.getLineaCredito());
+        clienteVO.setBloqueo(cliente.isBloqueo());
         return clienteVO;
     }
 

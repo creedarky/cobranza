@@ -33,7 +33,38 @@ public class Cliente {
     @Column(name = "nom_cliente")
     private String nombreCliente;
 
+    @Column(name = "seguro")
+    private String seguro;
+
+
+    @Column(name = "tipo_seguro")
+    private String tipoSeguro;
+
+    @Column(name = "condicion_pago")
+    private String condicionPago;
+
+    @Column(name = "linea_credito")
+    private Long lineaCredito;
+
+    @Column(name = "monto_seguro")
+    private Long montoSeguro;
+
+
+    @Column(name = "bloqueo")
+    private boolean bloqueo = false;
+
+    @Column(name = "ped_proc")
+    private Long pedidosEnProceso;
+
+    @Column(name = "vig_seg")
+    private String vigencia;
+
+    @Column(name = "clasifica_riesgo")
+    private String clasificacionRiesgo;
+
+
     public Cliente(){
+        bloqueo = false;
 
     }
 
@@ -59,5 +90,79 @@ public class Cliente {
 
     public void setRutCliente(String rutCliente) {
         this.rutCliente = rutCliente;
+    }
+
+    public String getSeguro() {
+        return seguro;
+    }
+
+    public void setSeguro(String seguro) {
+        this.seguro = seguro;
+    }
+
+    public String getTipoSeguro() {
+        return tipoSeguro;
+    }
+
+    public void setTipoSeguro(String tipoSeguro) {
+        this.tipoSeguro = tipoSeguro;
+    }
+
+    public String getCondicionPago() {
+        return condicionPago;
+    }
+
+    public void setCondicionPago(String condicionPago) {
+        this.condicionPago = condicionPago;
+    }
+
+    public Long getLineaCredito() {
+        return lineaCredito;
+    }
+
+    public void setLineaCredito(Long lineaCredito) {
+        this.lineaCredito = lineaCredito;
+    }
+
+    public Long getMontoSeguro() {
+        return montoSeguro;
+    }
+
+    public void setMontoSeguro(Long montoSeguro) {
+        this.montoSeguro = montoSeguro;
+    }
+
+    public boolean isBloqueo() {
+        return bloqueo;
+    }
+
+    public void setBloqueo(boolean bloqueo) {
+        this.bloqueo = bloqueo;
+    }
+
+    public Long getPedidosEnProceso() {
+        return pedidosEnProceso;
+    }
+
+    public void setPedidosEnProceso(Long pedidosEnProceso) {
+        this.pedidosEnProceso = pedidosEnProceso;
+    }
+
+    public String getVigencia() {
+        return vigencia;
+    }
+
+    public void setVigencia(String vigencia) {
+        this.vigencia = vigencia;
+    }
+
+    public String getClasificacionRiesgo() {
+        return clasificacionRiesgo;
+    }
+
+    public void setClasificacionRiesgo(String clasificacionRiesgo) {
+
+
+
     }
 }

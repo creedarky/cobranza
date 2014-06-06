@@ -7,15 +7,17 @@ public class ClienteVO {
 
 
     private Long idCliente;
+    private Long idDmCliente;
     private String nombreCliente;
     private String rutCliente;
     private String clasificacionRiesgo;
     private Long pedidosProceso;
     private String tipoSeguro;
     private String vigencia;
-    private String estadoCliente;
-    private String estadoLinea;
     private UsuarioVO usuarioAsignado;
+    private Long montoSeguro;
+    private Long lineaCredito;
+    private boolean bloqueo;
 
 
     public Long getIdCliente() {
@@ -82,20 +84,36 @@ public class ClienteVO {
         this.vigencia = vigencia;
     }
 
-    public String getEstadoCliente() {
-        return estadoCliente;
+    public Long getIdDmCliente() {
+        return idDmCliente;
     }
 
-    public void setEstadoCliente(String estadoCliente) {
-        this.estadoCliente = estadoCliente;
+    public void setIdDmCliente(Long idDmCliente) {
+        this.idDmCliente = idDmCliente;
     }
 
-    public String getEstadoLinea() {
-        return estadoLinea;
+    public boolean isBloqueo() {
+        return bloqueo;
     }
 
-    public void setEstadoLinea(String estadoLinea) {
-        this.estadoLinea = estadoLinea;
+    public void setBloqueo(boolean bloqueo) {
+        this.bloqueo = bloqueo;
+    }
+
+    public void setMontoSeguro(Long montoSeguro) {
+        this.montoSeguro = montoSeguro;
+    }
+
+    public Long getMontoSeguro() {
+        return montoSeguro;
+    }
+
+    public void setLineaCredito(Long lineaCredito) {
+        this.lineaCredito = lineaCredito;
+    }
+
+    public Long getLineaCredito() {
+        return lineaCredito;
     }
 
     @Override
@@ -114,4 +132,6 @@ public class ClienteVO {
     public int hashCode() {
         return idCliente.hashCode();
     }
+
+
 }

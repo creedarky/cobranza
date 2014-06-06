@@ -14,6 +14,7 @@ import java.io.Serializable;
  * To change this template use File | Settings | File Templates.
  */
 
+@SuppressWarnings({"unchecked"})
 public abstract class GenericDAOImpl<T, PK extends Serializable> implements GenericDAO<T, PK> {
 
     @PersistenceContext(unitName = "cobranza")
@@ -44,6 +45,9 @@ public abstract class GenericDAOImpl<T, PK extends Serializable> implements Gene
 
     @Override
     public T find(PK id) {
+        System.out.println(type);
+        System.out.println(this.em);
+        System.out.println(id);
         return this.em.find(type, id);
     }
 

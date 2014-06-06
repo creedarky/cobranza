@@ -10,7 +10,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_VENDEDOR")
-@NamedQueries({@NamedQuery(name="Vendedor.findAll",query = "Select cn From Vendedor cn")})
+@NamedQueries({@NamedQuery(name="Vendedor.findAll",query = "Select cn From Vendedor cn"),
+@NamedQuery(name = "Vendedor.findByCodigo", query = "from Vendedor where codigoVendedor = :codigoVendedor")})
 public class Vendedor {
 
     @Id

@@ -3,6 +3,9 @@
  */
 var nombreCliente = '';
 var nombreUsuario = '';
+var idCliente = 0;
+var idDmCliente;
+
 $( document ).ready(function() {
 
     $.get( "inicio.htm", function( data ) {
@@ -11,10 +14,11 @@ $( document ).ready(function() {
         $.each(body.agendaVOList, function(key,val) {
             if(typeof val.cliente.nombreCliente != 'undefined'){
                 nombreCliente = val.cliente.nombreCliente;
+                idCliente = val.cliente.idCliente;
+                idDmCliente = val.cliente.idDmCliente;
             }else{
                 nombreCliente = '';
             }
-            //console.log(val);
             if(typeof val.usuarioVO.nombreUsuario != 'undefined'){
                 nombreUsuario = val.usuarioVO.nombreUsuario;
             }else{
@@ -57,7 +61,9 @@ $( document ).ready(function() {
         $.each(body.carteraVOList, function(key,val) {
 
             var table = '<tr>' +
-                '<td>'+val.cliente.nombreCliente+'</td>';
+                '<td><a href="gestioncliente.htm?idCliente=' + val.cliente.idCliente + '">'+val.cliente.nombreCliente+'</a></td>';
+
+
 
             var tramos = '';
             $.each(val.tramosList, function(index, data) {

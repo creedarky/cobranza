@@ -13,4 +13,7 @@ public interface Parametros {
     String ID_CLIENTE = "idCliente";
     String CLIENTE = "cliente";
     String ID_DMCLIENTE = "idDMCliente";
+    String DOCUMENTOS_CLIENTE = "documentosCliente";
+    String CARTERA_CLIENTE = "carteraCliente";
+    String TRAMOS = "tramos";
 }

@@ -14,6 +14,10 @@ import java.util.List;
 @Stateless
 public class ClienteDAOImpl extends  GenericDAOImpl<Cliente,Long> implements ClienteDAO {
 
+    public ClienteDAOImpl() {
+        super(Cliente.class);
+    }
+
 
     public List<Cliente> findAll() {
         List<Cliente> clienteList = em.createNamedQuery("Cliente.findAll").getResultList();

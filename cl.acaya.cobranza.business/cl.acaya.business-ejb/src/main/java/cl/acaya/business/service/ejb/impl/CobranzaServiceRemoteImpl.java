@@ -2,7 +2,6 @@ package cl.acaya.business.service.ejb.impl;
 
 import cl.acaya.api.business.BusinessParameter;
 import cl.acaya.api.sap.Connect;
-import cl.acaya.api.sap.SapSystem;
 import cl.acaya.api.util.SapConnectionFactory;
 import cl.acaya.api.vo.*;
 import cl.acaya.api.service.CobranzaServiceRemote;
@@ -20,6 +19,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,7 +42,16 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     UsuarioDAO usuarioDAO;
 
     @EJB
+    TipoDocumentoDAO tipoDocumentoDAO;
+
+    @EJB
+    SociedadDAO sociedadDAO;
+
+    @EJB
     AsignacionClienteDAO asignacionClienteDAO;
+
+    @EJB
+    VendedorDAO vendedorDAO;
 
     private final static DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     private final static TramoVOComparator TRAMO_VO_COMPARATOR = new TramoVOComparator();
@@ -51,7 +60,8 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     public Response obtenerDocumentosSAP(Request request) {
         try {
             pruebasap(request);
-
+            if(true)
+                return null;
             Connect connect = SapConnectionFactory.newConecction();
             JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS"); //Nombre RFC
 
@@ -90,7 +100,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
                 documentoVO.setClaseDocumento(table.getString("CLADOCU"));
                 Double monto = table.getDouble("MTOCOBR");
                 documentoVO.setMontoCobrar(monto.intValue());
-                documentoVO.setIndicadorSentencia(table.getString("INDSENT"));
+                documentoVO.setIndicadorSentido(table.getString("INDSENT"));
                 documentoVO.setFechaVencimiento(table.getDate("FECVCTO"));
                 documentoVO.setNombreResponsable(table.getString("CODEMIS"));
                 documentoVO.setOficinaResponsable(table.getString("SUCRESP"));
@@ -126,6 +136,92 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         return new Response();
     }
 
+
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    private Response pruebasap(Request request) {
+        try {
+            Connect connect = SapConnectionFactory.newConecction();
+            JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS_T"); //Nombre RFC
+
+            JCoParameterList pl = function.getImportParameterList();
+
+
+            function.getImportParameterList().setValue("IND1", "101"); //Paso de parametros
+            function.getImportParameterList().setValue("IND2", "300"); //Paso de parametros
+            System.out.println(function + "no ejecutada");
+            connect.execute(function);
+            System.out.println(function + "ejecutada");
+            JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
+            System.out.println("filas " + table.getNumRows());
+            System.out.println(table);
+            Cliente cliente = null;
+            DmCliente dmCliente = null;
+            List<PartidasSAPVO> documentosList = new ArrayList<PartidasSAPVO>(table.getNumRows());
+            for (int i = 0; i < table.getNumRows(); i++) {
+                table.setRow(i);
+                PartidasSAPVO documentoVO = new PartidasSAPVO();
+                documentoVO.setCodigoSociedad(table.getString("CODSOCI"));
+                documentoVO.setCodigoCliente(table.getString("CODDEST"));
+                documentoVO.setCodigoOperacion(table.getString("CLAOPER"));
+                documentoVO.setIndicacionOperacion(table.getString("INDCME"));
+                documentoVO.setFechaCompensacion(table.getDate("FECCOMP"));
+                documentoVO.setNumeroDocumentoCompensacion(table.getString("DOCCOMP"));
+                documentoVO.setNumeroAsignacion(table.getString("NUMASIG"));
+                documentoVO.setNumeroEjercicio(table.getInt("NUMAGNO"));
+                documentoVO.setNumeroContable(table.getString("DOCCONT"));
+                documentoVO.setNumeroApunte(table.getInt("NUMCORR"));
+                documentoVO.setRutCliente(table.getString("RUTCLIE"));
+                documentoVO.setFechaContable(table.getDate("FECCONT"));
+                documentoVO.setFechaDocumento(table.getDate("FECDOCU"));
+                documentoVO.setClaseDocumento(table.getString("CLADOCU"));
+                Double monto = table.getDouble("MTOCOBR");
+                documentoVO.setMontoCobrar(monto.intValue());
+                documentoVO.setIndicadorSentido(table.getString("INDSENT"));
+                documentoVO.setFechaVencimiento(table.getDate("FECVCTO"));
+                documentoVO.setNombreResponsable(table.getString("CODEMIS"));
+                documentoVO.setOficinaResponsable(table.getString("SUCRESP"));
+                documentoVO.setNumeroFactura(table.getString("NUMFACT"));
+                documentoVO.setFolioSii(table.getString("FOLSII"));
+                documentoVO.setClavePago(table.getString("CONPAGO"));
+                documentoVO.setCodigoCobrador(table.getInt("CODCOBR"));
+                documentoVO.setGrupoMateriales(table.getString("CODCANAL"));
+                documentoVO.setOrdenCompra(table.getString("ORDCOMP"));
+                documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
+                documentoVO.setNombreCliente(table.getString("NOMCLIE"));
+                Documento d = TypesAdaptor.adaptar(documentoVO);
+                cliente = new Cliente();
+                dmCliente = new DmCliente();
+                cliente.setRutCliente(documentoVO.getRutCliente());
+                cliente.setNombreCliente(documentoVO.getNombreCliente());
+                cliente = clienteDAO.findOrCreate(cliente);
+                dmCliente.setCliente(cliente);
+                dmCliente.setDmCliente(documentoVO.getCodigoCliente());
+                dmCliente = dmClienteDAO.findOrCreate(dmCliente);
+                TipoDocumento tipoDocumento = new TipoDocumento();
+                tipoDocumento.setCodigoTipo(documentoVO.getClaseDocumento());
+                tipoDocumento.setIndicadorSentido(documentoVO.getIndicadorSentido());
+                tipoDocumento = tipoDocumentoDAO.findOrCreate(tipoDocumento);
+                d.setTipoDocumento(tipoDocumento);
+                Sociedad sociedad = new Sociedad();
+                sociedad.setCodigoSociedad(documentoVO.getCodigoSociedad());
+                sociedad = sociedadDAO.findOrCreate(sociedad);
+                Vendedor vendedor = new Vendedor();
+                vendedor.setCodigoVendedor(documentoVO.getNombreResponsable());
+                vendedor = vendedorDAO.findOrCreate(vendedor);
+                d.setVendedor(vendedor);
+                d.setDmCliente(dmCliente);
+                d.setSociedad(sociedad);
+                documentoDAO.findOrCreate(d);
+                documentosList.add(documentoVO);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        return new Response();
+    }
 
     public Response getDatosPantallaInicial(Request request) {
         Response response = new Response();
@@ -245,11 +341,107 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
     private ResumenInicialVO getCarteraPorTramos() {
         List<Object[]> resultList = documentoDAO.getCarteraClientes();
+        return getCarteraPorTramos(resultList);
+    }
+
+
+
+    public Response getDatosGestionCliente(Request request) {
+        Response response = new Response();
+        Long idCliente = request.getParam(Parametros.ID_CLIENTE, Long.class);
+        List<Object[]> resultList = documentoDAO.getCarteraClienteByIdCliente(idCliente);
+        List<DocumentoClienteVO> documentoClienteVOList = new ArrayList<DocumentoClienteVO>(resultList.size());
+        System.out.println(resultList.size());
+        for(Object[] result: resultList) {
+            String razonSocial = (String) result[0];
+            //Long res = ((BigDecimal) result[1]).longValue();
+            String rutCliente = (String) result[1];
+            String tramo = (String) result[2];
+            Integer diasVencidos = (Integer) result[3];
+            BigDecimal monto = (BigDecimal) result[4];
+            String numDoc = (String) result[5];
+            String vendedor = (String) result[6];
+            String codigoTipo = (String) result[7];
+            Date fechaEmision = (Date) result[8];
+            Date fechaVencimiento = (Date) result[9];
+            Long idDocumento = ((BigDecimal) result[10]).longValue();
+            DocumentoClienteVO documentoClienteVO = new DocumentoClienteVO();
+            documentoClienteVO.setNumDoc(numDoc);
+            documentoClienteVO.setTramo(tramo);
+            documentoClienteVO.setCodigoTipo(codigoTipo);
+            documentoClienteVO.setMonto(monto);
+            documentoClienteVO.setRazonSocial(razonSocial);
+            documentoClienteVO.setRut(rutCliente);
+            documentoClienteVO.setDiasVencidos(diasVencidos);
+            documentoClienteVO.setVendedor(vendedor);
+            documentoClienteVO.setFechaVencimiento(fechaVencimiento);
+            documentoClienteVO.setFechaEmision(fechaEmision);
+            documentoClienteVO.setIdDocumento(idDocumento);
+            documentoClienteVOList.add(documentoClienteVO);
+        }
+        System.out.println("Size " + documentoClienteVOList.size());
+        if(documentoClienteVOList.size() > 0 ) {
+            List<Object[]> resultadoCartera = documentoDAO.getTotalCarteraClientesByIdCliente(idCliente);
+            ResumenInicialVO resumenInicialVO = getCarteraPorTramos(resultadoCartera);
+            if(resumenInicialVO != null && resumenInicialVO.getTramoVOList() != null && !resumenInicialVO.getTramoVOList().isEmpty()) {
+                List<TramoVO> tramoVOList = resumenInicialVO.getTramoVOList();
+                response.addResp(Parametros.TRAMOS, tramoVOList);
+                response.addResp(Parametros.CARTERA_CLIENTE, resumenInicialVO.getCarteraVOList().get(0) );
+
+            }
+        }
+        Cliente cliente = clienteDAO.find(idCliente);
+        response.addResp(Parametros.DOCUMENTOS_CLIENTE, documentoClienteVOList);
+        Connect connect = SapConnectionFactory.newConecction();
+        JCoFunction functionDatosClientes = connect.getFunction("ZSDFN_DATOS_CLIENTE_11"); // Nombre RFC
+        functionDatosClientes.getImportParameterList().setValue("RUTCLIENTE", cliente.getRutCliente().toUpperCase()); // Paso
+        connect.execute(functionDatosClientes);
+        JCoTable datosCliente = functionDatosClientes.getTableParameterList().getTable("DATOS_CLIE");
+
+        if (datosCliente != null) {
+            String swExiste = (String) functionDatosClientes.getExportParameterList().getValue("SW_EXISTE");
+
+            if ("S".equals(swExiste)) {
+                cliente.setClasificacionRiesgo(datosCliente.getString("CLSRIESGO"));
+                cliente.setVigencia((String) datosCliente.getValue("VIGSEGURO"));
+                cliente.setMontoSeguro(((BigDecimal) functionDatosClientes.getExportParameterList().getValue("MTOSEGURO_P")).longValue());
+                cliente.setCondicionPago(datosCliente.getString("CONPAGO"));
+                cliente.setTipoSeguro(datosCliente.getString("TIPSEGURO"));
+                cliente.setLineaCredito(datosCliente.getBigDecimal("LINCREDITO").longValue() * 100);
+                JCoFunction funcPedidos = connect.getFunction("ZSDFN_FRONT_PEDCOT_R");
+                funcPedidos.getImportParameterList().setValue("RUTCLIENTE",cliente.getRutCliente());
+                connect.execute(funcPedidos);
+                if (funcPedidos.getTableParameterList().getTable("DETALLE").getNumRows() == 0) {
+                    funcPedidos.getImportParameterList().setValue("RUTCLIENTE",cliente.getRutCliente().toUpperCase());
+                    connect.execute(funcPedidos);
+                }
+                long flujoPedidoProceso = 0;
+                JCoTable pedidosEnProceo = funcPedidos.getTableParameterList().getTable("DETALLE");
+                for (int i = 0; i < pedidosEnProceo.getNumRows(); i++) {
+                    pedidosEnProceo.setRow(i);
+                    String tipo = pedidosEnProceo.getString(0);
+                    if (tipo.toLowerCase().equals("p")) {
+                        flujoPedidoProceso += pedidosEnProceo.getBigDecimal("MONTO").longValue();
+                    }
+                }
+                cliente.setPedidosEnProceso(flujoPedidoProceso);
+                cliente = clienteDAO.update(cliente);
+
+
+            }
+        }
+        ClienteVO clienteVO = TypesAdaptor.adaptar(cliente);
+        response.addResp(Parametros.CLIENTE, clienteVO);
+        return response;
+
+    }
+
+    private ResumenInicialVO getCarteraPorTramos(List<Object[]> resultList) {
         List<TramoVO> tramoVOList = new ArrayList<TramoVO>();
         List<CarteraVO> carteraVOList = new ArrayList<CarteraVO>();
         for(Object[] result: resultList) {
             System.out.println("0 " + result[0] + " 1" + result [1] + " 2" + result[2] + " 3 " + result[3]
-                + " 4 " + result[4] + " 5 " + result[5]);
+                    + " 4 " + result[4] + " 5 " + result[5]);
             ClienteVO clienteVO = new ClienteVO();
             clienteVO.setIdCliente(((BigDecimal) result[1]).longValue());
             CarteraVO carteraVO = new CarteraVO();
@@ -259,6 +451,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
             }else {
                 carteraVO.getCliente().setNombreCliente((String) result[0]);
                 carteraVO.getCliente().setRutCliente((String) result[2]);
+                carteraVO.getCliente().setIdDmCliente(((BigDecimal) result[6]).longValue());
                 carteraVOList.add(carteraVO);
             }
             TramoVO tramoVO = new TramoVO();
@@ -290,102 +483,6 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         resumenInicialVO.setCarteraVOList(carteraVOList);
 
         return resumenInicialVO;
-
-    }
-
-    private Response pruebasap(Request request) {
-        try {
-            Connect connect = SapConnectionFactory.newConecction();
-            JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS_T"); //Nombre RFC
-
-            JCoParameterList pl = function.getImportParameterList();
-
-            String rutCliente = request.getParam(BusinessParameter.RUT_CLIENTE, String.class);
-            Long sociedad = Long.valueOf(request.getParam(BusinessParameter.SOCIEDAD, String.class));
-
-            function.getImportParameterList().setValue("IND1", "0"); //Paso de parametros
-            function.getImportParameterList().setValue("IND2", "5000"); //Paso de parametros
-            System.out.println(function + "no ejecutada");
-            connect.execute(function);
-            System.out.println(function + "ejecutada");
-            JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
-            System.out.println("filas " + table.getNumRows());
-            System.out.println(table);
-            table = function.getTableParameterList().getTable("TSALIDA1"); //Tabla de Salida
-            System.out.println("filas " + table.getNumRows());
-            System.out.println(table);
-            Cliente cliente = null;
-            DmCliente dmCliente = null;
-            List<PartidasSAPVO> documentosList = new ArrayList<PartidasSAPVO>(table.getNumRows());
-            for (int i = 0; i < table.getNumRows(); i++) {
-                table.setRow(i);
-                PartidasSAPVO documentoVO = new PartidasSAPVO();
-                documentoVO.setCodigoSociedad(table.getString("CODSOCI"));
-                documentoVO.setCodigoCliente(table.getString("CODDEST"));
-                documentoVO.setCodigoOperacion(table.getString("CLAOPER"));
-                documentoVO.setIndicacionOperacion(table.getString("INDCME"));
-                documentoVO.setFechaCompensacion(table.getDate("FECCOMP"));
-                documentoVO.setNumeroDocumentoCompensacion(table.getString("DOCCOMP"));
-                documentoVO.setNumeroAsignacion(table.getString("NUMASIG"));
-                documentoVO.setNumeroEjercicio(table.getInt("NUMAGNO"));
-                documentoVO.setNumeroContable(table.getString("DOCCONT"));
-                documentoVO.setNumeroApunte(table.getInt("NUMCORR"));
-                documentoVO.setRutCliente(table.getString("RUTCLIE"));
-                documentoVO.setFechaContable(table.getDate("FECCONT"));
-                documentoVO.setFechaDocumento(table.getDate("FECDOCU"));
-                documentoVO.setClaseDocumento(table.getString("CLADOCU"));
-                Double monto = table.getDouble("MTOCOBR");
-                documentoVO.setMontoCobrar(monto.intValue());
-                documentoVO.setIndicadorSentencia(table.getString("INDSENT"));
-                documentoVO.setFechaVencimiento(table.getDate("FECVCTO"));
-                documentoVO.setNombreResponsable(table.getString("CODEMIS"));
-                documentoVO.setOficinaResponsable(table.getString("SUCRESP"));
-                documentoVO.setNumeroFactura(table.getString("NUMFACT"));
-                documentoVO.setFolioSii(table.getString("FOLSII"));
-                documentoVO.setClavePago(table.getString("CONPAGO"));
-                documentoVO.setCodigoCobrador(table.getInt("CODCOBR"));
-                documentoVO.setGrupoMateriales(table.getString("CODCANAL"));
-                documentoVO.setOrdenCompra(table.getString("ORDCOMP"));
-                documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
-                documentoVO.setNombreCliente(table.getString("NOMCLIE"));
-                Documento d = TypesAdaptor.adaptar(documentoVO);
-                if(cliente == null) {
-                    cliente = new Cliente();
-                    dmCliente = new DmCliente();
-                    cliente.setRutCliente(documentoVO.getRutCliente());
-                    cliente.setNombreCliente(documentoVO.getNombreCliente());
-                    cliente = clienteDAO.findOrCreate(cliente);
-                    dmCliente.setCliente(cliente);
-                    dmCliente.setDmCliente(documentoVO.getCodigoCliente());
-                    dmCliente = dmClienteDAO.findOrCreate(dmCliente);
-
-                }
-                d.setDmCliente(dmCliente);
-                documentoDAO.findOrCreate(d);
-                documentosList.add(documentoVO);
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-
-        return new Response();
-    }
-
-    public Response getDocumentosByCliente(Request request) {
-        Response response = new Response();
-        Long idDMCliente = request.getParam("dmCliente", Long.class);
-        Long idCliente = request.getParam(Parametros.ID_CLIENTE, Long.class);
-        List<Documento> documentoList = documentoDAO.getDocumentosByDMCliente(idDMCliente);
-        List<DocumentoVO> documentoVOList = new ArrayList<DocumentoVO>(documentoList.size());
-        for(Documento d: documentoList) {
-            DocumentoVO documentoVO = TypesAdaptor.adaptar(d);
-            documentoVOList.add(documentoVO);
-
-        }
-
-        response.addResp("doc", documentoList);
-        return response;
 
     }
 }
