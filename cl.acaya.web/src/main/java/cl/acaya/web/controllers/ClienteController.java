@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,8 +41,10 @@ public class ClienteController {
         Request request = RequestFactory.newRequest(httpRequest);
         request.addParam(Parametros.ID_CLIENTE, idCliente);
         request.addParam(Parametros.ID_DMCLIENTE, idDMCLiente);
-
+        Response response = cobranzaServiceRemote.getDocumentosByCliente(request);
+        List<DocumentoVO> documentoVOList = response.getResp("doc", List.class);
         model.addAttribute(Parametros.CLIENTE, new ClienteVO());
+        model.addAttribute("doc", documentoVOList);
         return "gestion_cliente";
     }
 

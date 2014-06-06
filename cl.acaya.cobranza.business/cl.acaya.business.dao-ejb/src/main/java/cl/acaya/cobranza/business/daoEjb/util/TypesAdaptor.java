@@ -1,11 +1,7 @@
 package cl.acaya.cobranza.business.daoEjb.util;
 
-import cl.acaya.api.vo.ClienteVO;
-import cl.acaya.api.vo.PartidasSAPVO;
-import cl.acaya.api.vo.UsuarioVO;
-import cl.acaya.cobranza.business.daoEjb.entities.Cliente;
-import cl.acaya.cobranza.business.daoEjb.entities.Documento;
-import cl.acaya.cobranza.business.daoEjb.entities.Usuario;
+import cl.acaya.api.vo.*;
+import cl.acaya.cobranza.business.daoEjb.entities.*;
 import org.apache.log4j.Logger;
 
 import java.text.SimpleDateFormat;
@@ -50,5 +46,66 @@ public class TypesAdaptor {
         return usuarioVO;
     }
 
+
+    public static DocumentoVO adaptar(Documento documento) {
+        DocumentoVO documentoVO = new DocumentoVO();
+        documentoVO.setFechaEmision(documento.getFechaEmision());
+        documentoVO.setFechaVencimiento(documento.getFechaVencimiento());
+        documentoVO.setFechaCompensacion(documento.getFechaCompensacion());
+        documentoVO.setMontoDocumento(documento.getMontoDocumento());
+        documentoVO.setSaldoDocumento(documento.getSaldoDocumento());
+        documentoVO.setEstadoDocumento(documento.isEstadoDocumento());
+        documentoVO.setDespacho(documento.getDespacho());
+        documentoVO.setSystemId(documento.getSystemId());
+        documentoVO.setNumeroPedido(documento.getNumeroPedido());
+        documentoVO.setNumeroFactura(documento.getNumeroFactura());
+        documentoVO.setFolioSII(documento.getFolioSII());
+        documentoVO.setDocumentoCompensacion(documento.getDocumentoCompensacion());
+        documentoVO.setNumeroDocumento(documento.getNumeroDocumento());
+        return documentoVO;
+    }
+
+    public static VendedorVO adaptar(Vendedor vendedor){
+        VendedorVO vendedorVO = new VendedorVO();
+        vendedorVO.setSystemId(vendedor.getSystemId());
+        vendedorVO.setCodigoVendedor(vendedor.getCodigoVendedor());
+        vendedorVO.setEmailVendedor(vendedor.getEmailVendedor());
+        vendedorVO.setFonoVendedor1(vendedor.getFonoVendedor1());
+        vendedorVO.setFonoVendedor2(vendedor.getFonoVendedor2());
+        vendedorVO.setFonoVendedor3(vendedor.getFonoVendedor3());
+        return vendedorVO;
+    }
+
+    public static SucursalVO adaptar(Sucursal sucursal){
+        SucursalVO sucursalVO = new SucursalVO();
+        sucursalVO.setSystemId(sucursal.getSystemId());
+        sucursalVO.setCodigoSucursal(sucursal.getCodigoSucursal());
+        sucursalVO.setNombreSucursal(sucursal.getNombreSucursal());
+        return sucursalVO;
+    }
+
+    public static DmClienteVO adaptar(DmCliente dmCliente){
+        DmClienteVO dmClienteVO = new DmClienteVO();
+        dmClienteVO.setSystemId(dmCliente.getSystemId());
+        dmClienteVO.setDmCliente(dmCliente.getDmCliente());
+
+        return dmClienteVO;
+    }
+
+    public static TipoDocumentoVO adaptar(TipoDocumento tipoDocumento){
+        TipoDocumentoVO tipoDocumentoVO = new TipoDocumentoVO();
+        tipoDocumentoVO.setSystemId(tipoDocumento.getSystemId());
+        tipoDocumentoVO.setCodigoTipo(tipoDocumento.getCodigoTipo());
+        tipoDocumentoVO.setNombreTipo(tipoDocumento.getNombreTipo());
+        return tipoDocumentoVO;
+    }
+
+    public static SociedadVO adaptar(Sociedad sociedad){
+        SociedadVO sociedadVO = new SociedadVO();
+        sociedadVO.setSystemId(sociedad.getSystemId());
+        sociedadVO.setCodigoSociedad(sociedad.getCodigoSociedad());
+        sociedadVO.setNombreSociedad(sociedad.getNombreSociedad());
+        return sociedadVO;
+    }
 
 }

@@ -377,10 +377,15 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         Long idDMCliente = request.getParam("dmCliente", Long.class);
         Long idCliente = request.getParam(Parametros.ID_CLIENTE, Long.class);
         List<Documento> documentoList = documentoDAO.getDocumentosByDMCliente(idDMCliente);
+        List<DocumentoVO> documentoVOList = new ArrayList<DocumentoVO>(documentoList.size());
+        for(Documento d: documentoList) {
+            DocumentoVO documentoVO = TypesAdaptor.adaptar(d);
+            documentoVOList.add(documentoVO);
 
+        }
+
+        response.addResp("doc", documentoList);
         return response;
-
-
 
     }
 }

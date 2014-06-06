@@ -147,7 +147,21 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                    <c:forEach items="${doc}" var="documento">
+                        ${documento.numeroDocumento}
+                        ${documento.documentoCompensacion}
+                        ${documento.montoDocumento}
+                        ${documento.fechaEmision}
+                        ${documento.fechaVencimiento}
+                        ${documento.estadoDocumento}
+                        ${documento.despacho}
+                        ${documento.fechaCompensacion}
+                        ${documento.folioSII}
+                        ${documento.numeroFactura}
+                        ${documento.numeroPedido}
+                        ${documento.saldoDocumento}
+                        ${documento.systemId}
+                    </c:forEach>
                     <tr>
                         <td style="text-align: center"><input type="checkbox" /></td>
                         <td>Content Goes Here</td>
