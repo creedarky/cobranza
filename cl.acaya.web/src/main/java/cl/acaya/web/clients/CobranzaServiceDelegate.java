@@ -40,4 +40,9 @@ public class CobranzaServiceDelegate extends AbstractServiceDelegate implements 
     public Response getDatosGestionCliente(Request request) {
         return cobranzaServiceRemote.getDatosGestionCliente(request);
     }
+
+    @Override
+    public Response ejecutarCargaMasiva() {
+        return cobranzaServiceRemote.ejecutarCargaMasiva();
+    }
 }

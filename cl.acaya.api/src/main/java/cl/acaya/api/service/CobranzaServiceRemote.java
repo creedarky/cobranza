@@ -17,4 +17,6 @@ public interface CobranzaServiceRemote {
     Response guardarDatosAsignacion(Request request);
 
     Response getDatosGestionCliente(Request request);
+
+    Response ejecutarCargaMasiva();
 }

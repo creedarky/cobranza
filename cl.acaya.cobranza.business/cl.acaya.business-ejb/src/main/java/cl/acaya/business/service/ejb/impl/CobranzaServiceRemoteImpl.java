@@ -15,8 +15,7 @@ import com.sap.conn.jco.JCoTable;
 
 import javax.annotation.Resource;
 import javax.ejb.*;
-import javax.transaction.Status;
-import javax.transaction.UserTransaction;
+import javax.transaction.*;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -171,7 +170,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
 
 
-    private Response pruebasap(Request request) {
+    public Response ejecutarCargaMasiva() {
         try {
             Connect connect = SapConnectionFactory.newConecction();
             JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS_T"); //Nombre RFC
@@ -405,6 +404,10 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     public Response getDatosGestionCliente(Request request) {
         Response response = new Response();
         Long idCliente = request.getParam(Parametros.ID_CLIENTE, Long.class);
+        Cliente cliente = clienteDAO.find(idCliente);
+        request.addParam(BusinessParameter.RUT_CLIENTE, cliente.getRutCliente());
+        request.addParam(BusinessParameter.SOCIEDAD, "1000");
+        response = obtenerDocumentosSAP(request);
         List<Object[]> resultList = documentoDAO.getCarteraClienteByIdCliente(idCliente);
         List<DocumentoClienteVO> documentoClienteVOList = new ArrayList<DocumentoClienteVO>(resultList.size());
         System.out.println(resultList.size());
@@ -446,7 +449,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
             }
         }
-        Cliente cliente = clienteDAO.find(idCliente);
+
         response.addResp(Parametros.DOCUMENTOS_CLIENTE, documentoClienteVOList);
         Connect connect = SapConnectionFactory.newConecction();
         JCoFunction functionDatosClientes = connect.getFunction("ZSDFN_DATOS_CLIENTE_11"); // Nombre RFC
@@ -486,8 +489,22 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
             }
         }
+
+        try {
+            if(userTransaction.getStatus() ==  Status.STATUS_ACTIVE)
+                userTransaction.commit();
+        } catch (RollbackException e) {
+            e.printStackTrace();
+        } catch (HeuristicMixedException e) {
+            e.printStackTrace();
+        } catch (HeuristicRollbackException e) {
+            e.printStackTrace();
+        } catch (SystemException e) {
+            e.printStackTrace();
+        }
         ClienteVO clienteVO = TypesAdaptor.adaptar(cliente);
         response.addResp(Parametros.CLIENTE, clienteVO);
+
         return response;
 
     }
@@ -519,14 +536,34 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
                 tramoVOList.add(tramoVO);
             }
             try {
-                TramoVO clone = tramoVO.clone();
-                BigDecimal monto = (BigDecimal) result[5];
-                clone.setMonto(monto.toString());
-                carteraVO.getTramosList().add(clone);
+                if(!carteraVO.getTramosList().contains(tramoVO)) {
+                    TramoVO clone = tramoVO.clone();
+                    BigDecimal monto = (BigDecimal) result[5];
+                    clone.setMonto(monto.toString());
+                    carteraVO.getTramosList().add(clone);
+                }else {
+                    TramoVO tramo = carteraVO.getTramosList().get(carteraVO.getTramosList().indexOf(tramoVO));
+                    BigDecimal montoTramo = new BigDecimal(tramo.getMonto());
+                    BigDecimal monto = ((BigDecimal) result[5]).add(montoTramo);
+                    tramo.setMonto(monto.toString());
+                }
             }catch (Exception e) {}
         }
+
+
         Collections.sort(tramoVOList,TRAMO_VO_COMPARATOR);
+
+
         for(CarteraVO carteraVO : carteraVOList) {
+            for(TramoVO tramoVO: tramoVOList) {
+                if(!carteraVO.getTramosList().contains(tramoVO)) {
+                    try {
+                        TramoVO clone = tramoVO.clone();
+                        clone.setMonto("0");
+                        carteraVO.getTramosList().add(clone);
+                    }catch (Exception e) {}
+                }
+            }
             Collections.sort(carteraVO.getTramosList(), TRAMO_VO_COMPARATOR);
             Long monto = 0l;
             for(TramoVO tramoVO: carteraVO.getTramosList()) {
