@@ -67,9 +67,9 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     //@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Response obtenerDocumentosSAP(Request request) {
         try {
-            pruebasap(request);
-            if(true)
-                return null;
+            //pruebasap(request);
+            //if(true)
+                //return null;
 
             Connect connect = SapConnectionFactory.newConecction();
             JCoFunction function = connect.getFunction("ZFIFN_SCKCOB_PARTIDAS"); //Nombre RFC
