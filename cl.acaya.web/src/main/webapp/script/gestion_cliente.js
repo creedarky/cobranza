@@ -32,14 +32,13 @@ $( document ).ready(function() {
 
         $.ajax({
             data:  data,
-            url:   '/guardar_contacto',
+            url:   'guardar-contacto.htm',
             type:  'post',
             success:  function (data) {
                 alert("Contacto guardado correctamente");
                 $("#tabla_contacto").append('<tr><td>'+$("#contacto_nombre").val()+'</td><td>'+$("#contacto_telefono").val()+'</td><td>'+$("#contacto_email").val()+'</td></tr>')
             }
         });
-
 
     });
 
