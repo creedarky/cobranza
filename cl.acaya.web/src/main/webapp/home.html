@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation | Welcome</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+  </head>
+  <body>
+    
+    <div>
+        <nav class="top-bar" data-topbar>
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="#">Pantalla Inicial</a></h1>
+                </li>
+            </ul>
+
+            <section class="top-bar-section">
+                <ul class="left">
+                    <li><a href="#">Despacho</a></li>
+                </ul>
+                <ul class="left">
+                    <li><a href="#">Gestión</a></li>
+                </ul>
+                <ul class="left">
+                    <li><a href="#">Contingencias</a></li>
+                </ul>
+                <ul class="left">
+                    <li><a href="#">Email a clientes</a></li>
+                </ul>
+                <ul class="left">
+                    <li><a href="#">Informes</a></li>
+                </ul>
+                <ul class="left">
+                    <li><a href="#">Administración</a></li>
+                </ul>
+            </section>
+        </nav>
+
+    </div>
+
+    <div id="cuerpo" style="padding-top: 30px;">
+        <div class="row">
+            <div class="large-7 columns">
+                    <label>AGENDA</label>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Fecha Agenda</th>
+                            <th>Tipo Agenda</th>
+                            <th>Asignado</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla_agenda">
+
+                        </tbody>
+                    </table>
+            </div>
+            <div class="large-5 columns">
+                    <label>CAMPAÑAS</label>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th >Cliente</th>
+                            <th>Campaña</th>
+                            <th>Fecha</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla_campana">
+
+                        </tbody>
+                    </table>
+            </div>
+    </div>
+    <div id="cuerpo_inferior" style="padding-top: 10px;">
+        <div class="row" data-equalizer>
+            <div style="padding-left:15px;padding-left: 15px;">
+                <label>CARTERA DE COBRANZA</label>
+                <table style="width: 100%" id="tramos">
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/inicio.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>
