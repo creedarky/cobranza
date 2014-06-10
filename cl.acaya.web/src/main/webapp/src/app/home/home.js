@@ -28,18 +28,35 @@ angular.module( 'ngBoilerplate.home', [
     views: {
       "main": {
         controller: 'HomeCtrl',
-        templateUrl: 'home/home.tpl.html'
+        templateUrl: 'template/home.html'
       }
     },
     data:{ pageTitle: 'Home' }
+
   });
 })
 
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope ) {
-})
+.controller( 'HomeCtrl', function HomeController( $scope,$http ) {
+    $http.get('inicio.htm').success(function(data) {
+        $scope.body = data.body;
+        $scope.success = data.success;
+        $scope.agendasClientes = data.body.agendaVOList;
+        $scope.campanhas = data.body.campanhaVOList;
+        $scope.carteraClientes = data.body.carteraVOList;
+        $scope.tramos = data.body.tramoVOList;
+    });
 
-;
+    $scope.getUsuario =  function(cliente) {
+        if(typeof cliente.usuarioVO.nombreUsuario != 'undefined'){
+            nombreUsuario = cliente.usuarioVO.nombreUsuario;
+        }else{
+            nombreUsuario = '';
+        }
+        return nombreUsuario
+    }
+
+});
 

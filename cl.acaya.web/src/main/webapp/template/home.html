@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="large-7 columns">
+        <label>AGENDA</label>
+        <table>
+            <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Fecha Agenda</th>
+                <th>Tipo Agenda</th>
+                <th>Asignado</th>
+            </tr>
+            </thead>
+            <tbody >
+                <tr ng-repeat="cliente in agendasClientes">
+                    <td>{{ cliente.cliente.nombreCliente }}</td>
+                    <td> {{ cliente.fechaAgendada | date: 'dd-MM-yyyy'}}</td>
+                    <td> {{ cliente.tipoAgenda }}</td>
+                    <td> {{ getUsuario(cliente) }} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="large-5 columns">
+        <label>CAMPAÑAS</label>
+        <table>
+            <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Campaña</th>
+                <th>Fecha</th>
+            </tr>
+
+            </thead>
+            <tbody id="tabla_campana">
+                <tr ng-repeat="campanha in campanhas">
+                    <td>{{campanha.nombre}}</td>
+                    <td>{{campanha.nombre}}</td>
+                    <td>{{ campanha.fechaInicio | date: 'dd-MM-yyyy'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="cuerpo_inferior" style="padding-top: 10px;">
+    <div class="row" data-equalizer>
+        <div style="padding-left:15px;padding-left: 15px;">
+            <label>CARTERA DE COBRANZA</label>
+            <table style="width: 100%" id="tramos">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th ng-repeat="tramo in tramos">
+                            {{ tramo.tramo }}
+                        </th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="cartera in carteraClientes">
+                        <td>
+                            <a href="gestioncliente.htm?idCliente={{cartera.cliente.idCliente}}">{{cartera.cliente.nombreCliente}}</a></td>
+                        </td>
+                        <td ng-repeat="tramo in cartera.tramosList">
+                            {{ tramo.monto | currency }}
+                        </td>
+                        <td> {{cartera.total | currency}} </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
