@@ -386,7 +386,7 @@
 
     <div id="agregar_contacto" class="reveal-modal" data-reveal>
         <fieldset>
-            <legend>CONTINGENCIA</legend>
+            <legend>Agregar Contacto</legend>
             <div class="row" data-equalizer>
                 <form id="form_contacto">
                     <label>Nombre Contacto</label><input type="text" id="contacto_nombre" name="contacto_nombre" />

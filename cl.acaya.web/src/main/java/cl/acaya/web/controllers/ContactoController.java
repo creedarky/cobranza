@@ -26,19 +26,20 @@ public class ContactoController {
 
     private ContactoServiceRemote contactoServiceRemote;
 
-    @Autowired
     public ContactoController(ContactoServiceRemote contactoServiceRemote) {
         this.contactoServiceRemote = contactoServiceRemote;
     }
 
     @RequestMapping(value = "/guardar-contacto", method = RequestMethod.POST)
     public @ResponseBody
-    JsonResponse guardarDatosAsignaciones(HttpServletRequest httpServletRequest,
+    JsonResponse guardarContacto(HttpServletRequest httpServletRequest,
                                           @RequestParam(Parametros.NOMBRE_CONTACTO) Long nombre,
                                           @RequestParam(Parametros.TELEFONO_CONTACTO) Long[] telefono,
                                           @RequestParam(Parametros.EMAIL_CONTACTO) Long[] email) {
         Request request = RequestFactory.newRequest(httpServletRequest);
-
+        request.addParam(Parametros.NOMBRE_CONTACTO, nombre);
+        request.addParam(Parametros.TELEFONO_CONTACTO, telefono);
+        request.addParam(Parametros.EMAIL_CONTACTO, email);
         Response response = contactoServiceRemote.guardarContacto(request);
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccess(response.isOK());
