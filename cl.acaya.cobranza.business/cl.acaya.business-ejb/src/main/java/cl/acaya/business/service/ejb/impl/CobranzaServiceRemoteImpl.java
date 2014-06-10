@@ -40,7 +40,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     ClienteDAO clienteDAO;
 
     @EJB
-    DmClienteDAO dmClienteDAO;
+    DMClienteDAO dmClienteDAO;
 
     @EJB
     UsuarioDAO usuarioDAO;

@@ -88,9 +88,10 @@
         <legend>CONTACTOS COBRANZA</legend>
         <div style="text-align: right;">
             <a href="http://zurb.com/university/responsive-design" class="button secondary">Llamar</a>
+            <a href="#" data-reveal-id=="agregar_contacto" class="button secondary">Agregar</a>
         </div>
         <div style="padding-left:15px;padding-left: 15px;">
-            <table style="width: 100%">
+            <table style="width: 100%" id="tabla_contacto">
                 <thead>
                 <tr>
                     <th>Nombre</th>
@@ -381,6 +382,20 @@
 
     <div id="bitacora" class="reveal-modal" data-reveal>
 
+    </div>
+
+    <div id="agregar_contacto" class="reveal-modal" data-reveal>
+        <fieldset>
+            <legend>CONTINGENCIA</legend>
+            <div class="row" data-equalizer>
+                <form id="form_contacto">
+                    <label>Nombre Contacto</label><input type="text" id="contacto_nombre" name="contacto_nombre" />
+                    <label>Teléfono Contacto</label><input type="text" id="contacto_telefono" name="contacto_telefono"/>
+                    <label>Email Teléfono</label><input type="text" id="contacto_email" name="contacto_email" />
+                    <a href="#" id="contacto_guardar" class="button secondary">Guardar</a>
+                </form>
+            </div>
+        </fieldset>
     </div>
 
     <script src="js/vendor/jquery.js"></script>

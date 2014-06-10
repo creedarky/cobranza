@@ -16,4 +16,7 @@ public interface Parametros {
     String DOCUMENTOS_CLIENTE = "documentosCliente";
     String CARTERA_CLIENTE = "carteraCliente";
     String TRAMOS = "tramos";
+    String NOMBRE_CONTACTO = "nombre";
+    String TELEFONO_CONTACTO = "telefono";
+    String EMAIL_CONTACTO = "email";
 }

@@ -27,5 +27,20 @@ $( document ).ready(function() {
         $('#agendar').trigger('reveal:close');
     });
 
+    $('#contacto_guardar').click(function(){
+        var data = $("#form_contacto").serialize();
+
+        $.ajax({
+            data:  data,
+            url:   '/guardar_contacto',
+            type:  'post',
+            success:  function (data) {
+                alert("Contacto guardado correctamente");
+                $("#tabla_contacto").append('<tr><td>'+$("#contacto_nombre").val()+'</td><td>'+$("#contacto_telefono").val()+'</td><td>'+$("#contacto_email").val()+'</td></tr>')
+            }
+        });
+
+
+    });
 
 });
