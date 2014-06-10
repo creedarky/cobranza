@@ -6,13 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 
-/**
- * Created with IntelliJ IDEA.
- * User: maguirre
- * Date: 8/2/13
- * Time: 5:15 PM
- * To change this template use File | Settings | File Templates.
- */
 
 @SuppressWarnings({"unchecked"})
 public abstract class GenericDAOImpl<T, PK extends Serializable> implements GenericDAO<T, PK> {
@@ -45,9 +38,6 @@ public abstract class GenericDAOImpl<T, PK extends Serializable> implements Gene
 
     @Override
     public T find(PK id) {
-        System.out.println(type);
-        System.out.println(this.em);
-        System.out.println(id);
         return this.em.find(type, id);
     }
 
@@ -55,7 +45,6 @@ public abstract class GenericDAOImpl<T, PK extends Serializable> implements Gene
     public T update(T t) {
         this.em.merge(t);
         this.em.flush();
-        this.em.refresh(t);
         return t;
     }
 
