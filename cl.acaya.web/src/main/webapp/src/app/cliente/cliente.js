@@ -3,7 +3,6 @@ angular.module( 'ngBoilerplate.cliente', [
   'placeholders',
   'ui.bootstrap',
   'cobranzaFilters'
-
 ])
 
 .config(function config( $stateProvider ) {
@@ -15,12 +14,12 @@ angular.module( 'ngBoilerplate.cliente', [
         templateUrl: 'template/gestion_cliente.html'
       }
     },
-    data:{ pageTitle: 'Gestión cliente' }
+    data:{ pageTitle: 'Gesti\u00f3n cliente' }
   });
 })
 
 
-.controller( 'ClienteCtrl', ['$scope', '$stateParams', '$http',function($scope,$stateParams,$http ) {
+.controller( 'ClienteCtrl', ['$scope', '$stateParams', '$http','$modal',function($scope,$stateParams,$http, $modal ) {
         console.log($stateParams.idCliente);
         $http.get('rest/cliente/gestion/'+$stateParams.idCliente).success(function(data) {
             $scope.body = data.body;
@@ -33,7 +32,6 @@ angular.module( 'ngBoilerplate.cliente', [
         });
 
         $scope.open = function (size,view) {
-
             var modalInstance = $modal.open({
                 templateUrl: view,
                 controller: ModalInstanceCtrl,
@@ -48,7 +46,23 @@ angular.module( 'ngBoilerplate.cliente', [
             modalInstance.result.then(function (selectedItem) {
                 $scope.selected = selectedItem;
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+                //$log.info('Modal dismissed at: ' + new Date());
             });
         };
 }]);
+
+var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
+
+    $scope.items = items;
+    $scope.selected = {
+        //item: $scope.items[0]
+    };
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};

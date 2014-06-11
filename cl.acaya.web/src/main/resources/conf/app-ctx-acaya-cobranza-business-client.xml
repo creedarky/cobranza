@@ -15,6 +15,10 @@
         <property name="jndiName" value="${jndiNameCobranzaServiceDelegate}"/>
     </bean>
 
+    <bean id="clienteServiceDelegate" class="cl.acaya.web.clients.ClienteServiceDelegate">
+        <property name="jndiName" value="${jndiNameClienteServiceDelegate}"/>
+    </bean>
+
 
 
 </beans>

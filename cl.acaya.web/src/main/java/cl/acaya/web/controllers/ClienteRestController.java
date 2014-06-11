@@ -1,5 +1,6 @@
 package cl.acaya.web.controllers;
 
+import cl.acaya.api.service.ClienteServiceRemote;
 import cl.acaya.api.service.CobranzaServiceRemote;
 import cl.acaya.api.vo.*;
 import cl.acaya.web.util.RequestFactory;
@@ -25,10 +26,12 @@ public class ClienteRestController {
     private static final Logger LOGGER = Logger.getLogger(ClienteRestController.class);
 
     private CobranzaServiceRemote cobranzaServiceRemote;
+    private ClienteServiceRemote clienteServiceRemote;
 
     @Autowired
-    public ClienteRestController(CobranzaServiceRemote cobranzaServiceRemote) {
+    public ClienteRestController(CobranzaServiceRemote cobranzaServiceRemote, ClienteServiceRemote clienteServiceRemote) {
         this.cobranzaServiceRemote = cobranzaServiceRemote;
+        this.clienteServiceRemote = clienteServiceRemote;
     }
 
     @RequestMapping(value = "{idCliente}", method = RequestMethod.GET)
@@ -39,7 +42,7 @@ public class ClienteRestController {
                                    ) {
         Request request = RequestFactory.newRequest(httpRequest);
         request.addParam(Parametros.ID_CLIENTE, idCliente);
-        Response response = cobranzaServiceRemote.getDatosGestionCliente(request);
+        Response response = clienteServiceRemote.getDatosGestionCliente(request);
         List<DocumentoClienteVO> documentoClienteVOList = response.getResp(Parametros.DOCUMENTOS_CLIENTE, List.class);
         ClienteVO clienteVO = response.getResp(Parametros.CLIENTE, ClienteVO.class);
         List<TramoVO> tramoVOList = response.getResp(Parametros.TRAMOS, List.class);
