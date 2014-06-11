@@ -78,13 +78,14 @@
 </fieldset>
 
 <div ng-controller="ClienteCtrl">
-    <button class="btn btn-primary" ng-click="open('lg','template/gestion_modal/validar_modal.html')">Validar</button>
+    <!--<button class="btn btn-primary" ng-click="open('lg','template/gestion_modal/validar_modal.html')">Validar</button>-->
     <button type="button" class="btn btn-primary" ng-click="open('lg','template/gestion_modal/agendar_modal.html')">Agendar</button>
-    <button type="button" class="btn btn-primary" ng-click="open('lg','template/gestion_modal/recaudar_modal.html')">Recaudar</button>
-    <button type="button" class="btn btn-primary" data-reveal-id="contingencia">Contingencia</button>
-    <button type="button" class="btn btn-primary" data-reveal-id="bitacora">Bitacora</button>
-    <button type="button" class="btn btn-primary" data-reveal-id="hitos">Hitos</button>
-    <button type="button" class="btn btn-primary" data-reveal-id="email">Email</button>
+    <button type="button" class="btn btn-primary" ng-click="open('lg','template/gestion_modal/gestion_modal.html')">Gesti&oacute;n</button>
+    <!--<button type="button" class="btn btn-primary" ng-click="open('lg','template/gestion_modal/recaudar_modal.html')">Recaudar</button>-->
+    <!--<button type="button" class="btn btn-primary" ng-click="open('lg','template/gestion_modal/contingencia_modal.html')">Contingencia</button>-->
+    <button type="button" class="btn btn-primary" ng-click="open('lg','template/gestion_modal/bitacora_modal.html')">Bitacora</button>
+    <button type="button" class="btn btn-primary" ng-click="open('lg','template/gestion_modal/hitos_modal.html')">Hitos</button>
+    <button type="button" class="btn btn-primary" ng-click="open('lg','template/gestion_modal/email_modal.html')">Email</button>
     <button type="button" class="btn btn-primary">Enviar Docs.</button>
 </div>
 
@@ -124,59 +125,6 @@
             </tbody>
         </table>
     </div>
-</div>
-
-
-
-
-
-<div id="contingencia" class="reveal-modal" data-reveal>
-    <fieldset>
-        <legend>CONTINGENCIA</legend>
-        <div class="row" data-equalizer>
-            <div class="large-5 columns">
-                Tipo Contingencia
-                <select style="width: 210px;padding-right: 5px">
-                    <option>dd</option>
-                </select><br>
-                <label>Observación</label>
-                <textarea rows="7">
-
-                </textarea><br>
-                <label>Contacto</label>
-                <input type="text"/><br>
-                <label>Cargo</label>
-                <input type="text"/><br>
-            </div>
-            <div class="large-6 columns">
-                <label>Documentos Seleccionados</label>
-                <table style="padding-top: 5px;overflow-x: auto">
-                    <tr>
-                        <th>Al día</th>
-                        <th>1-30 días</th>
-                        <th>31-50 días</th>
-                        <th>61-90 días</th>
-                        <th>< 90 días</th>
-                    </tr>
-                    <tr>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                    </tr>
-                </table>
-                <div style="text-align: right;">
-                    <a href="#" class="button [tiny small large]">Aceptar</a>
-                    <a href="#" class="button [tiny small large]">Cancelar</a>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-</div>
-
-<div id="bitacora" class="reveal-modal" data-reveal>
-
 </div>
 
 <script></script>
