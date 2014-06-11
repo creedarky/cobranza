@@ -40,7 +40,7 @@ angular.module( 'ngBoilerplate.home', [
  * And of course we define a controller for our route.
  */
 .controller( 'HomeCtrl', function HomeController( $scope,$http ) {
-    $http.get('inicio.htm').success(function(data) {
+    $http.get('home.json').success(function(data) {
         $scope.body = data.body;
         $scope.success = data.success;
         $scope.agendasClientes = data.body.agendaVOList;

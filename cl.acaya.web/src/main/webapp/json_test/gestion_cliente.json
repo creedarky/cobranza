@@ -1,0 +1,263 @@
+{"success": true, "body": {
+    "carteraCliente": {
+        "id": null,
+        "cliente": {
+            "idCliente": 1234,
+            "idDmCliente": 1541,
+            "nombreCliente": "GARMENDIA MACUS S.A.",
+            "rutCliente": "0968899503",
+            "clasificacionRiesgo": null,
+            "pedidosProceso": null,
+            "tipoSeguro": null,
+            "vigencia": null,
+            "usuarioAsignado": null,
+            "montoSeguro": null,
+            "lineaCredito": null,
+            "bloqueo": false
+        },
+        "alDia": null,
+        "total": "34210392",
+        "tramosList": [
+            {
+                "tramo": "Por vencer",
+                "diaInicial": null,
+                "diaFinal": null,
+                "diaMenor": -60,
+                "monto": "34210392"
+            }
+        ]
+    },
+    "cliente": {
+        "idCliente": 1234,
+        "idDmCliente": null,
+        "nombreCliente": "GARMENDIA MACUS S.A.",
+        "rutCliente": "0968899503",
+        "clasificacionRiesgo": null,
+        "pedidosProceso": 83312,
+        "tipoSeguro": "NOM",
+        "vigencia": "VIG",
+        "usuarioAsignado": null,
+        "montoSeguro": 236411800,
+        "lineaCredito": 236411800,
+        "bloqueo": false
+    },
+    "tramos": [
+        {
+            "tramo": "Por vencer",
+            "diaInicial": null,
+            "diaFinal": null,
+            "diaMenor": -60,
+            "monto": "0"
+        }
+    ],
+    "documentosCliente": [
+        {
+            "idDocumento": 26109,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -6,
+            "monto": 142229,
+            "numDoc": "0092531760",
+            "vendedor": "DHENRIQUEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-04-17",
+            "fechaVencimiento": "2014-06-16"
+        },
+        {
+            "idDocumento": 16313,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -11,
+            "monto": 171360,
+            "numDoc": "0092534351",
+            "vendedor": "DHENRIQUEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-04-22",
+            "fechaVencimiento": "2014-06-21"
+        },
+        {
+            "idDocumento": 25880,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -11,
+            "monto": 225588,
+            "numDoc": "0092534191",
+            "vendedor": "DHENRIQUEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-04-22",
+            "fechaVencimiento": "2014-06-21"
+        },
+        {
+            "idDocumento": 4501,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -14,
+            "monto": 29654800,
+            "numDoc": "0092538253",
+            "vendedor": "ESANCHEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-04-25",
+            "fechaVencimiento": "2014-06-24"
+        },
+        {
+            "idDocumento": 22768,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -17,
+            "monto": 138516,
+            "numDoc": "0092540121",
+            "vendedor": "ESANCHEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-04-28",
+            "fechaVencimiento": "2014-06-27"
+        },
+        {
+            "idDocumento": 26111,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -17,
+            "monto": 675001,
+            "numDoc": "0092539645",
+            "vendedor": "RAGUILAR",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-04-28",
+            "fechaVencimiento": "2014-06-27"
+        },
+        {
+            "idDocumento": 26105,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -17,
+            "monto": 206489,
+            "numDoc": "0092539534",
+            "vendedor": "ESANCHEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-04-28",
+            "fechaVencimiento": "2014-06-27"
+        },
+        {
+            "idDocumento": 4985,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -18,
+            "monto": 228551,
+            "numDoc": "0092541872",
+            "vendedor": "ESANCHEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-04-29",
+            "fechaVencimiento": "2014-06-28"
+        },
+        {
+            "idDocumento": 26110,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -19,
+            "monto": 1473291,
+            "numDoc": "0092543777",
+            "vendedor": "DHENRIQUEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-04-30",
+            "fechaVencimiento": "2014-06-29"
+        },
+        {
+            "idDocumento": 18639,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -24,
+            "monto": 16589,
+            "numDoc": "0092546445",
+            "vendedor": "DHENRIQUEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-05-05",
+            "fechaVencimiento": "2014-07-04"
+        },
+        {
+            "idDocumento": 26106,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -28,
+            "monto": 20777,
+            "numDoc": "0092552578",
+            "vendedor": "ESANCHEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-05-09",
+            "fechaVencimiento": "2014-07-08"
+        },
+        {
+            "idDocumento": 22786,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -31,
+            "monto": 69258,
+            "numDoc": "0092554139",
+            "vendedor": "DHENRIQUEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-05-12",
+            "fechaVencimiento": "2014-07-11"
+        },
+        {
+            "idDocumento": 2974,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -32,
+            "monto": 126854,
+            "numDoc": "0092554304",
+            "vendedor": "DHENRIQUEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-05-13",
+            "fechaVencimiento": "2014-07-12"
+        },
+        {
+            "idDocumento": 4867,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -35,
+            "monto": 215142,
+            "numDoc": "0092559430",
+            "vendedor": "DHENRIQUEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-05-16",
+            "fechaVencimiento": "2014-07-15"
+        },
+        {
+            "idDocumento": 26107,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -49,
+            "monto": 239047,
+            "numDoc": "0092572734",
+            "vendedor": "DHENRIQUEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-05-30",
+            "fechaVencimiento": "2014-07-29"
+        },
+        {
+            "idDocumento": 26108,
+            "razonSocial": "GARMENDIA MACUS S.A.",
+            "rut": "0968899503",
+            "tramo": "Por vencer",
+            "diasVencidos": -60,
+            "monto": 606900,
+            "numDoc": "0092582687",
+            "vendedor": "DHENRIQUEZ",
+            "codigoTipo": "RV",
+            "fechaEmision": "2014-06-10",
+            "fechaVencimiento": "2014-08-09"
+        }
+    ]
+}, "mensajes": [], "urlRedirect": null}
