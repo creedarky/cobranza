@@ -1,15 +1,15 @@
 <div id="cuerpo">
-    <div class="row" data-equalizer>
+    <div class="row">
         <div style="height: 90px;padding-top:103px;">
-            <fieldset style="float:left;height: 178px;">
-                <div class="large-5 columns">
-                    <label>RUT :{{ cliente.rutCliente }}</label>
-                    <label>Razón Social : {{ cliente.nombreCliente }}</label>
+            <fieldset style="float:left;height: 178px;" class="col-md-8">
+                <div class="col-md-5">
+                    <label>RUT :{{ cliente.rutCliente }}</label><br>
+                    <label>Razón Social : {{ cliente.nombreCliente }}</label><br>
                     <label>Email empresa : '' </label>
                     <label>Clasificación de riesgo : {{cliente.clasificacionRiesgo}} </label>
                     <label>Pedidos en progreso : {{cliente.pedidosProceso}} </label>
                 </div>
-                <div class="large-6 columns">
+                <div class="col-md-5">
                     <label>Tipo Seguro : {{cliente.tipoSeguro}}</label>
                     <label>Vigencia : {{cliente.vigencia}}</label>
                     <label>Estado Cliente : {{!cliente.bloqueo ? 'DESBLOQ' : 'BLOQ'}}</label>
@@ -17,10 +17,10 @@
                 </div>
             </fieldset>
         </div>
-        <div class="large-5 columns">
+        <div class="col-md-3">
             <fieldset>
                 <label>Total Deuda : $000.000.000</label>
-                <table style="padding-top: 5px;">
+                <table style="padding-top: 5px;" class="table">
                     <tr>
                         <th ng-repeat="tramo in tramos">
                             {{ tramo.tramo }}
@@ -42,7 +42,7 @@
         <a href="http://zurb.com/university/responsive-design" class="button secondary">Llamar</a>
     </div>
     <div style="padding-left:15px;padding-left: 15px;">
-        <table style="width: 100%">
+        <table style="width: 100%" class="table">
             <thead>
             <tr>
                 <th>Nombre</th>
@@ -71,20 +71,20 @@
     </div>
 </fieldset>
 
-<div style="padding-left:15px;padding-left: 15px;padding-right: 15px;width: 100%;">
-    <a href="#" class="button secondary" data-reveal-id="validar">Validar</a>
-    <a href="#" class="button secondary" data-reveal-id="agendar">Agendar</a>
-    <a href="#" class="button secondary" data-reveal-id="recaudar">Recaudar</a>
-    <a href="#" class="button secondary" data-reveal-id="contingencia">Contingencia</a>
-    <a href="#" class="button secondary" data-reveal-id="bitacora">Bitacora</a>
-    <a href="#" class="button secondary" data-reveal-id="hitos">Hitos</a>
-    <a href="#" class="button secondary" data-reveal-id="email">Email</a>
-    <a href="#" class="button secondary">Enviar Docs.</a>
+<div ng-controller="ClienteCtrl">
+    <button class="btn btn-primary" ng-click="open('lg','template/gestion_modal/validar_modal.html')">Validar</button>
+    <button type="button" class="btn btn-primary" ng-click="open('lg','template/gestion_modal/agendar_modal.html')">Agendar</button>
+    <button type="button" class="btn btn-primary" ng-click="open('lg','template/gestion_modal/recaudar_modal.html')">Recaudar</button>
+    <button type="button" class="btn btn-primary" data-reveal-id="contingencia">Contingencia</button>
+    <button type="button" class="btn btn-primary" data-reveal-id="bitacora">Bitacora</button>
+    <button type="button" class="btn btn-primary" data-reveal-id="hitos">Hitos</button>
+    <button type="button" class="btn btn-primary" data-reveal-id="email">Email</button>
+    <button type="button" class="btn btn-primary">Enviar Docs.</button>
 </div>
 
 <div id="cuerpo_inferior" style="padding-top: 10px;">
     <div style="padding-left:15px;padding-left: 15px;padding-right: 15px;">
-        <table style="width: 100%">
+        <table style="width: 100%" class="table">
             <thead>
             <tr>
                 <th></th>
@@ -120,164 +120,9 @@
     </div>
 </div>
 
-<div id="validar" class="reveal-modal" data-reveal>
-    <fieldset>
-        <legend>VALIDACIÓN</legend>
-        <div class="row" data-equalizer>
-            <div class="large-5 columns">
-                <label>Observación</label><br>
-                <textarea></textarea><br>
-                <label>Contacto</label><br>
-                <input type="text"/>
-                <label>Cargo</label>
-                <input type="text"/>
-            </div>
-            <div class="large-6 columns">
-                <label>Documentos Seleccionados</label>
-                <table style="padding-top: 5px;overflow-x: auto">
-                    <tr>
-                        <th>Al día</th>
-                        <th>1-30 días</th>
-                        <th>31-50 días</th>
-                        <th>61-90 días</th>
-                        <th>< 90 días</th>
-                    </tr>
-                    <tr>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                    </tr>
-                </table>
-                <div style="text-align: right;">
-                    <a href="#" class="button [tiny small large]">Aceptar</a>
-                    <a href="#" class="button [tiny small large]">Cancelar</a>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-</div>
 
-<div id="agendar" class="reveal-modal" data-reveal>
-    <fieldset>
-        <legend>AGENDA</legend>
-        <div class="row" data-equalizer>
-            <div class="large-5 columns">
-                <label>Fecha Agenda</label>
-                <select style="width: 50px;padding-right: 5px">
-                    <option>dd</option>
-                </select>
-                <select style="width: 50px;padding-right: 5px">
-                    <option>mm</option>
-                </select>
-                <select style="width: 50px;padding-right: 5px">
-                    <option>yyyy</option>
-                </select>
-                <label>Hora Agenda</label>
-                <select style="width: 50px;padding-right: 5px">
-                    <option>HH</option>
-                </select>
-                <select style="width: 50px;padding-right: 5px">
-                    <option>MM</option>
-                </select><br>
-                Observación
-                <textarea></textarea><br>
-                Contacto
-                <input type="text"/><br>
-                Cargo
-                <input type="text"/>
-            </div>
-            <div class="large-6 columns">
-                <label>Documentos Seleccionados</label>
-                <table style="padding-top: 5px;overflow-x: auto">
-                    <table id="tabla_doc_seleccionados">
-                        <thead>
-                        <tr>
-                            <th>Nª Documento</th>
-                            <th>Monto</th>
-                            <th>Fecha Vcto.</th>
-                        </tr>
-                        </thead>
-                        <tbody id="mostrar_docs">
 
-                        </tbody>
-                    </table>
-                </table>
-                <div style="text-align: right;">
-                    <a href="#" class="button [tiny small large]">Aceptar</a>
-                    <a href="#" class="button [tiny small large]">Cancelar</a>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-</div>
 
-<div id="recaudar" class="reveal-modal" data-reveal>
-    <fieldset>
-        <legend>AGENDA</legend>
-        <div class="row" data-equalizer>
-            <div class="large-6 columns">
-                <label>Forma de pago</label>
-                <select style="padding-right: 5px">
-                    <option>Seleccione Forma de pago</option>
-                </select><br>
-                <label>Dirección</label>
-                <input type="text"/><br>
-                <input type="checkbox"/>
-                Entrega Copia Cedible<br>
-                <label>Banco</label>
-                <input type="text"/><br>
-
-                <div style="float:left;">
-                    <label>Sucursal Kupfer</label>
-                    <input type="text" style="padding-right: 10px;width: 180px;"/>
-                    <label>Contacto</label>
-                    <input type="text" style="width: 180px;padding-right: 10px;"/>
-                </div>
-                <div style="float:right;">
-                    <label>Sucursal Cliente</label>
-                    <input type="text" style="width: 180px;"/>
-                    <label>Cargo</label>
-                    <input type="text" style="width: 180px;"/>
-                </div>
-            </div>
-            <div class="large-6 columns">
-                <fieldset>
-                    <legend>Día pago Cliente</legend>
-                    <input type="checkbox"/>
-                    <label style="padding-right: 5px;">Lunes</label>
-                    <input type="checkbox"/>
-                    <label style="padding-right: 5px;">Martes</label>
-                    <input type="checkbox"/>
-                    <label style="padding-right: 5px;">Miercoles</label>
-                    <input type="checkbox"/>
-                    <label style="padding-right: 5px;">Jueves</label>
-                    <input type="checkbox"/>
-                    <label style="padding-right: 5px;">Viernes</label>
-                </fieldset>
-                <div>
-                    <label>Fecha Agenda</label><br>
-                    <select style="width: 50px;padding-right: 5px">
-                        <option>dd</option>
-                    </select>
-                    <select style="width: 50px;padding-right: 5px">
-                        <option>mm</option>
-                    </select>
-                    <select style="width: 50px;padding-right: 5px">
-                        <option>yyyy</option>
-                    </select>
-                    <label>Horario</label>
-                    <input type="text"/>
-                </div>
-                <div style="text-align: right;">
-                    <a href="#" class="button [tiny small large]">Aceptar</a>
-                    <a href="#" class="button [tiny small large]">Cancelar</a>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-</div>
 
 <div id="contingencia" class="reveal-modal" data-reveal>
     <fieldset>
@@ -327,3 +172,5 @@
 <div id="bitacora" class="reveal-modal" data-reveal>
 
 </div>
+
+<script></script>
