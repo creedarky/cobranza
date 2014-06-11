@@ -58,7 +58,11 @@
                 <tbody>
                     <tr ng-repeat="cartera in carteraClientes">
                         <td>
-                            <a href="gestioncliente.htm?idCliente={{cartera.cliente.idCliente}}">{{cartera.cliente.nombreCliente}}</a></td>
+                            <!--
+                            <a href="gestioncliente.htm?idCliente={{cartera.cliente.idCliente}}">{{cartera.cliente.nombreCliente}}</a>
+                            -->
+                            <a href="#/cliente/{{cartera.cliente.idCliente}}">{{cartera.cliente.nombreCliente}}</a>
+                        </td>
                         </td>
                         <td ng-repeat="tramo in cartera.tramosList">
                             {{ tramo.monto | currency }}
