@@ -1,7 +1,7 @@
 <div class="row">
-    <div class="large-7 columns">
+    <div class="col-md-8">
         <label>AGENDA</label>
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>Cliente</th>
@@ -20,9 +20,9 @@
             </tbody>
         </table>
     </div>
-    <div class="large-5 columns">
+    <div class="col-md-4">
         <label>CAMPAÑAS</label>
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>Cliente</th>
@@ -45,7 +45,7 @@
     <div class="row" data-equalizer>
         <div style="padding-left:15px;padding-left: 15px;">
             <label>CARTERA DE COBRANZA</label>
-            <table style="width: 100%" id="tramos">
+            <table style="width: 100%" id="tramos" class="table">
                 <thead>
                     <tr>
                         <th>Cliente</th>
@@ -65,10 +65,8 @@
                         </td>
                         <td> {{cartera.total | currency}} </td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
