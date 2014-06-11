@@ -18,6 +18,12 @@ public class ClienteVO {
     private Long montoSeguro;
     private Long lineaCredito;
     private boolean bloqueo;
+    private Long lineaCreditoUtilizada;
+    private Long lineaCreditoDisponible;
+    private Double montoSeguroUF;
+    private String canalVenta;
+    private String estadoLinea;
+    private String condicioPago;
 
 
     public Long getIdCliente() {
@@ -116,6 +122,46 @@ public class ClienteVO {
         return lineaCredito;
     }
 
+    public Long getLineaCreditoUtilizada() {
+        return lineaCreditoUtilizada;
+    }
+
+    public void setLineaCreditoUtilizada(Long lineaCreditoUtilizada) {
+        this.lineaCreditoUtilizada = lineaCreditoUtilizada;
+    }
+
+    public Long getLineaCreditoDisponible() {
+        return lineaCreditoDisponible;
+    }
+
+    public void setLineaCreditoDisponible(Long lineaCreditoDisponible) {
+        this.lineaCreditoDisponible = lineaCreditoDisponible;
+    }
+
+    public Double getMontoSeguroUF() {
+        return montoSeguroUF;
+    }
+
+    public void setMontoSeguroUF(Double montoSeguroUF) {
+        this.montoSeguroUF = montoSeguroUF;
+    }
+
+    public String getCanalVenta() {
+        return canalVenta;
+    }
+
+    public void setCanalVenta(String canalVenta) {
+        this.canalVenta = canalVenta;
+    }
+
+    public String getEstadoLinea() {
+        return estadoLinea;
+    }
+
+    public void setEstadoLinea(String estadoLinea) {
+        this.estadoLinea = estadoLinea;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -134,4 +180,11 @@ public class ClienteVO {
     }
 
 
+    public void setCondicioPago(String condicioPago) {
+        this.condicioPago = condicioPago;
+    }
+
+    public String getCondicioPago() {
+        return condicioPago;
+    }
 }

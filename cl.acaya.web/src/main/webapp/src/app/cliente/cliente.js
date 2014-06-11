@@ -15,30 +15,12 @@ angular.module( 'ngBoilerplate.cliente', [
         templateUrl: 'template/gestion_cliente.html'
       }
     },
-    data:{ pageTitle: 'What is It?' }
+    data:{ pageTitle: 'Gestión cliente' }
   });
 })
 
-    /*
 
-     phonecatControllers.controller('PhoneListCtrl', ['$scope', 'Phone',
-     function($scope, Phone) {
-     $scope.phones = Phone.query();
-     $scope.orderProp = 'age';
-     }]);
-
-     phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone',
-     function($scope, $routeParams, Phone) {
-     $scope.phone = Phone.get({phoneId: $routeParams.phoneId}, function(phone) {
-     $scope.mainImageUrl = phone.images[0];
-     });
-
-     $scope.setImage = function(imageUrl) {
-     $scope.mainImageUrl = imageUrl;
-     }
-     }]);
-     */
-.controller( 'ClienteCtrl', ['$scope', '$stateParams', '$http', '$modal' , '$log',function($scope,$stateParams,$http,$modal,$log ) {
+.controller( 'ClienteCtrl', ['$scope', '$stateParams', '$http',function($scope,$stateParams,$http ) {
         console.log($stateParams.idCliente);
         $http.get('rest/cliente/gestion/'+$stateParams.idCliente).success(function(data) {
             $scope.body = data.body;
@@ -70,14 +52,3 @@ angular.module( 'ngBoilerplate.cliente', [
             });
         };
 }]);
-
-
-// Please note that $modalInstance represents a modal window (instance) dependency.
-// It is not the same as the $modal service used above.
-
-var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-};

@@ -5,6 +5,7 @@ import cl.acaya.api.sap.Connect;
 import cl.acaya.api.util.SapConnectionFactory;
 import cl.acaya.api.vo.*;
 import cl.acaya.api.service.CobranzaServiceRemote;
+import cl.acaya.api.vo.enums.TipoCuentasKupferType;
 import cl.acaya.cobranza.business.daoEjb.dao.*;
 import cl.acaya.cobranza.business.daoEjb.entities.*;
 import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
@@ -464,9 +465,14 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
                 cliente.setClasificacionRiesgo(datosCliente.getString("CLSRIESGO"));
                 cliente.setVigencia((String) datosCliente.getValue("VIGSEGURO"));
                 cliente.setMontoSeguro(((BigDecimal) functionDatosClientes.getExportParameterList().getValue("MTOSEGURO_P")).longValue());
+                cliente.setMontoSeguroUF(functionDatosClientes.getExportParameterList().getBigDecimal("MTOSEGURO").doubleValue());
                 cliente.setCondicionPago(datosCliente.getString("CONPAGO"));
                 cliente.setTipoSeguro(datosCliente.getString("TIPSEGURO"));
                 cliente.setLineaCredito(datosCliente.getBigDecimal("LINCREDITO").longValue() * 100);
+                cliente.setCanalVenta(TipoCuentasKupferType.getNombreCuentaPorCodigoCanal((String) functionDatosClientes.getExportParameterList().getValue("CANAL")));
+                cliente.setLineaCreditoDisponible(functionDatosClientes.getExportParameterList().getBigDecimal("LINDISPONIBLE").longValue());
+                cliente.setLineaCreditoUtilizada(cliente.getLineaCredito() - cliente.getLineaCreditoDisponible());
+                cliente.setEstadoLinea(functionDatosClientes.getExportParameterList().getString("ESTADO_LC_KH"));
                 JCoFunction funcPedidos = connect.getFunction("ZSDFN_FRONT_PEDCOT_R");
                 funcPedidos.getImportParameterList().setValue("RUTCLIENTE",cliente.getRutCliente());
                 connect.execute(funcPedidos);
@@ -484,8 +490,9 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
                     }
                 }
                 cliente.setPedidosEnProceso(flujoPedidoProceso);
-                cliente = clienteDAO.update(cliente);
 
+
+                cliente = clienteDAO.update(cliente);
 
             }
         }

@@ -46,8 +46,17 @@ public class Cliente {
     @Column(name = "linea_credito")
     private Long lineaCredito;
 
+    @Column(name = "linea_credito_utilizada")
+    private Long lineaCreditoUtilizada;
+
+    @Column(name = "linea_credito_disponible")
+    private Long lineaCreditoDisponible;
+
     @Column(name = "monto_seguro")
     private Long montoSeguro;
+
+    @Column(name = "monto_seguro_uf")
+    private Double montoSeguroUF;
 
 
     @Column(name = "bloqueo")
@@ -61,6 +70,15 @@ public class Cliente {
 
     @Column(name = "clasifica_riesgo")
     private String clasificacionRiesgo;
+
+    @Column(name = "canal_venta")
+    private String canalVenta;
+
+    @Column(name = "estado_linea")
+    private String estadoLinea;
+
+
+
 
 
     public Cliente(){
@@ -161,8 +179,46 @@ public class Cliente {
     }
 
     public void setClasificacionRiesgo(String clasificacionRiesgo) {
+          this.clasificacionRiesgo = clasificacionRiesgo;
+    }
 
+    public Long getLineaCreditoUtilizada() {
+        return lineaCreditoUtilizada;
+    }
 
+    public void setLineaCreditoUtilizada(Long lineaCreditoUtilizada) {
+        this.lineaCreditoUtilizada = lineaCreditoUtilizada;
+    }
 
+    public Long getLineaCreditoDisponible() {
+        return lineaCreditoDisponible;
+    }
+
+    public void setLineaCreditoDisponible(Long lineaCreditoDisponible) {
+        this.lineaCreditoDisponible = lineaCreditoDisponible;
+    }
+
+    public Double getMontoSeguroUF() {
+        return montoSeguroUF;
+    }
+
+    public void setMontoSeguroUF(Double montoSeguroUF) {
+        this.montoSeguroUF = montoSeguroUF;
+    }
+
+    public String getCanalVenta() {
+        return canalVenta;
+    }
+
+    public void setCanalVenta(String canalVenta) {
+        this.canalVenta = canalVenta;
+    }
+
+    public String getEstadoLinea() {
+        return estadoLinea;
+    }
+
+    public void setEstadoLinea(String estadoLinea) {
+        this.estadoLinea = estadoLinea;
     }
 }

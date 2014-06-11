@@ -42,6 +42,14 @@ public class TypesAdaptor {
         clienteVO.setMontoSeguro(cliente.getMontoSeguro());
         clienteVO.setLineaCredito(cliente.getLineaCredito());
         clienteVO.setBloqueo(cliente.isBloqueo());
+        clienteVO.setMontoSeguro(cliente.getMontoSeguro());
+        clienteVO.setLineaCredito(cliente.getLineaCredito());
+        clienteVO.setLineaCreditoUtilizada(cliente.getLineaCreditoUtilizada());
+        clienteVO.setLineaCreditoDisponible(cliente.getLineaCreditoDisponible());
+        clienteVO.setMontoSeguroUF(cliente.getMontoSeguroUF());
+        clienteVO.setCanalVenta(cliente.getCanalVenta());
+        clienteVO.setEstadoLinea(cliente.getEstadoLinea());
+        clienteVO.setCondicioPago(cliente.getCondicionPago());
         return clienteVO;
     }
 

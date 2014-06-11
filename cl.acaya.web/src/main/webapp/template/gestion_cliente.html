@@ -1,25 +1,31 @@
 <div id="cuerpo">
     <div class="row">
-        <div style="height: 90px;padding-top:103px;">
+        <div class="row" style="height: 120px;">
             <fieldset style="float:left;height: 178px;" class="col-md-8">
                 <div class="col-md-5">
-                    <label>RUT :{{ cliente.rutCliente }}</label><br>
+                    <label>Rut : {{ cliente.rutCliente | rut }}</label><br>
                     <label>Razón Social : {{ cliente.nombreCliente }}</label><br>
-                    <label>Email empresa : '' </label>
                     <label>Clasificación de riesgo : {{cliente.clasificacionRiesgo}} </label>
+                    <label>Canal : {{cliente.canalVenta }}</label>
+                    <label>Condición de pago : {{cliente.condicionPago }}</label>
                     <label>Pedidos en progreso : {{cliente.pedidosProceso}} </label>
+                    <label>Estado Cliente : {{!cliente.bloqueo ? 'DESBLOQ' : 'BLOQ'}}</label>
                 </div>
                 <div class="col-md-5">
+                    <label>Estado linea : {{cliente.estadoLinea }}</label>
+                    <label>Linea de Crédito : {{cliente.lineaCredito | currency}}</label>
+                    <label>Linea de Crédito Utilizada : {{cliente.lineaCreditoUtilizada | currency}}</label>
+                    <label>Linea de Crédito Disponible: {{cliente.lineaCreditoDisponible | currency}}</label>
                     <label>Tipo Seguro : {{cliente.tipoSeguro}}</label>
                     <label>Vigencia : {{cliente.vigencia}}</label>
-                    <label>Estado Cliente : {{!cliente.bloqueo ? 'DESBLOQ' : 'BLOQ'}}</label>
-                    <label>Estado linea : {{!cliente.bloqueo ? 'DESBLOQ' : 'BLOQ'}}</label>
+                    <label>Monto Seguro: {{cliente.montoSeguro | currency  }}</label>
+                    <label>Monto Seguro UF: {{cliente.montoSeguroUF }}</label>
                 </div>
             </fieldset>
         </div>
         <div class="col-md-3">
             <fieldset>
-                <label>Total Deuda : $000.000.000</label>
+                <label>Total Deuda : {{ carteraCliente.total | currency}}</label>
                 <table style="padding-top: 5px;" class="table">
                     <tr>
                         <th ng-repeat="tramo in tramos">
