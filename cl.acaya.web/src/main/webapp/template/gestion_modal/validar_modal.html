@@ -1,0 +1,40 @@
+
+    <div class="modal-header">
+        <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 class="modal-title">VALIDACIÓN</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-5">
+                <label>Observación</label><br>
+                <textarea class="" rows="4" cols="35"></textarea><br>
+                <label>Contacto</label><br>
+                <input type="text" class="input-sm"/><br>
+                <label>Cargo</label><br>
+                <input type="text" class="input-sm"/>
+            </div>
+            <div class="col-md-5">
+                <label>Documentos Seleccionados</label>
+                <table style="padding-top: 5px;overflow-x: auto" class="table">
+                    <tr>
+                        <th>Al día</th>
+                        <th>1-30 días</th>
+                        <th>31-50 días</th>
+                        <th>61-90 días</th>
+                        <th>< 90 días</th>
+                    </tr>
+                    <tr>
+                        <td>$000.000</td>
+                        <td>$000.000</td>
+                        <td>$000.000</td>
+                        <td>$000.000</td>
+                        <td>$000.000</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
