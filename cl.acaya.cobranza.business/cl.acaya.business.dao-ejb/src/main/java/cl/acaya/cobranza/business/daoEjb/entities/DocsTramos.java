@@ -1,7 +1,8 @@
-package cl.acaya.cobranza.business.daoEjb.entities.generatedEntities;
+package cl.acaya.cobranza.business.daoEjb.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.sql.Date;
 
 /**
@@ -12,8 +13,16 @@ import java.sql.Date;
 public class DocsTramos {
     private Integer systemId;
 
-    @Basic
-    @javax.persistence.Column(name = "system_id")
+    @Id
+    @Basic(optional = false)
+    @Column(name = "system_id")
+    @GenericGenerator(name = "SEQ_docsTramos", strategy = "org.hibernate.id.enhanced.TableGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "table_name", value = "hibernate_sequences"),
+                    @org.hibernate.annotations.Parameter(name = "segment_value", value = "SEQ_docsTramos"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_docsTramos")
     public Integer getSystemId() {
         return systemId;
     }

@@ -1,9 +1,8 @@
 package cl.acaya.cobranza.business.daoEjb.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 /**
  * Created by darkmoorx on 12-06-14.
@@ -15,8 +14,16 @@ public class JefeUsuario {
     private Integer linkUsuario;
     private Integer linkJefe;
 
-    @Basic
+    @Id
+    @Basic(optional = false)
     @Column(name = "system_id")
+    @GenericGenerator(name = "SEQ_jefeUsuario", strategy = "org.hibernate.id.enhanced.TableGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "table_name", value = "hibernate_sequences"),
+                    @org.hibernate.annotations.Parameter(name = "segment_value", value = "SEQ_jefeUsuario"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1") })
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_jefeUsuario")
     public Integer getSystemId() {
         return systemId;
     }

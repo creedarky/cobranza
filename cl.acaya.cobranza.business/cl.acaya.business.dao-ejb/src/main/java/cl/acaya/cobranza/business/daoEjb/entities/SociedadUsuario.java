@@ -1,4 +1,4 @@
-package cl.acaya.cobranza.business.daoEjb.entities.generatedEntities;
+package cl.acaya.cobranza.business.daoEjb.entities;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
