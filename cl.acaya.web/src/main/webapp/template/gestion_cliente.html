@@ -94,7 +94,7 @@
         <table style="width: 100%" class="table">
             <thead>
             <tr>
-                <th></th>
+                <th><input type="checkbox" ng-model="selectedAll" ng-change="selectAll()"/></th>
                 <th>Nº Documento</th>
                 <th>Tipo</th>
                 <th>Monto Factura</th>
@@ -110,7 +110,7 @@
             <tbody>
             <tr ng-repeat="documento in documentos">
 
-                <td style="text-align: center"><input type="checkbox" value="1" id="checkbox"/></td>
+                <td style="text-align: center"><input type="checkbox" ng-change="selectElement(documento);" ng-model="documento.seleccionado"/></td>
                 <td>{{ documento.numDoc }}</td>
                 <td>{{ documento.codigoTipo}}</td>
                 <td>{{ documento.monto | currency }}</td>

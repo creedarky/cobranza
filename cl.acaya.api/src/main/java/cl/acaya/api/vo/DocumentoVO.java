@@ -20,7 +20,18 @@ public class DocumentoVO {
     private Integer saldoDocumento;
     private boolean estadoDocumento;
     private Long despacho;
+    private boolean seleccionado;
+    private boolean recaudar;
+    private boolean validar;
+    private boolean contingencia;
 
+
+    public DocumentoVO() {
+        seleccionado = false;
+        recaudar = false;
+        validar = false;
+        contingencia = false;
+    }
 
     public Long getSystemId() {
         return systemId;
@@ -125,4 +136,35 @@ public class DocumentoVO {
         this.despacho = despacho;
     }
 
+    public boolean isSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(boolean seleccionado) {
+        this.seleccionado = seleccionado;
+    }
+
+    public boolean isRecaudar() {
+        return recaudar;
+    }
+
+    public void setRecaudar(boolean recaudar) {
+        this.recaudar = recaudar;
+    }
+
+    public boolean isValidar() {
+        return validar;
+    }
+
+    public void setValidar(boolean validar) {
+        this.validar = validar;
+    }
+
+    public boolean isContingencia() {
+        return contingencia;
+    }
+
+    public void setContingencia(boolean contingencia) {
+        this.contingencia = contingencia;
+    }
 }

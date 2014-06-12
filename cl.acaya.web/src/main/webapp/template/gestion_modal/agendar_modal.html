@@ -41,8 +41,12 @@
                         <th>Fecha Vcto.</th>
                     </tr>
                     </thead>
-                    <tbody id="mostrar_docs">
-
+                    <tbody >
+                        <tr ng-repeat="documento in documentos">
+                            <td>{{documento.numDoc}}</td>
+                            <td>{{documento.monto}}</td>
+                            <td>{{documento.fechaVencimiento}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </table>

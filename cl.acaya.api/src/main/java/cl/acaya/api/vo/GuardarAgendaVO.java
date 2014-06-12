@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by mcastro on 27-05-14.
  */
-public class Agenda {
+public class GuardarAgendaVO {
 
 
     private Date fechaAgendada;
