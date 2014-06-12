@@ -5,6 +5,8 @@ import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by darkmoorx on 20-05-14.
@@ -14,8 +16,6 @@ import java.util.Date;
 @Table(name = "TBL_DOCUMENTO", schema = "dbo")
 @NamedQueries({@NamedQuery(name="Documento.findAll",query = "Select cn From Documento cn"),
 @NamedQuery(name="Documento.findByNumeroFactura",query = "from Documento where numeroFactura = :numeroFactura")})
-//@SequenceGenerator(name = "DocumentoSeq",
-  //      sequenceName = "SEQ_Documento", allocationSize = 1, initialValue = 1)
 public class Documento {
 
     @Id
@@ -85,6 +85,10 @@ public class Documento {
 
     @Column(name = "link_despacho")
     private Long despacho;
+
+    @ManyToMany(mappedBy="documentos")
+    private Set<Agenda> agendas = new HashSet<Agenda>();
+
 
     public Documento(){
 

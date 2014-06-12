@@ -64,6 +64,7 @@ angular.module( 'ngBoilerplate.cliente', [
                 alert("Debe seleccionar un documento");
                 return;
             }
+            console.log(size);
             var modalInstance = $modal.open({
                 templateUrl: view,
                 controller: ModalAgendarCtrl,
@@ -84,7 +85,7 @@ angular.module( 'ngBoilerplate.cliente', [
 }]);
 
 var ModalAgendarCtrl = function ($scope, $modalInstance, items) {
-
+    console.log($modalInstance);
     $scope.documentos = items;
     $scope.fechaAgendada = new Date();
     $scope.observacion = "";

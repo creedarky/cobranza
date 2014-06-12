@@ -1,10 +1,16 @@
-package cl.acaya.cobranza.business.daoEjb.entities.generatedEntities;
+package cl.acaya.cobranza.business.daoEjb.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
+
+import org.hibernate.annotations.*;
+
+import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Parameter;
 import javax.persistence.Table;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by darkmoorx on 12-06-14.
@@ -12,16 +18,51 @@ import java.sql.Date;
 @Entity
 @Table(name = "tbl_agenda", schema = "dbo", catalog = "COBRANZA")
 public class Agenda {
+
+    @Id
+    @Basic(optional = false)
+    @Column(name = "system_id")
+    @GenericGenerator(name = "SEQ_AGENDA", strategy = "org.hibernate.id.enhanced.TableGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "table_name", value = "hibernate_sequences"),
+                    @org.hibernate.annotations.Parameter(name = "segment_value", value = "SEQ_AGENDA"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1") })
+    @GeneratedValue(generator = "SEQ_AGENDA")
     private Integer systemId;
-    private Integer linkUsuario;
+
+    @JoinColumn(name = "link_usuario")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private Usuario usuario;
+
+    @JoinColumn(name = "link_cliente")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private Cliente cliente;
+
+    @JoinColumn(name = "link_contacto")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private ContactoCliente contacto;
+
+    @Column(name = "fec_agenda")
     private Date fecAgenda;
-    private Integer linkDocumento;
-    private Integer linkCliente;
-    private Integer linkContacto;
+
+    @Column(name = "realizada")
     private Boolean realizada;
 
-    @Basic
-    @Column(name = "system_id")
+    @Column(name = "comentario")
+    private String comentario;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name="tbl_agenda_docs",
+            joinColumns={@JoinColumn(name="link_agenda")},
+            inverseJoinColumns={@JoinColumn(name="link_documento")})
+    private Set<Documento> documentos = new HashSet<Documento>();
+
+
+    public Agenda() {
+        realizada = Boolean.FALSE;
+    }
+
     public Integer getSystemId() {
         return systemId;
     }
@@ -30,18 +71,14 @@ public class Agenda {
         this.systemId = systemId;
     }
 
-    @Basic
-    @Column(name = "link_usuario")
-    public Integer getLinkUsuario() {
-        return linkUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setLinkUsuario(Integer linkUsuario) {
-        this.linkUsuario = linkUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    @Basic
-    @Column(name = "fec_agenda")
     public Date getFecAgenda() {
         return fecAgenda;
     }
@@ -50,44 +87,44 @@ public class Agenda {
         this.fecAgenda = fecAgenda;
     }
 
-    @Basic
-    @Column(name = "link_documento")
-    public Integer getLinkDocumento() {
-        return linkDocumento;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setLinkDocumento(Integer linkDocumento) {
-        this.linkDocumento = linkDocumento;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    @Basic
-    @Column(name = "link_cliente")
-    public Integer getLinkCliente() {
-        return linkCliente;
+    public ContactoCliente getContacto() {
+        return contacto;
     }
 
-    public void setLinkCliente(Integer linkCliente) {
-        this.linkCliente = linkCliente;
+    public void setContacto(ContactoCliente contacto) {
+        this.contacto = contacto;
     }
 
-    @Basic
-    @Column(name = "link_contacto")
-    public Integer getLinkContacto() {
-        return linkContacto;
-    }
-
-    public void setLinkContacto(Integer linkContacto) {
-        this.linkContacto = linkContacto;
-    }
-
-    @Basic
-    @Column(name = "realizada")
     public Boolean getRealizada() {
         return realizada;
     }
 
     public void setRealizada(Boolean realizada) {
         this.realizada = realizada;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public Set<Documento> getDocumentos() {
+        return documentos;
+    }
+
+    public void setDocumentos(Set<Documento> documentos) {
+        this.documentos = documentos;
     }
 
     @Override
@@ -97,14 +134,6 @@ public class Agenda {
 
         Agenda agenda = (Agenda) o;
 
-        if (fecAgenda != null ? !fecAgenda.equals(agenda.fecAgenda) : agenda.fecAgenda != null) return false;
-        if (linkCliente != null ? !linkCliente.equals(agenda.linkCliente) : agenda.linkCliente != null) return false;
-        if (linkContacto != null ? !linkContacto.equals(agenda.linkContacto) : agenda.linkContacto != null)
-            return false;
-        if (linkDocumento != null ? !linkDocumento.equals(agenda.linkDocumento) : agenda.linkDocumento != null)
-            return false;
-        if (linkUsuario != null ? !linkUsuario.equals(agenda.linkUsuario) : agenda.linkUsuario != null) return false;
-        if (realizada != null ? !realizada.equals(agenda.realizada) : agenda.realizada != null) return false;
         if (systemId != null ? !systemId.equals(agenda.systemId) : agenda.systemId != null) return false;
 
         return true;
@@ -113,11 +142,7 @@ public class Agenda {
     @Override
     public int hashCode() {
         int result = systemId != null ? systemId.hashCode() : 0;
-        result = 31 * result + (linkUsuario != null ? linkUsuario.hashCode() : 0);
         result = 31 * result + (fecAgenda != null ? fecAgenda.hashCode() : 0);
-        result = 31 * result + (linkDocumento != null ? linkDocumento.hashCode() : 0);
-        result = 31 * result + (linkCliente != null ? linkCliente.hashCode() : 0);
-        result = 31 * result + (linkContacto != null ? linkContacto.hashCode() : 0);
         result = 31 * result + (realizada != null ? realizada.hashCode() : 0);
         return result;
     }
