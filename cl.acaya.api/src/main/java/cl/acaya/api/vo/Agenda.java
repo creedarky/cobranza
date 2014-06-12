@@ -9,12 +9,11 @@ public class Agenda {
 
 
     private Date fechaAgendada;
-    private String tipoAgenda;
+    private String comentario;
+    private Long idContacto;
     private Long idAgenda;
-    private UsuarioVO usuarioVO;
-
-
-
+    private String cargo;
+    private Long[] idDocumentos;
 
     public Date getFechaAgendada() {
         return fechaAgendada;
@@ -24,12 +23,20 @@ public class Agenda {
         this.fechaAgendada = fechaAgendada;
     }
 
-    public String getTipoAgenda() {
-        return tipoAgenda;
+    public String getComentario() {
+        return comentario;
     }
 
-    public void setTipoAgenda(String tipoAgenda) {
-        this.tipoAgenda = tipoAgenda;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public Long getIdContacto() {
+        return idContacto;
+    }
+
+    public void setIdContacto(Long idContacto) {
+        this.idContacto = idContacto;
     }
 
     public Long getIdAgenda() {
@@ -40,11 +47,19 @@ public class Agenda {
         this.idAgenda = idAgenda;
     }
 
-    public UsuarioVO getUsuarioVO() {
-        return usuarioVO;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setUsuarioVO(UsuarioVO usuarioVO) {
-        this.usuarioVO = usuarioVO;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public Long[] getIdDocumentos() {
+        return idDocumentos;
+    }
+
+    public void setIdDocumentos(Long[] idDocumentos) {
+        this.idDocumentos = idDocumentos;
     }
 }

@@ -31,10 +31,12 @@ angular.module( 'ngBoilerplate.cliente', [
             $scope.documentos = data.body.documentosCliente;
         });
 
+        $scope.selectAll
+
         $scope.open = function (size,view) {
             var modalInstance = $modal.open({
                 templateUrl: view,
-                controller: ModalInstanceCtrl,
+                controller: ModalAgendarCtrl,
                 size: size,
                 resolve: {
                     items: function () {
@@ -51,7 +53,7 @@ angular.module( 'ngBoilerplate.cliente', [
         };
 }]);
 
-var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
+var ModalAgendarCtrl = function ($scope, $modalInstance, items) {
 
     $scope.items = items;
     $scope.selected = {
