@@ -1,0 +1,48 @@
+
+<div class="modal-header">
+    <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">GESTI&Oacute;</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-11">
+            <table style="padding-top: 5px;overflow-x: auto" class="table">
+                <tr>
+                    <th>Nª Documento</th>
+                    <th>Monto</th>
+                    <th>Fecha Vcto.</th>
+                    <th>Validar</th>
+                    <th>Recaudar</th>
+                    <th>Contingencia</th>
+                    <th>Tipo Contingencia</th>
+                    <th>Comentario</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>123123</td>
+                    <td>23-05-2014</td>
+                    <td><input type="checkbox" /></td>
+                    <td><input type="checkbox" /></td>
+                    <td><input type="checkbox" /></td>
+                    <td><select></select></td>
+                    <td><input type="text" ></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <label>Observación</label><br>
+            <textarea class="" rows="4" cols="35"></textarea><br>
+            <label>Contacto</label><br>
+            <input type="text" class="input-sm"/><br>
+            <label>Cargo</label><br>
+            <input type="text" class="input-sm"/>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" ng-controller="ClienteCtrl">
+    <button type="button" class="btn btn-primary" ng-click="cancel();open('lg','template/gestion_modal/recaudar_modal.html')">Aceptar</button>
+
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

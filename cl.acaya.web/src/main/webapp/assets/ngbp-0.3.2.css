@@ -5871,7 +5871,7 @@ h2 {
  * Now that all app-wide styles have been applied, we can load the styles for
  * all the submodules and components we are using. 
  *
- * TODO: In a later version of this boilerplate, I'd like to automate this.
+ * TODO: In a later version of this boilerplate, I'local like to automate this.
  */
 .jumbotron {
   margin: 40px 0 80px 0;

@@ -1663,7 +1663,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    *
    * - **`reloadOnSearch = true`** - {boolean=} - If `false`, will not retrigger the same state 
    *   just because a search/query parameter has changed (via $location.search() or $location.hash()). 
-   *   Useful for when you'd like to modify $location.search() without triggering a reload.
+   *   Useful for when you'local like to modify $location.search() without triggering a reload.
    *
    * <a id='data'></a>
    *
@@ -1715,7 +1715,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
    * @requires ui.router.state.$stateParams
    *
    * @property {object} params A param object, e.g. {sectionId: section.id)}, that 
-   * you'd like to test against the current active state.
+   * you'local like to test against the current active state.
    * @property {object} current A reference to the state's config object. However 
    * you passed it in. Useful for accessing custom data.
    * @property {object} transition Currently pending transition. A promise that'll 
@@ -1794,7 +1794,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * `$state.transitionTo` internally but automatically sets options to 
      * `{ location: true, inherit: true, relative: $state.$current, notify: true }`. 
      * This allows you to easily use an absolute or relative to path and specify 
-     * only the parameters you'd like to update (while letting unspecified parameters 
+     * only the parameters you'local like to update (while letting unspecified parameters
      * inherit from the currently active ancestor states).
      *
      * @example
@@ -1831,7 +1831,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      *    defines which state to be relative from.
      * - **`notify`** - {boolean=true}, If `true` will broadcast $stateChangeStart and $stateChangeSuccess events.
      * - **`reload`** (v0.2.5) - {boolean=false}, If `true` will force transition even if the state or params 
-     *    have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd
+     *    have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'local
      *    use this when you want to force a reload when *everything* is the same, including search params.
      *
      * @returns {promise} A promise representing the state of the new transition.
@@ -1886,7 +1886,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      *    defines which state to be relative from.
      * - **`notify`** - {boolean=true}, If `true` will broadcast $stateChangeStart and $stateChangeSuccess events.
      * - **`reload`** (v0.2.5) - {boolean=false}, If `true` will force transition even if the state or params 
-     *    have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd
+     *    have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'local
      *    use this when you want to force a reload when *everything* is the same, including search params.
      *
      * @returns {promise} A promise representing the state of the new transition. See
@@ -2166,8 +2166,8 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * // everything else would return false
      * </pre>
      *
-     * @param {string|object} stateName The state name or state object you'd like to check.
-     * @param {object=} params A param object, e.g. `{sectionId: section.id}`, that you'd like 
+     * @param {string|object} stateName The state name or state object you'local like to check.
+     * @param {object=} params A param object, e.g. `{sectionId: section.id}`, that you'local like
      * to test against the current active state.
      * @returns {boolean} Returns true if it is the state.
      */
@@ -2193,7 +2193,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * @description
      * A method to determine if the current active state is equal to or is the child of the 
      * state stateName. If any params are passed then they will be tested for a match as well.
-     * Not all the parameters need to be passed, just the ones you'd like to test for equality.
+     * Not all the parameters need to be passed, just the ones you'local like to test for equality.
      *
      * @example
      * <pre>
@@ -2224,7 +2224,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      *
      * @param {string} stateOrName A partial name to be searched for within the current state name.
      * @param {object} params A param object, e.g. `{sectionId: section.id}`, 
-     * that you'd like to test against the current active state.
+     * that you'local like to test against the current active state.
      * @returns {boolean} Returns true if it does include the state
      */
 
@@ -2269,7 +2269,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $
      * expect($state.href("about.person", { person: "bob" })).toEqual("/about/bob");
      * </pre>
      *
-     * @param {string|object} stateOrName The state name or state object you'd like to generate a url from.
+     * @param {string|object} stateOrName The state name or state object you'local like to generate a url from.
      * @param {object=} params An object of parameter values to fill the state's required parameters.
      * @param {object=} options Options object. The options are:
      *
@@ -2853,7 +2853,7 @@ function stateContext(el) {
  * and `reload`.
  *
  * @example
- * Here's an example of how you'd use ui-sref and how it would compile. If you have the 
+ * Here's an example of how you'local use ui-sref and how it would compile. If you have the
  * following template:
  * <pre>
  * <a ui-sref="home">Home</a> | <a ui-sref="about">About</a>

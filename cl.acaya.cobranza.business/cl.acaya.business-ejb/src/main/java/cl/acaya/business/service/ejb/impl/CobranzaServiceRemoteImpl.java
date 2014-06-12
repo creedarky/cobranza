@@ -2,6 +2,7 @@ package cl.acaya.business.service.ejb.impl;
 
 import cl.acaya.api.business.BusinessParameter;
 import cl.acaya.api.sap.Connect;
+import cl.acaya.api.service.local.CobranzaServiceLocal;
 import cl.acaya.api.util.SapConnectionFactory;
 import cl.acaya.api.vo.*;
 import cl.acaya.api.service.CobranzaServiceRemote;
@@ -31,7 +32,7 @@ import java.util.List;
 @Stateless(name = "CobranzaServiceRemote", mappedName = "ejb/CobranzaServiceRemote")
 @Remote(CobranzaServiceRemote.class)
 @TransactionManagement(TransactionManagementType.BEAN)
-public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
+public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, CobranzaServiceLocal {
 
     @EJB
     DocumentoDAO documentoDAO;
@@ -163,6 +164,19 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
         } catch (Exception e) {
             System.out.println(e.toString());
+        }
+
+        try {
+            if(userTransaction.getStatus() == Status.STATUS_ACTIVE)
+                userTransaction.commit();
+        } catch (RollbackException e) {
+            e.printStackTrace();
+        } catch (HeuristicMixedException e) {
+            e.printStackTrace();
+        } catch (HeuristicRollbackException e) {
+            e.printStackTrace();
+        } catch (SystemException e) {
+            e.printStackTrace();
         }
 
         return new Response();
@@ -373,6 +387,11 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
         return response;
     }
 
+    private ResumenInicialVO getCarteraPorTramos() {
+        List<Object[]> resultList = documentoDAO.getCarteraClientes();
+        return getCarteraPorTramos(resultList);
+    }
+
     public Response guardarDatosAsignacion(Request request) {
         List<Long> idClienteList = request.getParam(Parametros.CLIENTES, List.class);
         Long idUsuario = request.getParam(Parametros.USUARIO, Long.class);
@@ -395,20 +414,13 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
     }
 
 
-    private ResumenInicialVO getCarteraPorTramos() {
-        List<Object[]> resultList = documentoDAO.getCarteraClientes();
-        return getCarteraPorTramos(resultList);
-    }
-
-
-
     public Response getDatosGestionCliente(Request request) {
         Response response = new Response();
         Long idCliente = request.getParam(Parametros.ID_CLIENTE, Long.class);
         Cliente cliente = clienteDAO.find(idCliente);
         request.addParam(BusinessParameter.RUT_CLIENTE, cliente.getRutCliente());
         request.addParam(BusinessParameter.SOCIEDAD, "1000");
-        response = obtenerDocumentosSAP(request);
+        //response = obtenerDocumentosSAP(request);
         List<Object[]> resultList = documentoDAO.getCarteraClienteByIdCliente(idCliente);
         List<DocumentoClienteVO> documentoClienteVOList = new ArrayList<DocumentoClienteVO>(resultList.size());
         System.out.println(resultList.size());
@@ -516,7 +528,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote {
 
     }
 
-    private ResumenInicialVO getCarteraPorTramos(List<Object[]> resultList) {
+    public ResumenInicialVO getCarteraPorTramos(List<Object[]> resultList) {
         List<TramoVO> tramoVOList = new ArrayList<TramoVO>();
         List<CarteraVO> carteraVOList = new ArrayList<CarteraVO>();
         for(Object[] result: resultList) {

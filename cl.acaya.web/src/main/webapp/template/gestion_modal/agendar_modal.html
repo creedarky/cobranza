@@ -1,0 +1,55 @@
+
+<div class="modal-header">
+    <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">AGENDAR</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-5">
+            <label>Fecha Agenda</label>
+            <select style="width: 50px;padding-right: 5px" class="input-sm">
+                <option>dd</option>
+            </select>
+            <select style="width: 50px;padding-right: 5px" class="input-sm">
+                <option>mm</option>
+            </select>
+            <select style="width: 50px;padding-right: 5px" class="input-sm">
+                <option>yyyy</option>
+            </select>
+            <label>Hora Agenda</label>
+            <select style="width: 50px;padding-right: 5px" class="input-sm">
+                <option>HH</option>
+            </select>
+            <select style="width: 50px;padding-right: 5px" class="input-sm">
+                <option>MM</option>
+            </select><br>
+            Observación<br>
+            <textarea rows="4" cols="30"></textarea><br>
+            Contacto<br>
+            <input type="text" class="input-sm" /><br>
+            Cargo<br>
+            <input type="text" class="input-sm" />
+        </div>
+        <div class="col-md-5">
+            <label>Documentos Seleccionados</label>
+            <table style="padding-top: 5px;overflow-x: auto" class="table">
+                <table id="tabla_doc_seleccionados">
+                    <thead>
+                    <tr>
+                        <th>Nª Documento</th>
+                        <th>Monto</th>
+                        <th>Fecha Vcto.</th>
+                    </tr>
+                    </thead>
+                    <tbody id="mostrar_docs">
+
+                    </tbody>
+                </table>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

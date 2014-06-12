@@ -207,7 +207,7 @@ angular.module("about/about.tpl.html", []).run(["$templateCache", function($temp
     "  </p>\n" +
     "\n" +
     "  <p>\n" +
-    "    I'd like it to be a little simpler. I want this to be a universal starting\n" +
+    "    I'local like it to be a little simpler. I want this to be a universal starting\n" +
     "    point. If someone is starting a new AngularJS project, she should be able to\n" +
     "    clone, merge, or download its source and immediately start doing what she\n" +
     "    needs without renaming a bunch of files and methods or deleting spare parts\n" +
@@ -216,7 +216,7 @@ angular.module("about/about.tpl.html", []).run(["$templateCache", function($temp
     "  </p>\n" +
     "\n" +
     "  <p>\n" +
-    "    I'd also like to see a simple generator. Nothing like <a href=\"yeoman.io\">\n" +
+    "    I'local also like to see a simple generator. Nothing like <a href=\"yeoman.io\">\n" +
     "    Yeoman</a>, as there already is one of those, but just something that\n" +
     "    says \"I want Bootstrap but not Font Awesome and my app is called 'coolApp'.\n" +
     "    Gimme.\" Perhaps a custom download builder like UI Bootstrap\n" +

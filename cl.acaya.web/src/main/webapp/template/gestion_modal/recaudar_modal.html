@@ -1,0 +1,65 @@
+
+<div class="modal-header">
+    <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">Recaudar</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-5">
+            <label>Forma de pago</label>
+            <select style="padding-right: 5px">
+                <option>Seleccione Forma de pago</option>
+            </select><br>
+            <label>Dirección</label>
+            <input type="text"/><br>
+            <input type="checkbox"/>
+            Entrega Copia Cedible<br>
+            <label>Banco</label>
+            <input type="text"/><br>
+
+            <div style="float:left;">
+                <label>Sucursal Kupfer</label>
+                <input type="text" style="padding-right: 10px;width: 180px;"/>
+                <label>Contacto</label>
+                <input type="text" style="width: 180px;padding-right: 10px;"/>
+            </div>
+            <div style="float:right;">
+                <label>Sucursal Cliente</label>
+                <input type="text" style="width: 180px;"/>
+                <label>Cargo</label>
+                <input type="text" style="width: 180px;"/>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <fieldset>
+                <legend>Día pago Cliente</legend>
+                <input type="checkbox"/>
+                <label style="padding-right: 5px;">Lunes</label>
+                <input type="checkbox"/>
+                <label style="padding-right: 5px;">Martes</label>
+                <input type="checkbox"/>
+                <label style="padding-right: 5px;">Miercoles</label>
+                <input type="checkbox"/>
+                <label style="padding-right: 5px;">Jueves</label>
+                <input type="checkbox"/>
+                <label style="padding-right: 5px;">Viernes</label>
+            </fieldset>
+                <label>Fecha Agenda</label><br>
+                <select style="width: 50px;padding-right: 5px">
+                    <option>dd</option>
+                </select>
+                <select style="width: 50px;padding-right: 5px">
+                    <option>mm</option>
+                </select>
+                <select style="width: 50px;padding-right: 5px">
+                    <option>yyyy</option>
+                </select>
+                <label>Horario</label>
+                <input type="text"/>
+            </div>
+        </div>
+    </div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

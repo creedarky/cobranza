@@ -1,0 +1,46 @@
+
+<div class="modal-header">
+    <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">CONTINGENCIA</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-6">
+            Tipo Contingencia
+            <select style="width: 210px;padding-right: 5px">
+                <option>dd</option>
+            </select><br>
+            <label>Observación</label>
+            <textarea rows="7">
+
+            </textarea><br>
+            <label>Contacto</label>
+            <input type="text"/><br>
+            <label>Cargo</label>
+            <input type="text"/><br>
+        </div>
+        <div class="col-md-6">
+            <label>Documentos Seleccionados</label>
+            <table style="padding-top: 5px;overflow-x: auto" class="table">
+                <tr>
+                    <th>Al día</th>
+                    <th>1-30 días</th>
+                    <th>31-50 días</th>
+                    <th>61-90 días</th>
+                    <th>< 90 días</th>
+                </tr>
+                <tr>
+                    <td>$000.000</td>
+                    <td>$000.000</td>
+                    <td>$000.000</td>
+                    <td>$000.000</td>
+                    <td>$000.000</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

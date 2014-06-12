@@ -3698,7 +3698,7 @@ function annotate(fn) {
  * @param {function()} decorator This function will be invoked when the service needs to be
  *    instantiated and should return the decorated service instance. The function is called using
  *    the {@link auto.$injector#invoke injector.invoke} method and is therefore fully injectable.
- *    Local injection arguments:
+ *    local injection arguments:
  *
  *    * `$delegate` - The original service instance, which can be monkey patched, configured,
  *      decorated or delegated to.
@@ -8785,7 +8785,7 @@ function $IntervalProvider() {
       *   <file name="index.html">
       *     <script>
       *       function Ctrl2($scope,$interval) {
-      *         $scope.format = 'M/d/yy h:mm:ss a';
+      *         $scope.format = 'M/local/yy h:mm:ss a';
       *         $scope.blood_1 = 100;
       *         $scope.blood_2 = 120;
       *
@@ -8976,12 +8976,12 @@ function $LocaleProvider(){
         DAY: 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday'.split(','),
         SHORTDAY: 'Sun,Mon,Tue,Wed,Thu,Fri,Sat'.split(','),
         AMPMS: ['AM','PM'],
-        medium: 'MMM d, y h:mm:ss a',
-        short: 'M/d/yy h:mm a',
-        fullDate: 'EEEE, MMMM d, y',
-        longDate: 'MMMM d, y',
-        mediumDate: 'MMM d, y',
-        shortDate: 'M/d/yy',
+        medium: 'MMM local, y h:mm:ss a',
+        short: 'M/local/yy h:mm a',
+        fullDate: 'EEEE, MMMM local, y',
+        longDate: 'MMMM local, y',
+        mediumDate: 'MMM local, y',
+        shortDate: 'M/local/yy',
         mediumTime: 'h:mm:ss a',
         shortTime: 'h:mm a'
       },
@@ -12511,7 +12511,7 @@ function $RootScopeProvider(){
        *    - `string`: execute using the rules as defined in  {@link guide/expression expression}.
        *    - `function(scope)`: execute the function with the current `scope` parameter.
        *
-       * @param {(object)=} locals Local variables object, useful for overriding values in scope.
+       * @param {(object)=} locals local variables object, useful for overriding values in scope.
        * @returns {*} The result of evaluating the expression.
        */
       $eval: function(expr, locals) {
@@ -14961,7 +14961,7 @@ var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZE']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+
  *   * `'MM'`: Month in year, padded (01-12)
  *   * `'M'`: Month in year (1-12)
  *   * `'dd'`: Day in month, padded (01-31)
- *   * `'d'`: Day in month (1-31)
+ *   * `'local'`: Day in month (1-31)
  *   * `'EEEE'`: Day in Week,(Sunday-Saturday)
  *   * `'EEE'`: Day in Week, (Sun-Sat)
  *   * `'HH'`: Hour in day, padded (00-23)
@@ -14979,14 +14979,14 @@ var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZE']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+
  *   `format` string can also be one of the following predefined
  *   {@link guide/i18n localizable formats}:
  *
- *   * `'medium'`: equivalent to `'MMM d, y h:mm:ss a'` for en_US locale
+ *   * `'medium'`: equivalent to `'MMM local, y h:mm:ss a'` for en_US locale
  *     (e.g. Sep 3, 2010 12:05:08 pm)
- *   * `'short'`: equivalent to `'M/d/yy h:mm a'` for en_US  locale (e.g. 9/3/10 12:05 pm)
- *   * `'fullDate'`: equivalent to `'EEEE, MMMM d,y'` for en_US  locale
+ *   * `'short'`: equivalent to `'M/local/yy h:mm a'` for en_US  locale (e.g. 9/3/10 12:05 pm)
+ *   * `'fullDate'`: equivalent to `'EEEE, MMMM local,y'` for en_US  locale
  *     (e.g. Friday, September 3, 2010)
- *   * `'longDate'`: equivalent to `'MMMM d, y'` for en_US  locale (e.g. September 3, 2010)
- *   * `'mediumDate'`: equivalent to `'MMM d, y'` for en_US  locale (e.g. Sep 3, 2010)
- *   * `'shortDate'`: equivalent to `'M/d/yy'` for en_US locale (e.g. 9/3/10)
+ *   * `'longDate'`: equivalent to `'MMMM local, y'` for en_US  locale (e.g. September 3, 2010)
+ *   * `'mediumDate'`: equivalent to `'MMM local, y'` for en_US  locale (e.g. Sep 3, 2010)
+ *   * `'shortDate'`: equivalent to `'M/local/yy'` for en_US locale (e.g. 9/3/10)
  *   * `'mediumTime'`: equivalent to `'h:mm:ss a'` for en_US locale (e.g. 12:05:08 pm)
  *   * `'shortTime'`: equivalent to `'h:mm a'` for en_US locale (e.g. 12:05 pm)
  *
@@ -15015,11 +15015,11 @@ var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZE']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+
      <file name="protractor.js" type="protractor">
        it('should format date', function() {
          expect(element(by.binding("1288323623006 | date:'medium'")).getText()).
-            toMatch(/Oct 2\d, 2010 \d{1,2}:\d{2}:\d{2} (AM|PM)/);
+            toMatch(/Oct 2\local, 2010 \local{1,2}:\local{2}:\local{2} (AM|PM)/);
          expect(element(by.binding("1288323623006 | date:'yyyy-MM-dd HH:mm:ss Z'")).getText()).
-            toMatch(/2010\-10\-2\d \d{2}:\d{2}:\d{2} (\-|\+)?\d{4}/);
+            toMatch(/2010\-10\-2\local \local{2}:\local{2}:\local{2} (\-|\+)?\local{4}/);
          expect(element(by.binding("'1288323623006' | date:'MM/dd/yyyy @ h:mma'")).getText()).
-            toMatch(/10\/2\d\/2010 @ \d{1,2}:\d{2}(AM|PM)/);
+            toMatch(/10\/2\local\/2010 @ \local{1,2}:\local{2}(AM|PM)/);
        });
      </file>
    </example>
@@ -17635,7 +17635,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
        Update input to see transitions when valid/invalid.
        Integer is a valid value.
        <form name="testForm" ng-controller="Ctrl">
-         <input ng-model="val" ng-pattern="/^\d+$/" name="anim" class="my-input" />
+         <input ng-model="val" ng-pattern="/^\local+$/" name="anim" class="my-input" />
        </form>
      </file>
  * </example>
@@ -19647,7 +19647,7 @@ var ngIncludeFillContentDirective = ['$compile',
      <file name="index.html">
    <script>
      function Ctrl($scope) {
-       $scope.list = [['a', 'b'], ['c', 'd']];
+       $scope.list = [['a', 'b'], ['c', 'local']];
      }
    </script>
    <div ng-controller="Ctrl">
@@ -19664,7 +19664,7 @@ var ngIncludeFillContentDirective = ['$compile',
          expect(elements.get(0).getText()).toBe('list[ 0 ][ 0 ] = a;');
          expect(elements.get(1).getText()).toBe('list[ 0 ][ 1 ] = b;');
          expect(elements.get(2).getText()).toBe('list[ 1 ][ 0 ] = c;');
-         expect(elements.get(3).getText()).toBe('list[ 1 ][ 1 ] = d;');
+         expect(elements.get(3).getText()).toBe('list[ 1 ][ 1 ] = local;');
        });
      </file>
    </example>
