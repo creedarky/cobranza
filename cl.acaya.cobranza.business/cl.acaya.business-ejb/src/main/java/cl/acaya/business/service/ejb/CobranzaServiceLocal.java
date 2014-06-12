@@ -1,4 +1,4 @@
-package cl.acaya.api.service.local;
+package cl.acaya.business.service.ejb;
 
 import cl.acaya.api.vo.Request;
 import cl.acaya.api.vo.Response;
