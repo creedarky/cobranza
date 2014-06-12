@@ -14,13 +14,7 @@ public class Agenda {
     private UsuarioVO usuarioVO;
 
 
-    public ClienteVO getCliente() {
-        return cliente;
-    }
 
-    public void setCliente(ClienteVO cliente) {
-        this.cliente = cliente;
-    }
 
     public Date getFechaAgendada() {
         return fechaAgendada;
