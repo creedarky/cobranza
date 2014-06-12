@@ -5109,6 +5109,7 @@ button.close {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
+  width:1000px;
 }
 .modal-dialog {
   position: relative;
