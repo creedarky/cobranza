@@ -7,17 +7,17 @@ import java.io.Serializable;
  */
 public class ContingenciaVO implements Serializable{
 
-    private Integer systemId;
+    private Integer idContingencia;
     private String contingencia;
     private Integer linkTipoContig;
     private String tipo;
 
-    public Integer getSystemId() {
-        return systemId;
+    public Integer getIdContingencia() {
+        return idContingencia;
     }
 
-    public void setSystemId(Integer systemId) {
-        this.systemId = systemId;
+    public void setIdContingencia(Integer idContingencia) {
+        this.idContingencia = idContingencia;
     }
 
     public String getContingencia() {
@@ -47,7 +47,7 @@ public class ContingenciaVO implements Serializable{
     @Override
     public ContingenciaVO clone() throws CloneNotSupportedException {
         ContingenciaVO contingenciaVO = new ContingenciaVO();
-        contingenciaVO.setSystemId(systemId);
+        contingenciaVO.setIdContingencia(idContingencia);
         contingenciaVO.setContingencia(contingencia);
         contingenciaVO.setLinkTipoContig(linkTipoContig);
         contingenciaVO.setTipo(tipo);

@@ -20,4 +20,6 @@ public interface Parametros {
     String TELEFONO_CONTACTO = "telefono";
     String EMAIL_CONTACTO = "email";
     String CONTINGENCIAS = "contingencia";
+    String BANCOS = "bancos";
+    String FORMAS_PAGO = "formasPago";
 }

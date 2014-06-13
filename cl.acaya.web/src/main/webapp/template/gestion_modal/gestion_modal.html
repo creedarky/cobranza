@@ -14,22 +14,21 @@
                     <th>Validar</th>
                     <th>Recaudar</th>
                     <th>Contingencia</th>
-                    <th>Tipo Contingencia</th>
+                    <th style="min-width: 224px;">Tipo Contingencia</th>
                     <th>Comentario</th>
                 </tr>
                 <tr ng-repeat="documento in documentos">
                     <td>{{documento.numDoc}}</td>
                     <td>{{documento.monto}}</td>
                     <td>{{documento.fechaVencimiento}}</td>
-                    <td><input type="checkbox" ng-change="validarRecaudar();" ng-model="documento.validar"/></td>
-                    <td><input type="checkbox" ng-change="validarRecaudar();" ng-model="documento.recaudar"/></td>
-                    <td><input type="checkbox" ng-change="validarContingencia();" ng-model="documento.contingencia" /></td>
+                    <td><input type="checkbox" ng-change="validarRecaudar(documento);" ng-model="documento.validar"/></td>
+                    <td><input type="checkbox" ng-change="validarRecaudar(documento);" ng-model="documento.recaudar"/></td>
+                    <td><input type="checkbox" ng-change="validarContingencia(documento);" ng-model="documento.contingencia" /></td>
                     <td>
-                        <select ng-show="documento.contigencia" ng-options="contingencia.contingencia for contingencia in contingencias">
-                            <option value="">Seleccione Contingencia</option>
+                        <select ng-show="documento.contingencia" ng-options="contingencia.contingencia | longWord  for contingencia in contingencias | orderBy:contingencia" ng-model="documento.contingenciaSeleccionada">
                         </select>
                     </td>
-                    <td><input type="text" ></td>
+                    <td><input ng-show="documento.contingencia" type="text" ng-model="documento.observacion" ></td>
                 </tr>
             </table>
         </div>

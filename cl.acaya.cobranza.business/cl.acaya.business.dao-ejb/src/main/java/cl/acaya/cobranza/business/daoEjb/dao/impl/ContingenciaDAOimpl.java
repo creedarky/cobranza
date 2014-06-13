@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Local(ContingenciaDAO.class)
 @Stateless
-public class ContingenciaDAOimpl extends GenericDAOImpl<Contingencia,Long> implements ContingenciaDAO {
+public class ContingenciaDAOimpl extends GenericDAOImpl<Contingencia,Integer> implements ContingenciaDAO {
 
     public ContingenciaDAOimpl() {
         super(Contingencia.class);

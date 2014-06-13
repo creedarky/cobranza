@@ -3,7 +3,7 @@ package cl.acaya.cobranza.business.daoEjb.entities;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,11 +26,11 @@ public class Recauda {
     private Integer systemId;
 
     @JoinColumn(name = "link_formapago", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private FormaPago formaPago;
 
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     private String direccion;
@@ -38,14 +38,16 @@ public class Recauda {
     @Column(name = "link_comuna")
     private Integer linkComuna;
 
+
+    @Column(name = "entrega_cedible")
     private Boolean entregaCedible;
 
     @JoinColumn(name = "link_usuario_recauda", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
     @JoinColumn(name = "link_banco", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Banco banco;
 
     @Column(name = "fec_pago")
@@ -56,15 +58,15 @@ public class Recauda {
     private String horarioPago;
 
     @JoinColumn(name = "link_sucursal_kup", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Sucursal sucursalKupfer;
 
     @JoinColumn(name = "link_sucursal_cli", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Sucursal sucursalCliente;
 
     @JoinColumn(name = "link_contacto", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ContactoCliente contactoCliente;
 
     @Column(name = "pago_lun")

@@ -1,9 +1,6 @@
 package cl.acaya.api.service;
 
-import cl.acaya.api.vo.ContactoVO;
-import cl.acaya.api.vo.GuardarAgendaVO;
-import cl.acaya.api.vo.Request;
-import cl.acaya.api.vo.Response;
+import cl.acaya.api.vo.*;
 
 import java.util.List;
 
@@ -19,4 +16,8 @@ public interface ClienteServiceRemote {
     List<ContactoVO> getContactosClientes(Long idCliente);
 
     Response guardarAgenda(GuardarAgendaVO guardarAgendaVO);
+
+     Response getBancosYFormasdePago();
+
+    Response guardarGestion(GestionVO gestionVO);
 }

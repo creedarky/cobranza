@@ -16,6 +16,7 @@ import com.sap.conn.jco.JCoTable;
 import javax.ejb.*;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.Date;
 
 /**
  * Created by Maximiliano on 11/06/2014.
@@ -46,6 +47,18 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
     @EJB
     AgendaDAO agendaDAO;
+
+    @EJB
+    BancoDAO bancoDAO;
+
+    @EJB
+    private FormaPagoDAO formaPagoDAO;
+
+    @EJB
+    private RecaudaDAO recaudaDAO;
+
+    @EJB
+    private ListaContingenciaDAO listaContingenciaDAO;
 
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -103,7 +116,7 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
         List<ContingenciaVO> contingenciaVOList = new ArrayList<ContingenciaVO>();
         for(Contingencia contingencia : contingenciaList) {
             ContingenciaVO contingenciaVO = new ContingenciaVO();
-            contingenciaVO.setSystemId(contingencia.getSystemId());
+            contingenciaVO.setIdContingencia(contingencia.getSystemId());
             contingenciaVO.setContingencia(contingencia.getContingencia());
             contingenciaVO.setTipo(contingencia.getTipo());
             contingenciaVOList.add(contingenciaVO);
@@ -179,7 +192,7 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
     }
 
-
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public ContactoVO guardarContacto(ContactoVO contactoVO) {
         ContactoCliente contactoCliente = new ContactoCliente();
         Cliente cliente = clienteDAO.find(contactoVO.getIdCliente());
@@ -197,6 +210,7 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response guardarAgenda(GuardarAgendaVO guardarAgendaVO) {
         Agenda agenda = new Agenda();
         Cliente cliente = clienteDAO.findReference(guardarAgendaVO.getIdCliente());
@@ -212,6 +226,62 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
     }
 
 
+    public Response getBancosYFormasdePago() {
+        List<Banco> bancoList = bancoDAO.findAll();
+        List<BancoVO> bancoVOList = new ArrayList<BancoVO>(bancoList.size());
+        List<FormaPago> formaPagoList = formaPagoDAO.findAll();
+        List<FormaPagoVO> formaPagoVOList = new ArrayList<FormaPagoVO>(bancoList.size());
+        for(Banco banco : bancoList) {
+            bancoVOList.add(TypesAdaptor.adaptar(banco));
+        }
 
+        for(FormaPago formaPago : formaPagoList) {
+            formaPagoVOList.add(TypesAdaptor.adaptar(formaPago));
+        }
+        Response response = new Response();
+        response.addResp(Parametros.BANCOS, bancoVOList);
+        response.addResp(Parametros.FORMAS_PAGO,formaPagoList);
 
+        return response;
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public Response guardarGestion(GestionVO gestionVO) {
+        if(gestionVO.getIdDocumentosValidados() != null && gestionVO.getIdDocumentosValidados().length > 0) {
+            documentoDAO.validarPorId(Arrays.asList(gestionVO.getIdDocumentosValidados()));
+        }
+        Cliente cliente = clienteDAO.find(gestionVO.getIdCliente());
+        if(gestionVO.getRecaudaVO() != null) {
+            RecaudaVO recaudaVO = gestionVO.getRecaudaVO();
+            Recauda  recauda = TypesAdaptor.adaptar(gestionVO.getRecaudaVO());
+            Banco banco = bancoDAO.find(recaudaVO.getIdBanco());
+            FormaPago formaPago = formaPagoDAO.find(recaudaVO.getIdFormaPago());
+            ContactoCliente contactoCliente = contactoDAO.find(recaudaVO.getIdContacto());
+
+            recauda.setBanco(banco);
+            recauda.setCliente(cliente);
+            recauda.setFormaPago(formaPago);
+            recauda.setContactoCliente(contactoCliente);
+            recaudaDAO.create(recauda);
+        }
+        if(gestionVO.getIdDocumentosContingencia() != null && gestionVO.getIdDocumentosContingencia().length > 0) {
+            int i = 0;
+            for(Long idDocumento: gestionVO.getIdDocumentosContingencia()) {
+                ListaConting listaConting = new ListaConting();
+                listaConting.setCliente(cliente);
+                Documento d = documentoDAO.find(idDocumento);
+                Contingencia c = contingenciaDAO.find(gestionVO.getIdContingencias()[i]);
+                listaConting.setObservacion(gestionVO.getObservacionesContingencia()[i]);
+                listaConting.setContingencia(c);
+                listaConting.setDocumento(d);
+                listaConting.setFecha(new Date());
+                listaConting.setCliente(cliente);
+                listaContingenciaDAO.create(listaConting);
+                i++;
+            }
+        }
+
+       return new Response();
+    }
 }

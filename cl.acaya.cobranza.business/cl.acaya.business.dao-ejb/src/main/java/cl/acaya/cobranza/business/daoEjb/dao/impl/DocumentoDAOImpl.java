@@ -9,6 +9,7 @@ import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +20,9 @@ import java.util.List;
 @SuppressWarnings({"unchecked"})
 public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements DocumentoDAO {
 
+    public DocumentoDAOImpl() {
+        super(Documento.class);
+    }
 
     private Documento documento;
 
@@ -98,5 +102,13 @@ public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements
         return em.createQuery("from Documento  dm where dm.systemId in (:idDocumentos)")
                 .setParameter("idDocumentos", idDocumentosList)
                 .getResultList();
+    }
+
+    @Override
+    public Integer validarPorId(List<Long> idDocumentList) {
+        return em.createQuery("update Documento  set fechaValidado = :fecha,  validado = :validado")
+                .setParameter("fecha", new Date())
+                .setParameter("validado", Boolean.TRUE)
+                .executeUpdate();
     }
 }

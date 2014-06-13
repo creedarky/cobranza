@@ -76,7 +76,8 @@ angular.module( 'ngBoilerplate.cliente', [
                     data: function () {
                         return  {documentos: $scope.documentosSeleccionados,
                             idCliente:$stateParams.idCliente,
-                            contactos: $scope.contactos,contingencias:$scope.contingencias};
+                            contactos: $scope.contactos,
+                            contingencias:$scope.contingencias};
                     }
 
                 }
@@ -89,14 +90,12 @@ angular.module( 'ngBoilerplate.cliente', [
             });
         };
 
-        $scope.guardar_gestion = function (size,view) {
-            alert("adasdad");
-        };
+
 }]);
 
 var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
 
-
+    console.log(data);
     $scope.documentos = data.documentos;
     $scope.idCliente = data.idCliente;
     $scope.contactos = data.contactos;
@@ -106,7 +105,7 @@ var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
     $scope.fechaAgendada = new Date();
     $scope.observacion = "";
     $scope.cargo = "";
-    $scope.contacto = {};
+    $scope.contactoSeleccionado = {};
 
 
     $scope.validarContingencia = function(documento) {
@@ -178,34 +177,134 @@ var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
             console.log('Modal dismissed at: ' + new Date());
         });
     };
+
+    $scope.guardar_gestion = function () {
+        var idContacto = $scope.contactoSeleccionado != null ? $scope.contactoSeleccionado.idContacto : null;
+        $scope.gestion = {idCliente:$scope.idCliente,observacion:$scope.observacion,
+            idContacto:idContacto,
+            idDocumentosValidados: [],
+            idDocumentosRecaudados:[],
+            idDocumentosContingencia:[],
+            idContingencias: [],
+            observacionesContingencia: []
+        }
+        var idDocumentosValidados = [];
+        var idDocumentosRecaudados = [];
+        var idDocumentosContingencia = [];
+        var idContingencias = [];
+        var observacionesContingencia= []
+        _.each($scope.documentos,function(documento) {
+            if(documento.validar)
+                idDocumentosValidados.push(documento.idDocumento)
+            if(documento.recaudar)
+                idDocumentosRecaudados.push(documento.idDocumento)
+            if(documento.contingencia) {
+                idDocumentosContingencia.push(documento.idDocumento),
+                idContingencias.push(documento.contingenciaSeleccionada.idContingencia);
+                observacionesContingencia.push(documento.observacion);
+            }
+        });
+
+        $scope.gestion.idDocumentosValidados = idDocumentosValidados;
+        $scope.gestion.idDocumentosRecaudados = idDocumentosRecaudados;
+        $scope.gestion.idDocumentosContingencia = idDocumentosContingencia;
+        $scope.gestion.idContingencias = idContingencias;
+        $scope.gestion.observacionesContingencia = observacionesContingencia;
+
+        console.log($scope.gestion);
+        console.log(JSON.stringify($scope.gestion));
+        if(idDocumentosRecaudados.length > 0) {
+            var modalInstance = $modal.open({
+                templateUrl: 'template/gestion_modal/recaudar_modal.html',
+                controller: ModalRecaudaCtrl,
+                size: 'lg',
+                resolve: {
+                    params: function() {
+                        return {contactos: $scope.contactos};
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (recauda) {
+                $scope.gestion.recaudaVO = recauda;
+                enviarGestion();
+            }, function () {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        }else
+            enviarGestion();
+    };
+
+    var enviarGestion = function() {
+        $http({
+            url: 'rest/cliente/gestion/guardar-gestion.htm',
+            dataType: 'json',
+            method: 'POST',
+            data: JSON.stringify($scope.gestion),
+            headers: {
+                "Content-Type": "application/json"
+            }}).success(function(data, status, headers, config) {
+            $scope.posts = data;
+            $modalInstance.close($scope.contactoSeleccionado);
+        }).
+        error(function(data, status, headers, config) {
+            alert("Ha ocurrido un error al guardar la gestión");
+        });
+
+    }
 };
 
 
 var ModalContactoCtrl = function ($scope, $modalInstance,$http, idCliente) {
     console.log($modalInstance);
     console.log(idCliente);
-    $scope.contacto = {idCliente: idCliente, nombre:'', cargo:'',email:'',fono:'',idContacto:null};
+    $scope.contactoSeleccionado = {idCliente: idCliente, nombre:'', cargo:'',email:'',fono:'',idContacto:null};
     $scope.master = {idCliente: idCliente, nombre:'', cargo:'',email:'',fono:'',idContacto:null};
     $scope.isUnchanged = function(contacto) {
         return angular.equals(contacto, $scope.master);
     };
     $scope.ok = function () {
-        $scope.master = angular.copy($scope.contacto);
+        $scope.master = angular.copy($scope.contactoSeleccionado);
         $http({
             url: 'rest/cliente/gestion/guardar-contacto.htm',
             dataType: 'json',
             method: 'POST',
-            data: JSON.stringify($scope.contacto),
+            data: JSON.stringify($scope.contactoSeleccionado),
             headers: {
                 "Content-Type": "application/json"
         }}).success(function(data, status, headers, config) {
             $scope.posts = data;
-            $modalInstance.close($scope.contacto);
+            $modalInstance.close($scope.contactoSeleccionado);
         }).
         error(function(data, status, headers, config) {
             alert("Ha ocurrido un error al guardar");
         });
 
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
+
+var ModalRecaudaCtrl = function ($scope, $modalInstance,$http, params) {
+    $scope.contactos = params.contactos;
+    $http.get('rest/cliente/gestion/bancos').success(function(data) {
+        $scope.bancos = data.body.bancos;
+        $scope.formasPago = data.body.formasPago;
+        $scope.bancoSeleccionado = $scope.bancos != null && $scope.bancos.length > 0 ? $scope.bancos[0] : null
+        $scope.contactoSeleccionado = $scope.contactos != null && $scope.contactos.length > 0 ? $scope.contactos[0] : null
+        $scope.formaPagoSeleccionado = $scope.formasPago != null && $scope.formasPago.length > 0 ? $scope.formasPago[0] : null
+    });
+    $scope.recauda = {fecha:new Date(),pagoLun:false,pagoMar:false,pagoMie:false,pagoJue:false,pagoVie:false}
+    $scope.ok = function () {
+        console.log($scope.bancoSeleccionado);
+        console.log($scope.formaPagoSeleccionado);
+        console.log($scope.contactoSeleccionado);
+        $scope.recauda.idBanco = $scope.bancoSeleccionado.idBanco;
+        $scope.recauda.idContacto = $scope.contactoSeleccionado.idContacto;
+        $scope.recauda.idFormaPago = $scope.formaPagoSeleccionado.systemId;
+        $modalInstance.close($scope.recauda);
     };
 
     $scope.cancel = function () {

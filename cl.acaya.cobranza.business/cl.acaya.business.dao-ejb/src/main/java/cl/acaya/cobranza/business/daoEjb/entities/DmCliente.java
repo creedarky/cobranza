@@ -39,7 +39,7 @@ public class DmCliente {
     private String dmCliente;
 
     @JoinColumn(name = "link_cliente")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     public DmCliente() {

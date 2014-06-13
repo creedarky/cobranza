@@ -5,7 +5,7 @@ import cl.acaya.cobranza.business.daoEjb.entities.Contingencia;
 import java.util.List;
 
 
-public interface ContingenciaDAO extends GenericDAO<Contingencia, Long> {
+public interface ContingenciaDAO extends GenericDAO<Contingencia, Integer> {
 
     List<Contingencia> findAll();
 }

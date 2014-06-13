@@ -46,7 +46,7 @@ public class Documento {
     private String documentoCompensacion;
 
     @JoinColumn(name = "link_sociedad", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Sociedad sociedad;
 
     @Column(name = "fecha_emision")
@@ -68,19 +68,20 @@ public class Documento {
     private boolean estadoDocumento;
 
     @JoinColumn(name = "link_tipo_doc", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private TipoDocumento tipoDocumento;
 
+
     @JoinColumn(name = "link_dm", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private DmCliente dmCliente;
 
     @JoinColumn(name = "link_sucursal", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Sucursal sucursal;
 
     @JoinColumn(name = "link_vendedor", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Vendedor vendedor;
 
     @Column(name = "link_despacho")
@@ -88,6 +89,12 @@ public class Documento {
 
     @Column(name = "factura_rel")
     private String facturaRelacionada;
+
+    @Column(name = "validado")
+    private Boolean validado;
+
+    @Column(name = "fecha_validado")
+    private Date fechaValidado;
 
     @Column(name =  "last_update")
     private Date lastUpdate;
@@ -277,5 +284,21 @@ public class Documento {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public Boolean getValidado() {
+        return validado;
+    }
+
+    public void setValidado(Boolean validado) {
+        this.validado = validado;
+    }
+
+    public Date getFechaValidado() {
+        return fechaValidado;
+    }
+
+    public void setFechaValidado(Date fechaValidada) {
+        this.fechaValidado = fechaValidada;
     }
 }

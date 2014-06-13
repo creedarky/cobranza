@@ -42,7 +42,7 @@ public class Usuario {
     private String usuarioEmail;
 
     @JoinColumn(name = "link_cargo")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private CargoUsuario cargo;
 
 

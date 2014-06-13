@@ -38,7 +38,7 @@ public class Hitos {
     }
 
     @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     public Documento getLinkDocumento() {
         return linkDocumento;
     }
@@ -48,7 +48,7 @@ public class Hitos {
     }
 
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     public Cliente getLinkCliente() {
         return linkCliente;
     }
@@ -58,7 +58,7 @@ public class Hitos {
     }
 
     @JoinColumn(name = "link_tipo_contig", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     public DocumentoEtapas getLinkDocEtapa() {
         return linkDocEtapa;
     }
@@ -68,7 +68,7 @@ public class Hitos {
     }
 
     @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     public Usuario getLinkUsuario() {
         return linkUsuario;
     }
@@ -79,7 +79,7 @@ public class Hitos {
 
 
     @JoinColumn(name = "link_contacto", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
 
     public ContactoCliente getLinkContacto() {
         return linkContacto;

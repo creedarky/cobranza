@@ -33,7 +33,7 @@ public class JefeUsuario {
     }
 
     @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     public Usuario getLinkUsuario() {
         return linkUsuario;
     }
@@ -43,7 +43,7 @@ public class JefeUsuario {
     }
 
     @JoinColumn(name = "link_jefe", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     public JefeUsuario getLinkJefe() {
         return linkJefe;
     }

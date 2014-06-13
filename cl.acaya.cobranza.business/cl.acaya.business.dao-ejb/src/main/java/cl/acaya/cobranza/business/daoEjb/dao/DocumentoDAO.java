@@ -19,4 +19,6 @@ public interface DocumentoDAO extends GenericDAO<Documento, Long> {
     List<Object[]> getTotalCarteraClientesByIdCliente(Long idCliente);
 
     List<Documento> getDocumentosByIdDocumentos(List<Long> idDocumentosList);
+
+    Integer validarPorId(List<Long> idDocumentList);
 }

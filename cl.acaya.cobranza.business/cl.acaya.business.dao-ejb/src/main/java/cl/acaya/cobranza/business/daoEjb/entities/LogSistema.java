@@ -14,9 +14,9 @@ public class LogSistema {
     private Integer systemId;
     private String usuLog;
     private Timestamp fechaLog;
-    private Usuario linkUsuario;
-    private Documento linkDocumento;
-    private Cliente linkCliente;
+    private Usuario usuario;
+    private Documento documento;
+    private Cliente cliente;
 
     @Id
     @Basic(optional = false)
@@ -57,34 +57,33 @@ public class LogSistema {
     }
 
     @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    @Column(name = "link_usuario")
-    public Usuario getLinkUsuario() {
-        return linkUsuario;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setLinkUsuario(Usuario linkUsuario) {
-        this.linkUsuario = linkUsuario;
+    public void setUsuario(Usuario linkUsuario) {
+        this.usuario = linkUsuario;
     }
 
     @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    public Documento getLinkDocumento() {
-        return linkDocumento;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Documento getDocumento() {
+        return documento;
     }
 
-    public void setLinkDocumento(Documento linkDocumento) {
-        this.linkDocumento = linkDocumento;
+    public void setDocumento(Documento linkDocumento) {
+        this.documento = linkDocumento;
     }
 
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    public Cliente getLinkCliente() {
-        return linkCliente;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setLinkCliente(Cliente linkCliente) {
-        this.linkCliente = linkCliente;
+    public void setCliente(Cliente linkCliente) {
+        this.cliente = linkCliente;
     }
 
     @Override
@@ -95,10 +94,10 @@ public class LogSistema {
         LogSistema that = (LogSistema) o;
 
         if (fechaLog != null ? !fechaLog.equals(that.fechaLog) : that.fechaLog != null) return false;
-        if (linkCliente != null ? !linkCliente.equals(that.linkCliente) : that.linkCliente != null) return false;
-        if (linkDocumento != null ? !linkDocumento.equals(that.linkDocumento) : that.linkDocumento != null)
+        if (cliente != null ? !cliente.equals(that.cliente) : that.cliente != null) return false;
+        if (documento != null ? !documento.equals(that.documento) : that.documento != null)
             return false;
-        if (linkUsuario != null ? !linkUsuario.equals(that.linkUsuario) : that.linkUsuario != null) return false;
+        if (usuario != null ? !usuario.equals(that.usuario) : that.usuario != null) return false;
         if (systemId != null ? !systemId.equals(that.systemId) : that.systemId != null) return false;
         if (usuLog != null ? !usuLog.equals(that.usuLog) : that.usuLog != null) return false;
 
@@ -110,9 +109,9 @@ public class LogSistema {
         int result = systemId != null ? systemId.hashCode() : 0;
         result = 31 * result + (usuLog != null ? usuLog.hashCode() : 0);
         result = 31 * result + (fechaLog != null ? fechaLog.hashCode() : 0);
-        result = 31 * result + (linkUsuario != null ? linkUsuario.hashCode() : 0);
-        result = 31 * result + (linkDocumento != null ? linkDocumento.hashCode() : 0);
-        result = 31 * result + (linkCliente != null ? linkCliente.hashCode() : 0);
+        result = 31 * result + (usuario != null ? usuario.hashCode() : 0);
+        result = 31 * result + (documento != null ? documento.hashCode() : 0);
+        result = 31 * result + (cliente != null ? cliente.hashCode() : 0);
         return result;
     }
 }

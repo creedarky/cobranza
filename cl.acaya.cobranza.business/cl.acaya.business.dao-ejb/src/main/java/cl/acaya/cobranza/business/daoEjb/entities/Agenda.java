@@ -32,15 +32,15 @@ public class Agenda {
     private Integer systemId;
 
     @JoinColumn(name = "link_usuario")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
     @JoinColumn(name = "link_cliente")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     @JoinColumn(name = "link_contacto")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ContactoCliente contacto;
 
     @Column(name = "fec_agenda")

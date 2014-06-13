@@ -164,4 +164,26 @@ public class TypesAdaptor {
         agendaVO.setUsuarioVO(usuarioVO);
         return agendaVO;
     }
+
+    public static BancoVO adaptar(Banco banco) {
+        return new BancoVO(banco.getSystemId(), banco.getBanco());
+    }
+
+    public static FormaPagoVO adaptar(FormaPago formaPago) {
+        return new FormaPagoVO(formaPago.getSystemId(),formaPago.getFormaPago(),formaPago.getDiasProm());
+    }
+
+    public static Recauda adaptar(RecaudaVO recaudaVO) {
+        Recauda recauda = new Recauda();
+        recauda.setEntregaCedible(recaudaVO.getEntregaCopia());
+        recauda.setDireccion(recaudaVO.getDireccion());
+        recauda.setFecPago(recaudaVO.getFecha());
+        recauda.setPagoLun(recauda.getPagoLun());
+        recauda.setPagoMar(recauda.getPagoMar());
+        recauda.setPagoMie(recauda.getPagoMie());
+        recauda.setPagoJue(recauda.getPagoJue());
+        recauda.setPagoVie(recauda.getPagoVie());
+        return recauda;
+
+    }
 }

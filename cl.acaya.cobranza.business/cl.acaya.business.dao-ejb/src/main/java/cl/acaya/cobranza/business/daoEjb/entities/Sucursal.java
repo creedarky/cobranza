@@ -38,7 +38,7 @@ public class  Sucursal {
     private String nombreSucursal;
 
     @JoinColumn(name = "link_zona")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Zona zona;
 
     public Sucursal() {

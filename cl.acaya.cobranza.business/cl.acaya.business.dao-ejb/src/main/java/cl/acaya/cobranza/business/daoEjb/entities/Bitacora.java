@@ -13,10 +13,10 @@ import java.sql.Timestamp;
 public class Bitacora {
     private Integer systemId;
     private Timestamp fechaComent;
-    private Documento linkDocumento;
-    private Cliente linkCliente;
+    private Documento Documento;
+    private Cliente cliente;
     private String comentario;
-    private Usuario linkUsuario;
+    private Usuario usuario;
 
     @Id
     @Basic(optional = false)
@@ -47,23 +47,23 @@ public class Bitacora {
     }
 
     @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    public Documento getLinkDocumento() {
-        return linkDocumento;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Documento getDocumento() {
+        return Documento;
     }
 
-    public void setLinkDocumento(Documento linkDocumento) {
-        this.linkDocumento = linkDocumento;
+    public void setDocumento(Documento linkDocumento) {
+        this.Documento = linkDocumento;
     }
 
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    public Cliente getLinkCliente() {
-        return linkCliente;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setLinkCliente(Cliente linkCliente) {
-        this.linkCliente = linkCliente;
+    public void setCliente(Cliente linkCliente) {
+        this.cliente = linkCliente;
     }
 
     @Basic
@@ -76,15 +76,14 @@ public class Bitacora {
         this.comentario = comentario;
     }
 
-    @JoinColumn(name = "cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    @Column(name = "link_usuario")
-    public Usuario getLinkUsuario() {
-        return linkUsuario;
+    @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setLinkUsuario(Usuario linkUsuario) {
-        this.linkUsuario = linkUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
@@ -97,11 +96,11 @@ public class Bitacora {
         if (comentario != null ? !comentario.equals(bitacora.comentario) : bitacora.comentario != null) return false;
         if (fechaComent != null ? !fechaComent.equals(bitacora.fechaComent) : bitacora.fechaComent != null)
             return false;
-        if (linkCliente != null ? !linkCliente.equals(bitacora.linkCliente) : bitacora.linkCliente != null)
+        if (cliente != null ? !cliente.equals(bitacora.cliente) : bitacora.cliente != null)
             return false;
-        if (linkDocumento != null ? !linkDocumento.equals(bitacora.linkDocumento) : bitacora.linkDocumento != null)
+        if (Documento != null ? !Documento.equals(bitacora.Documento) : bitacora.Documento != null)
             return false;
-        if (linkUsuario != null ? !linkUsuario.equals(bitacora.linkUsuario) : bitacora.linkUsuario != null)
+        if (usuario != null ? !usuario.equals(bitacora.usuario) : bitacora.usuario != null)
             return false;
         if (systemId != null ? !systemId.equals(bitacora.systemId) : bitacora.systemId != null) return false;
 
@@ -112,10 +111,10 @@ public class Bitacora {
     public int hashCode() {
         int result = systemId != null ? systemId.hashCode() : 0;
         result = 31 * result + (fechaComent != null ? fechaComent.hashCode() : 0);
-        result = 31 * result + (linkDocumento != null ? linkDocumento.hashCode() : 0);
-        result = 31 * result + (linkCliente != null ? linkCliente.hashCode() : 0);
+        result = 31 * result + (Documento != null ? Documento.hashCode() : 0);
+        result = 31 * result + (cliente != null ? cliente.hashCode() : 0);
         result = 31 * result + (comentario != null ? comentario.hashCode() : 0);
-        result = 31 * result + (linkUsuario != null ? linkUsuario.hashCode() : 0);
+        result = 31 * result + (usuario != null ? usuario.hashCode() : 0);
         return result;
     }
 }

@@ -36,7 +36,7 @@ public class DireccionesCliente {
     }
 
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     public Cliente getLinkCliente() {
         return linkCliente;
     }

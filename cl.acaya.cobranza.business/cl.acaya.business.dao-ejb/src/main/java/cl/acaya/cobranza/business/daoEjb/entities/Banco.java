@@ -9,10 +9,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "tbl_banco", schema = "dbo", catalog = "COBRANZA")
+@NamedQueries({@NamedQuery(name="Banco.findAll",query = "Select cn From Banco cn  order by cn.banco asc")})
 public class Banco {
-    private Integer systemId;
-    private String banco;
-    private Integer linkComuna;
 
     @Id
     @Basic(optional = false)
@@ -24,7 +22,12 @@ public class Banco {
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
                     @org.hibernate.annotations.Parameter(name = "increment_size", value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_banco")
-    private Long system_id;
+    private Integer systemId;
+
+    @Basic
+    @Column(name = "banco")
+    private String banco;
+
     public Integer getSystemId() {
         return systemId;
     }
@@ -33,8 +36,7 @@ public class Banco {
         this.systemId = systemId;
     }
 
-    @Basic
-    @Column(name = "banco")
+
     public String getBanco() {
         return banco;
     }
@@ -43,15 +45,7 @@ public class Banco {
         this.banco = banco;
     }
 
-    @Basic
-    @Column(name = "link_comuna")
-    public Integer getLinkComuna() {
-        return linkComuna;
-    }
 
-    public void setLinkComuna(Integer linkComuna) {
-        this.linkComuna = linkComuna;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -61,7 +55,6 @@ public class Banco {
         Banco banco1 = (Banco) o;
 
         if (banco != null ? !banco.equals(banco1.banco) : banco1.banco != null) return false;
-        if (linkComuna != null ? !linkComuna.equals(banco1.linkComuna) : banco1.linkComuna != null) return false;
         if (systemId != null ? !systemId.equals(banco1.systemId) : banco1.systemId != null) return false;
 
         return true;
@@ -71,7 +64,6 @@ public class Banco {
     public int hashCode() {
         int result = systemId != null ? systemId.hashCode() : 0;
         result = 31 * result + (banco != null ? banco.hashCode() : 0);
-        result = 31 * result + (linkComuna != null ? linkComuna.hashCode() : 0);
         return result;
     }
 }

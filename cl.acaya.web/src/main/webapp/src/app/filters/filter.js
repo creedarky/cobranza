@@ -35,5 +35,9 @@ angular.module('cobranzaFilters', []).filter('lessThanZero', function() {
 
         return sRutFormateado;
     }
+}).filter('longWord', function() {
+    return function(input) {
+        return input.length > 25 ? input.substring(0, 25) + "..." : input;
+    };
 });
 

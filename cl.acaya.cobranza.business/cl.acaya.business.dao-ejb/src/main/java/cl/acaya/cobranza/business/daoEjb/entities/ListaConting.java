@@ -3,7 +3,7 @@ package cl.acaya.cobranza.business.daoEjb.entities;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by darkmoorx on 12-06-14.
@@ -12,13 +12,14 @@ import java.sql.Date;
 @Table(name = "tbl_lista_conting", schema = "dbo", catalog = "COBRANZA")
 public class ListaConting {
     private Integer systemId;
-    private Documento linkDocumento;
-    private Cliente linkCliente;
-    private Contingencia linkContingencia;
+    private Documento documento;
+    private Cliente cliente;
+    private Contingencia contingencia;
     private Date fecha;
     private Boolean revisada;
     private Date fechaRevision;
-    private Usuario linkUsuario;
+    private Usuario usuario;
+    private String observacion;
 
     @Id
     @Basic(optional = false)
@@ -39,33 +40,33 @@ public class ListaConting {
     }
 
     @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    public Documento getLinkDocumento() {
-        return linkDocumento;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Documento getDocumento() {
+        return documento;
     }
 
-    public void setLinkDocumento(Documento linkDocumento) {
-        this.linkDocumento = linkDocumento;
+    public void setDocumento(Documento linkDocumento) {
+        this.documento = linkDocumento;
     }
 
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    public Cliente getLinkCliente() {
-        return linkCliente;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setLinkCliente(Cliente linkCliente) {
-        this.linkCliente = linkCliente;
+    public void setCliente(Cliente linkCliente) {
+        this.cliente = linkCliente;
     }
 
     @JoinColumn(name = "link_contingencia", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    public Contingencia getLinkContingencia() {
-        return linkContingencia;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Contingencia getContingencia() {
+        return contingencia;
     }
 
-    public void setLinkContingencia(Contingencia linkContingencia) {
-        this.linkContingencia = linkContingencia;
+    public void setContingencia(Contingencia linkContingencia) {
+        this.contingencia = linkContingencia;
     }
 
     @Basic
@@ -99,14 +100,23 @@ public class ListaConting {
     }
 
     @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
 
-    public Usuario getLinkUsuario() {
-        return linkUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setLinkUsuario(Usuario linkUsuario) {
-        this.linkUsuario = linkUsuario;
+    public void setUsuario(Usuario linkUsuario) {
+        this.usuario = linkUsuario;
+    }
+
+    @Column(name = "observacion")
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 
     @Override
@@ -119,12 +129,12 @@ public class ListaConting {
         if (fecha != null ? !fecha.equals(that.fecha) : that.fecha != null) return false;
         if (fechaRevision != null ? !fechaRevision.equals(that.fechaRevision) : that.fechaRevision != null)
             return false;
-        if (linkCliente != null ? !linkCliente.equals(that.linkCliente) : that.linkCliente != null) return false;
-        if (linkContingencia != null ? !linkContingencia.equals(that.linkContingencia) : that.linkContingencia != null)
+        if (cliente != null ? !cliente.equals(that.cliente) : that.cliente != null) return false;
+        if (contingencia != null ? !contingencia.equals(that.contingencia) : that.contingencia != null)
             return false;
-        if (linkDocumento != null ? !linkDocumento.equals(that.linkDocumento) : that.linkDocumento != null)
+        if (documento != null ? !documento.equals(that.documento) : that.documento != null)
             return false;
-        if (linkUsuario != null ? !linkUsuario.equals(that.linkUsuario) : that.linkUsuario != null) return false;
+        if (usuario != null ? !usuario.equals(that.usuario) : that.usuario != null) return false;
         if (revisada != null ? !revisada.equals(that.revisada) : that.revisada != null) return false;
         if (systemId != null ? !systemId.equals(that.systemId) : that.systemId != null) return false;
 
@@ -134,13 +144,13 @@ public class ListaConting {
     @Override
     public int hashCode() {
         int result = systemId != null ? systemId.hashCode() : 0;
-        result = 31 * result + (linkDocumento != null ? linkDocumento.hashCode() : 0);
-        result = 31 * result + (linkCliente != null ? linkCliente.hashCode() : 0);
-        result = 31 * result + (linkContingencia != null ? linkContingencia.hashCode() : 0);
+        result = 31 * result + (documento != null ? documento.hashCode() : 0);
+        result = 31 * result + (cliente != null ? cliente.hashCode() : 0);
+        result = 31 * result + (contingencia != null ? contingencia.hashCode() : 0);
         result = 31 * result + (fecha != null ? fecha.hashCode() : 0);
         result = 31 * result + (revisada != null ? revisada.hashCode() : 0);
         result = 31 * result + (fechaRevision != null ? fechaRevision.hashCode() : 0);
-        result = 31 * result + (linkUsuario != null ? linkUsuario.hashCode() : 0);
+        result = 31 * result + (usuario != null ? usuario.hashCode() : 0);
         return result;
     }
 }

@@ -7,16 +7,19 @@
     <div class="row">
         <div class="col-md-5">
             <label>Forma de pago</label>
-            <select style="padding-right: 5px">
-                <option>Seleccione Forma de pago</option>
-            </select><br>
+            <select ng-options="formaPago.formaPago for formaPago in formasPago" ng-model="formaPago"></select><br>
             <label>Dirección</label>
-            <input type="text"/><br>
-            <input type="checkbox"/>
+            <input type="text" ng-model="recauda.direccion"/><br>
+            <input type="checkbox" ng-model="recauda.entregaCopia"/>
             Entrega Copia Cedible<br>
             <label>Banco</label>
-            <input type="text"/><br>
-
+            <select ng-options="banco.banco for banco in bancos" ng-model="banco"></select>
+            <div style="float:left;">
+                <label>Contacto</label>
+                <select ng-options="contacto.nombre + ' ' + contacto.cargo for contacto in contactos | orderBy:nombre" ng-model="contacto">
+                </select>
+            </div>
+            <!--
             <div style="float:left;">
                 <label>Sucursal Kupfer</label>
                 <input type="text" style="padding-right: 10px;width: 180px;"/>
@@ -28,34 +31,31 @@
                 <input type="text" style="width: 180px;"/>
                 <label>Cargo</label>
                 <input type="text" style="width: 180px;"/>
-            </div>
+            </div>-->
         </div>
         <div class="col-md-5">
             <fieldset>
                 <legend>Día pago Cliente</legend>
-                <input type="checkbox"/>
+                <input type="checkbox" ng-model="recauda.pagoLun"/>
                 <label style="padding-right: 5px;">Lunes</label>
-                <input type="checkbox"/>
+                <input type="checkbox" ng-model="recauda.pagoMar"/>
                 <label style="padding-right: 5px;">Martes</label>
-                <input type="checkbox"/>
+                <input type="checkbox" ng-model="recauda.pagoMie"/>
                 <label style="padding-right: 5px;">Miercoles</label>
-                <input type="checkbox"/>
+                <input type="checkbox" ng-model="recauda.pagoJue"/>
                 <label style="padding-right: 5px;">Jueves</label>
-                <input type="checkbox"/>
+                <input type="checkbox" ng-model="recauda.pagoVie"/>
                 <label style="padding-right: 5px;">Viernes</label>
             </fieldset>
                 <label>Fecha Agenda</label><br>
-                <select style="width: 50px;padding-right: 5px">
-                    <option>dd</option>
-                </select>
-                <select style="width: 50px;padding-right: 5px">
-                    <option>mm</option>
-                </select>
-                <select style="width: 50px;padding-right: 5px">
-                    <option>yyyy</option>
-                </select>
-                <label>Horario</label>
-                <input type="text"/>
+            <div class="dropdown">
+                <a  class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
+                    {{recauda.fecha | date:'dd-MM-yyyy hh:mm'}}<span class="glyphicon glyphicon-calendar"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <datetimepicker data-ng-model="recauda.fecha" data-datetdadaimepicker-config="{ dropdownSelector: '#dropdown1' }"/>
+                </ul>
+            </div>
             </div>
         </div>
     </div>

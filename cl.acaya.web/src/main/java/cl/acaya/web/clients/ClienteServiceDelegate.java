@@ -1,11 +1,7 @@
 package cl.acaya.web.clients;
 
 import cl.acaya.api.service.ClienteServiceRemote;
-import cl.acaya.api.service.CobranzaServiceRemote;
-import cl.acaya.api.vo.ContactoVO;
-import cl.acaya.api.vo.GuardarAgendaVO;
-import cl.acaya.api.vo.Request;
-import cl.acaya.api.vo.Response;
+import cl.acaya.api.vo.*;
 
 import java.util.List;
 
@@ -41,6 +37,16 @@ public class ClienteServiceDelegate extends AbstractServiceDelegate implements C
     @Override
     public Response guardarAgenda(GuardarAgendaVO guardarAgendaVO) {
         return clienteServiceRemote.guardarAgenda(guardarAgendaVO);
+    }
+
+    @Override
+    public Response getBancosYFormasdePago() {
+        return clienteServiceRemote.getBancosYFormasdePago();
+    }
+
+    @Override
+    public Response guardarGestion(GestionVO gestionVO) {
+        return clienteServiceRemote.guardarGestion(gestionVO);
     }
 }
 

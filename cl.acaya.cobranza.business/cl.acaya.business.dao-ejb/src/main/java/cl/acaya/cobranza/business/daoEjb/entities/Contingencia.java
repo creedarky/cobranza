@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "tbl_contingencia", schema = "dbo", catalog = "COBRANZA")
-@NamedQueries({@NamedQuery(name="Contingencia.findAll",query = "Select cn From Contingencia cn order by cn.contingencia asc")})
+@NamedQueries({@NamedQuery(name="Contingencia.findAll",query = "Select cn From Contingencia cn  order by cn.contingencia asc")})
 public class Contingencia {
     @Id
     @Basic(optional = false)
@@ -27,8 +27,8 @@ public class Contingencia {
     @Column(name = "contingencia")
     private String contingencia;
 
-    @JoinColumn(name = "link_tipo_contig", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @JoinColumn(name = "link_tipo_contig", referencedColumnName = "system_id" )  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne(fetch = FetchType.LAZY)
     private TipoContingencia tipoContingencia;
 
     @Basic

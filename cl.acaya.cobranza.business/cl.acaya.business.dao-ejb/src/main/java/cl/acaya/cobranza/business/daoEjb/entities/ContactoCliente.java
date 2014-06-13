@@ -50,12 +50,12 @@ public class ContactoCliente {
     private String fonoContacto3;
 
     @JoinColumn(name = "link_cargo")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
     private CargoUsuario cargo;
 
     @JoinColumn(name = "link_cliente")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     public ContactoCliente() {

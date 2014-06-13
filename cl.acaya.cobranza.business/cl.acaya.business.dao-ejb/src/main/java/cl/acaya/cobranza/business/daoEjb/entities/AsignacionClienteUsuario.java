@@ -25,11 +25,11 @@ public class AsignacionClienteUsuario implements Serializable {
     private Long system_id;
 
     @JoinColumn(name = "link_usuario")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
     @JoinColumn(name = "link_cliente")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     @Column(name = "fecha_ini")

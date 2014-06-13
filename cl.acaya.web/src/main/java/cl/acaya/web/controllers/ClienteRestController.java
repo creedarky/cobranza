@@ -7,7 +7,6 @@ import cl.acaya.web.util.RequestFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -91,7 +90,26 @@ public class ClienteRestController {
         return  jsonResponse;
     }
 
+    @RequestMapping(value =  "bancos", method = RequestMethod.GET)
+    public @ResponseBody
+    JsonResponse getBancos() {
+        Response response = clienteServiceRemote.getBancosYFormasdePago();
+        Map<String, List> map = new HashMap<String, List>();
+        JsonResponse jsonResponse = new JsonResponse();
+        map.put(Parametros.BANCOS, response.getResp(Parametros.BANCOS,List.class));
+        map.put(Parametros.FORMAS_PAGO, response.getResp(Parametros.FORMAS_PAGO,List.class));
+        jsonResponse.setBody(map);
+        return jsonResponse;
+    }
 
+    @RequestMapping(value="guardar-gestion", method = RequestMethod.POST)
+    public @ResponseBody JsonResponse guardarGestion(@RequestBody final GestionVO gestionVO) {
+        System.out.println(gestionVO.toString());
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setSuccessToTrue();
+        jsonResponse.setBody(clienteServiceRemote.guardarGestion(gestionVO));
+        return  jsonResponse;
+    }
 
 
 }
