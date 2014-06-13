@@ -45,8 +45,13 @@ public class Recauda {
 
     private Integer linkCliente;
 
-    @Basic
-    @javax.persistence.Column(name = "link_cliente")
+    @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+
+    
+    private Sociedad sociedad;
+
+
     public Integer getLinkCliente() {
         return linkCliente;
     }
