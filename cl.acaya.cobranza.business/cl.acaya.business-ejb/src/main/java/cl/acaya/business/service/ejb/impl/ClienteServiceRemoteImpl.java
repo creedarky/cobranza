@@ -44,6 +44,9 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
     @EJB
     CargoUsuarioDAO cargoUsuarioDAO;
 
+    @EJB
+    AgendaDAO agendaDAO;
+
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Response getDatosGestionCliente(Request request) {
@@ -190,6 +193,20 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
         System.out.println(contactoCliente);
         contactoVO.setIdCliente(contactoCliente.getSystemId());
         return  contactoVO;
+
+    }
+
+    public Response guardarAgenda(GuardarAgendaVO guardarAgendaVO) {
+        Agenda agenda = new Agenda();
+        Cliente cliente = clienteDAO.findReference(guardarAgendaVO.getIdCliente());
+        List<Documento> documentoList = documentoDAO.getDocumentosByIdDocumentos(Arrays.asList(guardarAgendaVO.getIdDocumentos()));
+        agenda.getDocumentos().addAll(documentoList);
+        agenda.setFecAgenda(guardarAgendaVO.getFechaAgendada());
+        agenda.setComentario(guardarAgendaVO.getComentario());
+        agenda.setContacto(contactoDAO.find(guardarAgendaVO.getIdContacto()));
+        agenda.setCliente(cliente);
+        agendaDAO.create(agenda);
+        return new Response();
 
     }
 
