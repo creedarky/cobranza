@@ -15,10 +15,7 @@ import com.sap.conn.jco.JCoTable;
 
 import javax.ejb.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Maximiliano on 11/06/2014.
@@ -43,6 +40,9 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
     @EJB
     ContactoDAO contactoDAO;
+
+    @EJB
+    AgendaDAO agendaDAO;
 
     @EJB
     CargoUsuarioDAO cargoUsuarioDAO;
