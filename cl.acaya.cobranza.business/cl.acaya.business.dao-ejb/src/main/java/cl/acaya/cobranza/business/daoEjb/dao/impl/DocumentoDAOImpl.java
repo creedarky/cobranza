@@ -5,6 +5,7 @@ import cl.acaya.cobranza.business.daoEjb.dao.ClienteDAO;
 import cl.acaya.cobranza.business.daoEjb.dao.DocumentoDAO;
 import cl.acaya.cobranza.business.daoEjb.entities.Cliente;
 import cl.acaya.cobranza.business.daoEjb.entities.Documento;
+import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -78,8 +79,12 @@ public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements
 
         if(documentoList == null || documentoList.isEmpty())
             documento = create(documento);
-        else
-            documento = documentoList.get(0);
+        else {
+            Documento aux = documentoList.get(0);
+            aux = TypesAdaptor.actualizar(aux, documento);
+            update(aux);
+            documento = aux;
+        }
         return documento;
     }
 

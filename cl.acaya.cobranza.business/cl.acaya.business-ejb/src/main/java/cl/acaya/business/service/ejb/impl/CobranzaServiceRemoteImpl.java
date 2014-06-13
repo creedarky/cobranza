@@ -88,10 +88,11 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
             JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
             System.out.println("filas " + table.getNumRows());
             //System.out.println(table);
-            Cliente cliente = null;
+            Cliente cliente = request.getParam(Parametros.CLIENTE, Cliente.class);
             DmCliente dmCliente = null;
             List<PartidasSAPVO> documentosList = new ArrayList<PartidasSAPVO>(table.getNumRows());
 
+            Date lastUpdate = new Date();
             try {
                     userTransaction.begin();
                     for (int i = 0; i < table.getNumRows(); i++) {
@@ -125,12 +126,11 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
                         documentoVO.setOrdenCompra(table.getString("ORDCOMP"));
                         documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
                         documentoVO.setNombreCliente(table.getString("NOMCLIE"));
+                        documentoVO.setFacturaRelacionada(table.getString("FACTNCR"));
                         Documento d = TypesAdaptor.adaptar(documentoVO);
+                        d.setLastUpdate(lastUpdate);
                         cliente = new Cliente();
                         dmCliente = new DmCliente();
-                        cliente.setRutCliente(documentoVO.getRutCliente());
-                        cliente.setNombreCliente(documentoVO.getNombreCliente());
-                        cliente = clienteDAO.findOrCreate(cliente);
                         dmCliente.setCliente(cliente);
                         dmCliente.setDmCliente(documentoVO.getCodigoCliente());
                         dmCliente = dmClienteDAO.findOrCreate(dmCliente);
@@ -148,6 +148,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
                         d.setVendedor(vendedor);
                         d.setDmCliente(dmCliente);
                         d.setSociedad(sociedad);
+
                         documentoDAO.findOrCreate(d);
                         documentosList.add(documentoVO);
                         if(i%50 == 0 || table.getNumRows() - i == 1) {
@@ -203,6 +204,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
             JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
             Cliente cliente = null;
             DmCliente dmCliente = null;
+            Date lastUpdate = new Date();
             do {
                 try {
                     userTransaction.begin();
@@ -238,7 +240,9 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
                         documentoVO.setOrdenCompra(table.getString("ORDCOMP"));
                         documentoVO.setCodigoCuenta(table.getString("CODCUEN"));
                         documentoVO.setNombreCliente(table.getString("NOMCLIE"));
+                        documentoVO.setFacturaRelacionada(table.getString("FACTNCR"));
                         Documento d = TypesAdaptor.adaptar(documentoVO);
+                        d.setLastUpdate(lastUpdate);
                         cliente = new Cliente();
                         dmCliente = new DmCliente();
                         cliente.setRutCliente(documentoVO.getRutCliente());

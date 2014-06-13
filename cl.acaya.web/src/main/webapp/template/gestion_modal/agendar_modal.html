@@ -7,22 +7,20 @@
     <div class="row">
         <div class="col-md-6">
             <label>Fecha Agenda</label>
-            <select style="width: 50px;padding-right: 5px" class="input-sm">
-                <option>dd</option>
-            </select>
-            <select style="width: 50px;padding-right: 5px" class="input-sm">
-                <option>mm</option>
-            </select>
-            <select style="width: 50px;padding-right: 5px" class="input-sm">
-                <option>yyyy</option>
-            </select><br><br>
-            <label>Hora Agenda</label>
-            <select style="width: 50px;padding-right: 5px" class="input-sm">
-                <option>HH</option>
-            </select>
-            <select style="width: 50px;padding-right: 5px" class="input-sm">
-                <option>MM</option>
-            </select><br>
+
+            <p class="input-group">
+                <input type="text" class="form-control" ng-change="changed()" datepicker-popup="{{format}}" ng-model="fechaAgendada" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+
+            <p class="input-group">
+                <timepicker ng-model="fechaAgendada" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+            </p>
+
+            {{fechaAgendada}}
+            <br>
             Observación<br>
             <textarea rows="4" cols="30" style="margin: 0px; width: 432px; height: 112px;"></textarea><br>
             Contacto<br>

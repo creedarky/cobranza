@@ -92,6 +92,47 @@ var ModalAgendarCtrl = function ($scope, $modalInstance, items) {
     $scope.cargo = "";
     $scope.contacto = {};
 
+    $scope.today = function() {
+        $scope.fechaAgendada = new Date();
+    };
+    $scope.today();
+
+    $scope.clear = function () {
+        $scope.fechaAgendada = null;
+    };
+
+    $scope.hstep = 1;
+    $scope.mstep = 5;
+
+    $scope.ismeridian = true;
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    $scope.toggleMin = function() {
+        $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+
+    $scope.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+    };
+
+    $scope.initDate = new Date();
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+    $scope.changed = function () {
+        console.log('Time changed to: ' + $scope.fechaAgendada);
+    };
     $scope.ok = function () {
         $modalInstance.close($scope.selected.item);
     };

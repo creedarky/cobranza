@@ -86,6 +86,12 @@ public class Documento {
     @Column(name = "link_despacho")
     private Long despacho;
 
+    @Column(name = "factura_rel")
+    private String facturaRelacionada;
+
+    @Column(name =  "last_update")
+    private Date lastUpdate;
+
     @ManyToMany(mappedBy="documentos")
     private Set<Agenda> agendas = new HashSet<Agenda>();
 
@@ -236,5 +242,29 @@ public class Documento {
 
     public void setDespacho(Long despacho) {
         this.despacho = despacho;
+    }
+
+    public String getFacturaRelacionada() {
+        return facturaRelacionada;
+    }
+
+    public void setFacturaRelacionada(String facturaRelacionada) {
+        this.facturaRelacionada = facturaRelacionada;
+    }
+
+    public Set<Agenda> getAgendas() {
+        return agendas;
+    }
+
+    public void setAgendas(Set<Agenda> agendas) {
+        this.agendas = agendas;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

@@ -58,6 +58,16 @@ public class ClienteRestController {
         return jsonResponse;
     }
 
+    @RequestMapping(value="guardarAgenda", method = RequestMethod.POST)
+    public @ResponseBody JsonResponse guardarAgenda(@RequestBody final GuardarAgendaVO guardarAgendaVO) {
+
+        System.out.println(guardarAgendaVO.toString());
+        return  new JsonResponse();
+
+
+
+    }
+
 
 
 

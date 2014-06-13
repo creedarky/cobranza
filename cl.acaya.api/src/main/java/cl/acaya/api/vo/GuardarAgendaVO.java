@@ -1,5 +1,6 @@
 package cl.acaya.api.vo;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -11,7 +12,6 @@ public class GuardarAgendaVO {
     private Date fechaAgendada;
     private String comentario;
     private Long idContacto;
-    private Long idAgenda;
     private String cargo;
     private Long[] idDocumentos;
 
@@ -39,13 +39,6 @@ public class GuardarAgendaVO {
         this.idContacto = idContacto;
     }
 
-    public Long getIdAgenda() {
-        return idAgenda;
-    }
-
-    public void setIdAgenda(Long idAgenda) {
-        this.idAgenda = idAgenda;
-    }
 
     public String getCargo() {
         return cargo;
@@ -61,5 +54,16 @@ public class GuardarAgendaVO {
 
     public void setIdDocumentos(Long[] idDocumentos) {
         this.idDocumentos = idDocumentos;
+    }
+
+    @Override
+    public String toString() {
+        return "GuardarAgendaVO{" +
+                "fechaAgendada=" + fechaAgendada +
+                ", comentario='" + comentario + '\'' +
+                ", idContacto=" + idContacto +
+                ", cargo='" + cargo + '\'' +
+                ", idDocumentos=" + Arrays.toString(idDocumentos) +
+                '}';
     }
 }

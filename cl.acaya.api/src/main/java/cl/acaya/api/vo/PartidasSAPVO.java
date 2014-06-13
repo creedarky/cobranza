@@ -38,6 +38,7 @@ public class PartidasSAPVO implements Cloneable {
     private String codigoCuenta;
     private Integer montoPartida;
     private String nombreCliente;
+    private String facturaRelacionada;
 
     public PartidasSAPVO() {
     }
@@ -269,6 +270,12 @@ public class PartidasSAPVO implements Cloneable {
         this.nombreCliente = nombreCliente;
     }
 
+    public String getFacturaRelacionada() {
+        return facturaRelacionada;
+    }
 
+    public void setFacturaRelacionada(String facturaRelacionada) {
+        this.facturaRelacionada = facturaRelacionada;
+    }
 }
 

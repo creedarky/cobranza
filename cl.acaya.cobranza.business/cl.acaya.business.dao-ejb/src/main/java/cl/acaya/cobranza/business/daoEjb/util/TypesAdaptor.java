@@ -26,9 +26,29 @@ public class TypesAdaptor {
         d.setDocumentoCompensacion(documentoVO.getNumeroDocumentoCompensacion());
         d.setFechaCompensacion(documentoVO.getFechaCompensacion());
         d.setMontoDocumento(documentoVO.getMontoCobrar());
+        d.setFacturaRelacionada(documentoVO.getFacturaRelacionada());
         // TODO por definir el resto de los campos
         return d;
     }
+
+    public static Documento actualizar(Documento documentoOriginal, Documento documentoNuevo) {
+        Documento d = new Documento();
+        documentoOriginal.setNumeroFactura(documentoNuevo.getNumeroFactura());
+        documentoOriginal.setNumeroDocumento(documentoNuevo.getNumeroFactura());
+        documentoOriginal.setFolioSII(documentoNuevo.getFolioSII());
+        documentoOriginal.setNumeroPedido(documentoNuevo.getNumeroPedido());
+        //local.setFechaContable(documentoVO.getFechaContable());
+        documentoOriginal.setFechaEmision(documentoNuevo.getFechaEmision());
+        documentoOriginal.setFechaVencimiento(documentoNuevo.getFechaVencimiento());
+        documentoOriginal.setDocumentoCompensacion(documentoNuevo.getDocumentoCompensacion());
+        documentoOriginal.setFechaCompensacion(documentoNuevo.getFechaCompensacion());
+        documentoOriginal.setMontoDocumento(documentoNuevo.getMontoDocumento());
+        documentoOriginal.setFacturaRelacionada(documentoNuevo.getFacturaRelacionada());
+        documentoOriginal.setLastUpdate(documentoNuevo.getLastUpdate());
+        // TODO por definir el resto de los campos
+        return documentoOriginal;
+    }
+
 
     public static ClienteVO adaptar(Cliente cliente) {
         ClienteVO clienteVO = new ClienteVO();
