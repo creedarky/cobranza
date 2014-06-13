@@ -103,6 +103,7 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
         List<ContingenciaVO> contingenciaVOList = new ArrayList<ContingenciaVO>();
         for(Contingencia contingencia : contingenciaList) {
             ContingenciaVO contingenciaVO = new ContingenciaVO();
+            contingenciaVO.setSystemId(contingencia.getSystemId());
             contingenciaVO.setContingencia(contingencia.getContingencia());
             contingenciaVO.setTipo(contingencia.getTipo());
             contingenciaVOList.add(contingenciaVO);

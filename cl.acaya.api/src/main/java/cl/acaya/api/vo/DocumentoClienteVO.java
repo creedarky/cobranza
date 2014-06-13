@@ -19,6 +19,13 @@ public class DocumentoClienteVO {
     private String codigoTipo;
     private Date fechaEmision;
     private Date fechaVencimiento;
+    private String tipoDocumento;
+    private String indicadorSentido;
+    private String observacion;
+
+    public DocumentoClienteVO() {
+        observacion = "";
+    }
 
     public String getTramo() {
         return tramo;
@@ -106,5 +113,29 @@ public class DocumentoClienteVO {
 
     public void setRut(String rut) {
         this.rut = rut;
+    }
+
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public String getIndicadorSentido() {
+        return indicadorSentido;
+    }
+
+    public void setIndicadorSentido(String indicadorSentido) {
+        this.indicadorSentido = indicadorSentido;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 }

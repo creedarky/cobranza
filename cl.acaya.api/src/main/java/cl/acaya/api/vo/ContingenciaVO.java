@@ -1,9 +1,11 @@
 package cl.acaya.api.vo;
 
+import java.io.Serializable;
+
 /**
  * Created by darkmoorx on 12-06-14.
  */
-public class ContingenciaVO {
+public class ContingenciaVO implements Serializable{
 
     private Integer systemId;
     private String contingencia;
@@ -59,7 +61,8 @@ public class ContingenciaVO {
 
         ContingenciaVO contingenciaVO = (ContingenciaVO) o;
 
-        if (contingencia != null ? !contingencia.equals(contingenciaVO.contingencia) : contingenciaVO.contingencia != null) return false;
+        if (contingencia != null ? !contingencia.equals(contingenciaVO.contingencia) : contingenciaVO.contingencia != null)
+            return false;
 
         return true;
     }

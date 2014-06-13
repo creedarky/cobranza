@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by darkmoorx on 12-06-14.
@@ -11,8 +13,6 @@ import java.sql.Date;
 @Entity
 @javax.persistence.Table(name = "tbl_recauda", schema = "dbo", catalog = "COBRANZA")
 public class Recauda {
-    private Integer systemId;
-
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
@@ -21,8 +21,76 @@ public class Recauda {
                     @org.hibernate.annotations.Parameter(name = "table_name", value = "hibernate_sequences"),
                     @org.hibernate.annotations.Parameter(name = "segment_value", value = "SEQ_recauda"),
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
-                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1") })
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")})
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_recauda")
+    private Integer systemId;
+
+    @JoinColumn(name = "link_formapago", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private FormaPago formaPago;
+
+    @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private Cliente cliente;
+
+    private String direccion;
+
+    @Column(name = "link_comuna")
+    private Integer linkComuna;
+
+    private Boolean entregaCedible;
+
+    @JoinColumn(name = "link_usuario_recauda", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private Usuario usuario;
+
+    @JoinColumn(name = "link_banco", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private Banco banco;
+
+    @Column(name = "fec_pago")
+    private Date fecPago;
+
+
+    @Column(name = "horario_pago")
+    private String horarioPago;
+
+    @JoinColumn(name = "link_sucursal_kup", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private Sucursal sucursalKupfer;
+
+    @JoinColumn(name = "link_sucursal_cli", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private Sucursal sucursalCliente;
+
+    @JoinColumn(name = "link_contacto", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private ContactoCliente contactoCliente;
+
+    @Column(name = "pago_lun")
+    private Boolean pagoLun;
+
+    @Column(name = "pago_mar")
+    private Boolean pagoMar;
+
+    @Column(name = "pago_mie")
+    private Boolean pagoMie;
+
+    @Column(name = "pago_jue")
+    private Boolean pagoJue;
+
+    @Column(name = "pago_vie")
+    private Boolean pagoVie;
+
+    @Column(name = "validada")
+    private Boolean validada;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name="tbl_recauda_doc",
+            joinColumns={@JoinColumn(name="link_recauda")},
+            inverseJoinColumns={@JoinColumn(name="link_documento")})
+    private Set<Documento> documentos = new HashSet<Documento>();
+
     public Integer getSystemId() {
         return systemId;
     }
@@ -31,35 +99,22 @@ public class Recauda {
         this.systemId = systemId;
     }
 
-
-    @JoinColumn(name = "link_formapago", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    private Integer linkFormapago;
-
-    public Integer getLinkFormapago() {
-        return linkFormapago;
+    public FormaPago getFormaPago() {
+        return formaPago;
     }
 
-    public void setLinkFormapago(Integer linkFormapago) {
-        this.linkFormapago = linkFormapago;
+    public void setFormaPago(FormaPago formaPago) {
+        this.formaPago = formaPago;
     }
 
-    @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    private Integer linkCliente;
-
-    public Integer getLinkCliente() {
-        return linkCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setLinkCliente(Integer linkCliente) {
-        this.linkCliente = linkCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    private String direccion;
-
-    @Basic
-    @javax.persistence.Column(name = "direccion")
     public String getDireccion() {
         return direccion;
     }
@@ -67,11 +122,6 @@ public class Recauda {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
-
-    @JoinColumn(name = "link_comuna", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    private Integer linkComuna;
 
     public Integer getLinkComuna() {
         return linkComuna;
@@ -81,10 +131,6 @@ public class Recauda {
         this.linkComuna = linkComuna;
     }
 
-    private Boolean entregaCedible;
-
-    @Basic
-    @javax.persistence.Column(name = "entrega_cedible")
     public Boolean getEntregaCedible() {
         return entregaCedible;
     }
@@ -93,35 +139,22 @@ public class Recauda {
         this.entregaCedible = entregaCedible;
     }
 
-    @JoinColumn(name = "link_usuario_recauda", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    private Integer linkUsuarioRecauda;
-
-    public Integer getLinkUsuarioRecauda() {
-        return linkUsuarioRecauda;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setLinkUsuarioRecauda(Integer linkUsuarioRecauda) {
-        this.linkUsuarioRecauda = linkUsuarioRecauda;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-
-    @JoinColumn(name = "link_banco", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    private Integer linkBanco;
-
-    public Integer getLinkBanco() {
-        return linkBanco;
+    public Banco getBanco() {
+        return banco;
     }
 
-    public void setLinkBanco(Integer linkBanco) {
-        this.linkBanco = linkBanco;
+    public void setBanco(Banco banco) {
+        this.banco = banco;
     }
 
-    private Date fecPago;
-
-    @Basic
-    @javax.persistence.Column(name = "fec_pago")
     public Date getFecPago() {
         return fecPago;
     }
@@ -130,10 +163,6 @@ public class Recauda {
         this.fecPago = fecPago;
     }
 
-    private String horarioPago;
-
-    @Basic
-    @javax.persistence.Column(name = "horario_pago")
     public String getHorarioPago() {
         return horarioPago;
     }
@@ -142,49 +171,30 @@ public class Recauda {
         this.horarioPago = horarioPago;
     }
 
-    private Integer linkSucursalKup;
-
-    @Basic
-    @javax.persistence.Column(name = "link_sucursal_kup")
-    public Integer getLinkSucursalKup() {
-        return linkSucursalKup;
+    public Sucursal getSucursalKupfer() {
+        return sucursalKupfer;
     }
 
-    public void setLinkSucursalKup(Integer linkSucursalKup) {
-        this.linkSucursalKup = linkSucursalKup;
+    public void setSucursalKupfer(Sucursal sucursalKupfer) {
+        this.sucursalKupfer = sucursalKupfer;
     }
 
-
-    @JoinColumn(name = "link_sucursal_cli", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    private Integer linkSucursalCli;
-
-    @Basic
-    @javax.persistence.Column(name = "link_sucursal_cli")
-    public Integer getLinkSucursalCli() {
-        return linkSucursalCli;
+    public Sucursal getSucursalCliente() {
+        return sucursalCliente;
     }
 
-    public void setLinkSucursalCli(Integer linkSucursalCli) {
-        this.linkSucursalCli = linkSucursalCli;
+    public void setSucursalCliente(Sucursal sucursalCliente) {
+        this.sucursalCliente = sucursalCliente;
     }
 
-    @JoinColumn(name = "link_contacto", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    private Integer linkContacto;
-
-    public Integer getLinkContacto() {
-        return linkContacto;
+    public ContactoCliente getContactoCliente() {
+        return contactoCliente;
     }
 
-    public void setLinkContacto(Integer linkContacto) {
-        this.linkContacto = linkContacto;
+    public void setContactoCliente(ContactoCliente contactoCliente) {
+        this.contactoCliente = contactoCliente;
     }
 
-    private Boolean pagoLun;
-
-    @Basic
-    @javax.persistence.Column(name = "pago_lun")
     public Boolean getPagoLun() {
         return pagoLun;
     }
@@ -193,10 +203,6 @@ public class Recauda {
         this.pagoLun = pagoLun;
     }
 
-    private Boolean pagoMar;
-
-    @Basic
-    @javax.persistence.Column(name = "pago_mar")
     public Boolean getPagoMar() {
         return pagoMar;
     }
@@ -205,10 +211,6 @@ public class Recauda {
         this.pagoMar = pagoMar;
     }
 
-    private Boolean pagoMie;
-
-    @Basic
-    @javax.persistence.Column(name = "pago_mie")
     public Boolean getPagoMie() {
         return pagoMie;
     }
@@ -217,10 +219,6 @@ public class Recauda {
         this.pagoMie = pagoMie;
     }
 
-    private Boolean pagoJue;
-
-    @Basic
-    @javax.persistence.Column(name = "pago_jue")
     public Boolean getPagoJue() {
         return pagoJue;
     }
@@ -229,10 +227,6 @@ public class Recauda {
         this.pagoJue = pagoJue;
     }
 
-    private Boolean pagoVie;
-
-    @Basic
-    @javax.persistence.Column(name = "pago_vie")
     public Boolean getPagoVie() {
         return pagoVie;
     }
@@ -241,10 +235,6 @@ public class Recauda {
         this.pagoVie = pagoVie;
     }
 
-    private Boolean validada;
-
-    @Basic
-    @javax.persistence.Column(name = "validada")
     public Boolean getValidada() {
         return validada;
     }
@@ -253,63 +243,11 @@ public class Recauda {
         this.validada = validada;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Recauda recauda = (Recauda) o;
-
-        if (direccion != null ? !direccion.equals(recauda.direccion) : recauda.direccion != null) return false;
-        if (entregaCedible != null ? !entregaCedible.equals(recauda.entregaCedible) : recauda.entregaCedible != null)
-            return false;
-        if (fecPago != null ? !fecPago.equals(recauda.fecPago) : recauda.fecPago != null) return false;
-        if (horarioPago != null ? !horarioPago.equals(recauda.horarioPago) : recauda.horarioPago != null) return false;
-        if (linkBanco != null ? !linkBanco.equals(recauda.linkBanco) : recauda.linkBanco != null) return false;
-        if (linkCliente != null ? !linkCliente.equals(recauda.linkCliente) : recauda.linkCliente != null) return false;
-        if (linkComuna != null ? !linkComuna.equals(recauda.linkComuna) : recauda.linkComuna != null) return false;
-        if (linkContacto != null ? !linkContacto.equals(recauda.linkContacto) : recauda.linkContacto != null)
-            return false;
-        if (linkFormapago != null ? !linkFormapago.equals(recauda.linkFormapago) : recauda.linkFormapago != null)
-            return false;
-        if (linkSucursalCli != null ? !linkSucursalCli.equals(recauda.linkSucursalCli) : recauda.linkSucursalCli != null)
-            return false;
-        if (linkSucursalKup != null ? !linkSucursalKup.equals(recauda.linkSucursalKup) : recauda.linkSucursalKup != null)
-            return false;
-        if (linkUsuarioRecauda != null ? !linkUsuarioRecauda.equals(recauda.linkUsuarioRecauda) : recauda.linkUsuarioRecauda != null)
-            return false;
-        if (pagoJue != null ? !pagoJue.equals(recauda.pagoJue) : recauda.pagoJue != null) return false;
-        if (pagoLun != null ? !pagoLun.equals(recauda.pagoLun) : recauda.pagoLun != null) return false;
-        if (pagoMar != null ? !pagoMar.equals(recauda.pagoMar) : recauda.pagoMar != null) return false;
-        if (pagoMie != null ? !pagoMie.equals(recauda.pagoMie) : recauda.pagoMie != null) return false;
-        if (pagoVie != null ? !pagoVie.equals(recauda.pagoVie) : recauda.pagoVie != null) return false;
-        if (systemId != null ? !systemId.equals(recauda.systemId) : recauda.systemId != null) return false;
-        if (validada != null ? !validada.equals(recauda.validada) : recauda.validada != null) return false;
-
-        return true;
+    public Set<Documento> getDocumentos() {
+        return documentos;
     }
 
-    @Override
-    public int hashCode() {
-        int result = systemId != null ? systemId.hashCode() : 0;
-        result = 31 * result + (linkFormapago != null ? linkFormapago.hashCode() : 0);
-        result = 31 * result + (linkCliente != null ? linkCliente.hashCode() : 0);
-        result = 31 * result + (direccion != null ? direccion.hashCode() : 0);
-        result = 31 * result + (linkComuna != null ? linkComuna.hashCode() : 0);
-        result = 31 * result + (entregaCedible != null ? entregaCedible.hashCode() : 0);
-        result = 31 * result + (linkUsuarioRecauda != null ? linkUsuarioRecauda.hashCode() : 0);
-        result = 31 * result + (linkBanco != null ? linkBanco.hashCode() : 0);
-        result = 31 * result + (fecPago != null ? fecPago.hashCode() : 0);
-        result = 31 * result + (horarioPago != null ? horarioPago.hashCode() : 0);
-        result = 31 * result + (linkSucursalKup != null ? linkSucursalKup.hashCode() : 0);
-        result = 31 * result + (linkSucursalCli != null ? linkSucursalCli.hashCode() : 0);
-        result = 31 * result + (linkContacto != null ? linkContacto.hashCode() : 0);
-        result = 31 * result + (pagoLun != null ? pagoLun.hashCode() : 0);
-        result = 31 * result + (pagoMar != null ? pagoMar.hashCode() : 0);
-        result = 31 * result + (pagoMie != null ? pagoMie.hashCode() : 0);
-        result = 31 * result + (pagoJue != null ? pagoJue.hashCode() : 0);
-        result = 31 * result + (pagoVie != null ? pagoVie.hashCode() : 0);
-        result = 31 * result + (validada != null ? validada.hashCode() : 0);
-        return result;
+    public void setDocumentos(Set<Documento> documentos) {
+        this.documentos = documentos;
     }
 }

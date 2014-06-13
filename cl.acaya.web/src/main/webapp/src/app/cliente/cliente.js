@@ -50,9 +50,6 @@ angular.module( 'ngBoilerplate.cliente', [
             updateSelected(documento);
         }
 
-        $scope.validarCheck = function(tipo) {
-            alert(tipo);
-        }
 
         var updateSelected = function( documento) {
             if (documento.seleccionado && $scope.documentosSeleccionados.indexOf(documento) === -1) {
@@ -79,7 +76,7 @@ angular.module( 'ngBoilerplate.cliente', [
                     data: function () {
                         return  {documentos: $scope.documentosSeleccionados,
                             idCliente:$stateParams.idCliente,
-                            contactos: $scope.contactos};
+                            contactos: $scope.contactos,contingencias:$scope.contingencias};
                     }
 
                 }
@@ -104,13 +101,30 @@ var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
     $scope.idCliente = data.idCliente;
     $scope.contactos = data.contactos;
     console.log($scope.contactos);
+    $scope.contingencias = data.contingencias;
     $scope.contactoSeleccionado = data.contactos != null && data.contactos.length > 0 ? data.contactos[0] : null;
     $scope.fechaAgendada = new Date();
     $scope.observacion = "";
     $scope.cargo = "";
     $scope.contacto = {};
 
-    $scope.ok = function () {
+
+    $scope.validarContingencia = function(documento) {
+        if(documento.contingencia) {
+            documento.validar = false;
+            documento.recaudar = false;
+        }
+        documento.contingenciaSeleccionada = null;
+    };
+
+    $scope.validarRecaudar = function(documento) {
+        if(documento.recaudar || documento.validar) {
+            documento.contingencia = false;
+        }
+        documento.contingenciaSeleccionada = null;
+    };
+
+    $scope.guardarAgenda = function () {
         var idDocumentos = [];
         _.each($scope.documentos,function(documento) {
             idDocumentos.push(documento.idDocumento);
@@ -152,9 +166,6 @@ var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
             controller: ModalContactoCtrl,
             size: size,
             resolve: {
-                items: function () {
-                    return $scope.documentosSeleccionados;
-                },
                 idCliente: function() {
                     return $scope.idCliente;
                 }

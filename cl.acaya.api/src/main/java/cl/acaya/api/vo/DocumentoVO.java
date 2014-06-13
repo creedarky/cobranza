@@ -49,7 +49,9 @@ public class DocumentoVO {
         this.numeroDocumento = numeroDocumento;
     }
 
-    public String getNumeroFactura() { return numeroFactura; }
+    public String getNumeroFactura() {
+        return numeroFactura;
+    }
 
     public void setNumeroFactura(String numeroFactura) {
         this.numeroFactura = numeroFactura;

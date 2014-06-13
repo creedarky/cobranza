@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "tbl_documento_param", schema = "dbo", catalog = "COBRANZA")
-public class DocumentoParam {
+public class  DocumentoParam {
     private String depachoFact;
     private String validaFact;
     private String contingFact;

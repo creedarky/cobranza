@@ -65,6 +65,6 @@ public class JsonResponse implements Serializable {
     }
 
     public void setSuccessToFalse() {
-        success=false;
+        success = false;
     }
 }

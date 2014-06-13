@@ -17,7 +17,7 @@ import javax.persistence.*;
 //        sequenceName = "SEQ_Sucursal", allocationSize = 1, initialValue = 1)
 
 
-public class Sucursal {
+public class  Sucursal {
 
     @Id
     @Basic(optional = false)

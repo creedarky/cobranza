@@ -1,4 +1,4 @@
-
+<form name="form">
 <div class="modal-header">
     <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 class="modal-title">GESTI&Oacute;N</h3>
@@ -21,11 +21,11 @@
                     <td>{{documento.numDoc}}</td>
                     <td>{{documento.monto}}</td>
                     <td>{{documento.fechaVencimiento}}</td>
-                    <td><input type="checkbox" ng-change="validarCheck('validar');" ng-model="documento.validar"/></td>
-                    <td><input type="checkbox" ng-change="validarCheck('recaudar');" ng-model="documento.recaudar"/></td>
-                    <td><input type="checkbox" ng-change="validarCheck('contingencia');" ng-model="documento.contingencia" /></td>
+                    <td><input type="checkbox" ng-change="validarRecaudar();" ng-model="documento.validar"/></td>
+                    <td><input type="checkbox" ng-change="validarRecaudar();" ng-model="documento.recaudar"/></td>
+                    <td><input type="checkbox" ng-change="validarContingencia();" ng-model="documento.contingencia" /></td>
                     <td>
-                        <select ng-options="contingencia.contingencia for contingencia in $parent.contingencias">
+                        <select ng-show="documento.contigencia" ng-options="contingencia.contingencia for contingencia in contingencias">
                             <option value="">Seleccione Contingencia</option>
                         </select>
                     </td>
@@ -35,14 +35,17 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-9">
-            <label>Observación</label><br>
-            <textarea class="" rows="4" cols="35" style="margin: 0px; width: 820px; height: 86px;"></textarea><br>
-            <label>Contacto</label><br>
-            <input type="text" class="input-lg"/><br>
-            <label>Cargo</label><br>
-            <input type="text" class="input-lg"/>
+        <div class="col-md-5">
+            <label for="observacion">Observación</label>
+            <textarea name="observacion" id="observacion" class="" ng-model="$parent.observacion" rows="4" cols="35" ></textarea><br>
         </div>
+        <div class="col-md-5">
+            <label for="contacto">Contacto</label>
+            <select name="contacto" id="contacto" ng-options="contacto.nombre + ' ' + contacto.cargo for contacto in contactos | orderBy:nombre" ng-model="contactoSeleccionado">
+            </select>
+            <button type="button" class="btn btn-default btn-xs" ng-click="open('sm','template/gestion_modal/contacto_modal.html')"><span class="glyphicon glyphicon-plus"></span></button>
+        </div>
+
     </div>
 </div>
 <div class="modal-footer" >
@@ -50,3 +53,4 @@
 
     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 </div>
+</form>

@@ -12,7 +12,10 @@
             </thead>
             <tbody >
                 <tr ng-repeat="cliente in agendasClientes">
-                    <td>{{ cliente.cliente.nombreCliente }}</td>
+
+                    <td>
+                        <a href="#/cliente/{{cliente.cliente.idCliente}}">{{cliente.cliente.nombreCliente}}</a>
+                    </td>
                     <td> {{ cliente.fechaAgendada | date: 'dd-MM-yyyy'}}</td>
                     <td> {{ cliente.comentario }}</td>
                     <td> {{ cliente.usuarioVO.nombreUsuario }} </td>
