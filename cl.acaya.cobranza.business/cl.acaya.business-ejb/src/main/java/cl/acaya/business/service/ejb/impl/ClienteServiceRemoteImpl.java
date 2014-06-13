@@ -9,11 +9,8 @@ import cl.acaya.api.vo.*;
 import cl.acaya.api.vo.enums.TipoCuentasKupferType;
 import cl.acaya.cobranza.business.daoEjb.dao.CargoUsuarioDAO;
 import cl.acaya.cobranza.business.daoEjb.dao.ClienteDAO;
-<<<<<<< HEAD
 import cl.acaya.cobranza.business.daoEjb.dao.ContingenciaDAO;
-=======
 import cl.acaya.cobranza.business.daoEjb.dao.ContactoDAO;
->>>>>>> 7ef068a4f36a1358a618e13958ddc557b0869276
 import cl.acaya.cobranza.business.daoEjb.dao.DocumentoDAO;
 import cl.acaya.cobranza.business.daoEjb.entities.*;
 import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
