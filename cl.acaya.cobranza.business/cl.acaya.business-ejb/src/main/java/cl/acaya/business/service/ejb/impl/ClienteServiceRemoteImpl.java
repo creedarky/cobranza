@@ -15,7 +15,10 @@ import com.sap.conn.jco.JCoTable;
 
 import javax.ejb.*;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Maximiliano on 11/06/2014.
@@ -30,6 +33,9 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
     ClienteDAO clienteDAO;
 
     @EJB
+    ContingenciaDAO contingenciaDAO;
+
+    @EJB
     DocumentoDAO documentoDAO;
 
     @EJB
@@ -40,9 +46,6 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
     @EJB
     CargoUsuarioDAO cargoUsuarioDAO;
-
-    @EJB
-    AgendaDAO agendaDAO;
 
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -95,6 +98,16 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
             }
         }
+
+        List<Contingencia> contingenciaList =  contingenciaDAO.findAll();
+        List<ContingenciaVO> contingenciaVOList = new ArrayList<ContingenciaVO>();
+        for(Contingencia contingencia : contingenciaList) {
+            ContingenciaVO contingenciaVO = new ContingenciaVO();
+            contingenciaVO.setContingencia(contingencia.getContingencia());
+            contingenciaVO.setTipo(contingencia.getTipo());
+            contingenciaVOList.add(contingenciaVO);
+        }
+        response.addResp(Parametros.CONTINGENCIAS, contingenciaVOList);
 
         response.addResp(Parametros.DOCUMENTOS_CLIENTE, documentoClienteVOList);
         Connect connect = SapConnectionFactory.newConecction();

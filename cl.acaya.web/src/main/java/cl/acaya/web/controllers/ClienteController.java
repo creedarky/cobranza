@@ -1,5 +1,6 @@
 package cl.acaya.web.controllers;
 
+import cl.acaya.api.service.ClienteServiceRemote;
 import cl.acaya.api.service.CobranzaServiceRemote;
 import cl.acaya.api.vo.*;
 import cl.acaya.web.util.RequestFactory;

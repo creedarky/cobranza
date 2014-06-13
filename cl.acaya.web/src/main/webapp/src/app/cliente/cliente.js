@@ -29,6 +29,8 @@ angular.module( 'ngBoilerplate.cliente', [
             $scope.carteraCliente = data.body.carteraCliente;
             $scope.tramos = data.body.tramos;
             $scope.documentos = data.body.documentosCliente;
+            $scope.contingencias = data.body.contingencia;
+            console.log($scope.contingencias);
         });
         $http.get('rest/cliente/gestion/contactos/'+$stateParams.idCliente).success(function(data) {
             $scope.contactos = data;
@@ -48,6 +50,10 @@ angular.module( 'ngBoilerplate.cliente', [
             updateSelected(documento);
         }
 
+        $scope.validarCheck = function(tipo) {
+            alert(tipo);
+        }
+
         var updateSelected = function( documento) {
             if (documento.seleccionado && $scope.documentosSeleccionados.indexOf(documento) === -1) {
                 $scope.documentosSeleccionados.push(documento);
@@ -58,9 +64,6 @@ angular.module( 'ngBoilerplate.cliente', [
             console.log($scope.documentos);
             console.log($scope.documentosSeleccionados);
         };
-
-
-
 
         $scope.open = function (size,view) {
             if($scope.documentosSeleccionados.length == 0) {
@@ -87,6 +90,10 @@ angular.module( 'ngBoilerplate.cliente', [
             }, function () {
                 console.log('Modal dismissed at: ' + new Date());
             });
+        };
+
+        $scope.guardar_gestion = function (size,view) {
+            alert("adasdad");
         };
 }]);
 

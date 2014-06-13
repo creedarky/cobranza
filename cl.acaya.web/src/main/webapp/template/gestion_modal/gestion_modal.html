@@ -1,9 +1,9 @@
 
 <div class="modal-header">
     <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 class="modal-title">GESTI&Oacute;</h3>
+    <h3 class="modal-title">GESTI&Oacute;N</h3>
 </div>
-<div class="modal-body">
+<div class="modal-body" >
     <div class="row">
         <div class="col-lg-11">
             <table style="padding-top: 5px;overflow-x: auto" class="table">
@@ -17,14 +17,18 @@
                     <th>Tipo Contingencia</th>
                     <th>Comentario</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>123123</td>
-                    <td>23-05-2014</td>
-                    <td><input type="checkbox" /></td>
-                    <td><input type="checkbox" /></td>
-                    <td><input type="checkbox" /></td>
-                    <td><select></select></td>
+                <tr ng-repeat="documento in documentos">
+                    <td>{{documento.numDoc}}</td>
+                    <td>{{documento.monto}}</td>
+                    <td>{{documento.fechaVencimiento}}</td>
+                    <td><input type="checkbox" ng-change="validarCheck('validar');" ng-model="documento.validar"/></td>
+                    <td><input type="checkbox" ng-change="validarCheck('recaudar');" ng-model="documento.recaudar"/></td>
+                    <td><input type="checkbox" ng-change="validarCheck('contingencia');" ng-model="documento.contingencia" /></td>
+                    <td>
+                        <select ng-options="contingencia.contingencia for contingencia in contingencias">
+                            <option value="">Seleccione Contingencia</option>
+                        </select>
+                    </td>
                     <td><input type="text" ></td>
                 </tr>
             </table>
@@ -33,7 +37,7 @@
     <div class="row">
         <div class="col-md-9">
             <label>Observación</label><br>
-            <textarea class="" rows="4" cols="35" style="margin: 0px; width: 958px; height: 86px;"></textarea><br>
+            <textarea class="" rows="4" cols="35" style="margin: 0px; width: 820px; height: 86px;"></textarea><br>
             <label>Contacto</label><br>
             <input type="text" class="input-lg"/><br>
             <label>Cargo</label><br>
@@ -41,8 +45,8 @@
         </div>
     </div>
 </div>
-<div class="modal-footer" ng-controller="ClienteCtrl">
-    <button type="button" class="btn btn-primary" ng-click="cancel();open('lg','template/gestion_modal/recaudar_modal.html')">Aceptar</button>
+<div class="modal-footer" >
+    <button type="button" class="btn btn-primary" ng-click="guardar_gestion()">Guardar</button>
 
     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 </div>

@@ -19,4 +19,5 @@ public interface Parametros {
     String NOMBRE_CONTACTO = "nombre";
     String TELEFONO_CONTACTO = "telefono";
     String EMAIL_CONTACTO = "email";
+    String CONTINGENCIAS = "contingencia";
 }

@@ -9,6 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "tbl_contingencia", schema = "dbo", catalog = "COBRANZA")
+@NamedQueries({@NamedQuery(name="Contingencia.findAll",query = "Select cn From Contingencia cn order by cn.contingencia asc")})
 public class Contingencia {
     private Integer systemId;
     private String contingencia;

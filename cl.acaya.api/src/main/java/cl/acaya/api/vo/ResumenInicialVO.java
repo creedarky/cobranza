@@ -12,7 +12,7 @@ public class ResumenInicialVO {
     private List<CarteraVO> carteraVOList;
     private List<AgendaVO> agendaVOList;
     private List<CampanhaVO> campanhaVOList;
-
+    private List<ContingenciaVO> contingenciaVOList;
 
     public List<TramoVO> getTramoVOList() {
         return tramoVOList;
@@ -20,6 +20,14 @@ public class ResumenInicialVO {
 
     public void setTramoVOList(List<TramoVO> tramoVOList) {
         this.tramoVOList = tramoVOList;
+    }
+
+    public List<ContingenciaVO> getContingenciaVOList() {
+        return contingenciaVOList;
+    }
+
+    public void setContingenciaVOList(List<ContingenciaVO> contingenciaVOList) {
+        this.contingenciaVOList = contingenciaVOList;
     }
 
     public List<CarteraVO> getCarteraVOList() {
