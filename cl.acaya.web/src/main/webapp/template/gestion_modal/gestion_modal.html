@@ -25,7 +25,7 @@
                     <td><input type="checkbox" ng-change="validarCheck('recaudar');" ng-model="documento.recaudar"/></td>
                     <td><input type="checkbox" ng-change="validarCheck('contingencia');" ng-model="documento.contingencia" /></td>
                     <td>
-                        <select ng-options="contingencia.contingencia for contingencia in contingencias">
+                        <select ng-options="contingencia.contingencia for contingencia in $parent.contingencias">
                             <option value="">Seleccione Contingencia</option>
                         </select>
                     </td>
