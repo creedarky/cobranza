@@ -36,7 +36,7 @@ public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements
                 "inner join cobranza.dbo.tbl_tipo_documento td on td.system_id = vw.link_tipo_doc " +
                 "inner join cobranza.dbo.tbl_vendedor v on v.system_id = vw.link_vendedor " +
                 "group by c.system_id,c.rut,vw.link_dm,c.nom_cliente, tramo order by c.nom_cliente, min(dias) asc")
-                .setMaxResults(10)
+                //.setMaxResults(10)
                 .getResultList();
     }
 
