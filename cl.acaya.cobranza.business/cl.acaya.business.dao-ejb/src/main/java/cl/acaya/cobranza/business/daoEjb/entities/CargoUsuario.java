@@ -39,6 +39,10 @@ public class CargoUsuario {
     private String cargo;
 
     public CargoUsuario() {
+    }
+
+    public CargoUsuario(String cargo) {
+        this.cargo = cargo;
 
     }
 

@@ -7,26 +7,21 @@
     <div class="row">
         <div class="col-md-6">
             <label>Fecha Agenda</label>
-
-            <p class="input-group">
-                <input type="text" class="form-control" ng-change="changed()" datepicker-popup="{{format}}" ng-model="fechaAgendada" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-            </p>
-
-            <p class="input-group">
-                <timepicker ng-model="fechaAgendada" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
-            </p>
-
-            {{fechaAgendada}}
+            <div class="dropdown">
+                <a  class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
+                    {{fechaAgendada | date:'dd-MM-yyyy hh:mm'}}<span class="glyphicon glyphicon-calendar"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <datetimepicker data-ng-model="fechaAgendada" data-datetdadaimepicker-config="{ dropdownSelector: '#dropdown1' }"/>
+                </ul>
+            </div>
             <br>
             Observación<br>
-            <textarea rows="4" cols="30" style="margin: 0px; width: 432px; height: 112px;"></textarea><br>
+            <textarea rows="4" ng-model="observacion" cols="30" style="margin: 0px; width: 432px; height: 112px;"></textarea><br>
             Contacto<br>
-            <input type="text" class="input-lg" /><br>
-            Cargo<br>
-            <input type="text" class="input-lg" />
+            <br>
+            <select></select>   <button type="button" class="btn btn-default btn-xs" ng-click="open('sm','template/gestion_modal/contacto_modal.html')"><span class="glyphicon glyphicon-plus"></span></button>
+
         </div>
         <div class="col-md-6">
             <label>Documentos Seleccionados</label>
@@ -40,11 +35,11 @@
                     </tr>
                     </thead>
                     <tbody >
-                        <tr ng-repeat="documento in documentos">
-                            <td>{{documento.numDoc}}</td>
-                            <td>{{documento.monto}}</td>
-                            <td>{{documento.fechaVencimiento}}</td>
-                        </tr>
+                    <tr ng-repeat="documento in documentos">
+                        <td>{{documento.numDoc}}</td>
+                        <td>{{documento.monto}}</td>
+                        <td>{{documento.fechaVencimiento}}</td>
+                    </tr>
                     </tbody>
                 </table>
             </table>

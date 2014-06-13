@@ -4,7 +4,8 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.home',
   'ngBoilerplate.cliente',
   'ui.router',
-  'cobranzaFilters'
+  'cobranzaFilters',
+  'ui.bootstrap.datetimepicker'
 
 ])
 

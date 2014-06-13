@@ -1,8 +1,13 @@
 package cl.acaya.cobranza.business.daoEjb.entities;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * Created by darkmoorx on 20-05-14.
@@ -46,6 +51,7 @@ public class ContactoCliente {
 
     @JoinColumn(name = "link_cargo")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
+    @Cascade(CascadeType.ALL)
     private CargoUsuario cargo;
 
     @JoinColumn(name = "link_cliente")  // COD_TIPO_NEGOCIO_PE_FK
@@ -54,6 +60,11 @@ public class ContactoCliente {
 
     public ContactoCliente() {
 
+    }
+
+    @PrePersist @PreUpdate
+    public void prepare() {
+        this.toString();
     }
 
     public Cliente getCliente() {
@@ -118,5 +129,19 @@ public class ContactoCliente {
 
     public void setCargo(CargoUsuario cargo) {
         this.cargo = cargo;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactoCliente{" +
+                "systemId=" + systemId +
+                ", nombreContacto='" + nombreContacto + '\'' +
+                ", emailContacto='" + emailContacto + '\'' +
+                ", fonoContacto1='" + fonoContacto1 + '\'' +
+                ", fonoContacto2='" + fonoContacto2 + '\'' +
+                ", fonoContacto3='" + fonoContacto3 + '\'' +
+                ", cargo=" + cargo +
+                ", cliente=" + cliente +
+                '}';
     }
 }

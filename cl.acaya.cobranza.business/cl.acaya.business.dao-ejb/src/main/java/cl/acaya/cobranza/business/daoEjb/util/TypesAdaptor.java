@@ -143,4 +143,13 @@ public class TypesAdaptor {
         return sociedadVO;
     }
 
+    public static ContactoVO adaptar(ContactoCliente contactoCliente) {
+        ContactoVO contactoVO = new ContactoVO();
+        contactoVO.setCargo(contactoCliente.getCargo().getCargo());
+        contactoVO.setEmail(contactoCliente.getEmailContacto());
+        contactoVO.setFono(contactoCliente.getFonoContacto1());
+        contactoVO.setNombre(contactoCliente.getNombreContacto());
+        return contactoVO;
+    }
+
 }

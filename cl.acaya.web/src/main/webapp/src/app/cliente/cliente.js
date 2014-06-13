@@ -30,6 +30,9 @@ angular.module( 'ngBoilerplate.cliente', [
             $scope.tramos = data.body.tramos;
             $scope.documentos = data.body.documentosCliente;
         });
+        $http.get('rest/cliente/gestion/contactos/'+$stateParams.idCliente).success(function(data) {
+            $scope.contactos = data;
+        });
         $scope.documentosSeleccionados = [];
         $scope.selectedAll = false;
         $scope.selectAll  = function() {
@@ -70,9 +73,12 @@ angular.module( 'ngBoilerplate.cliente', [
                 controller: ModalAgendarCtrl,
                 size: size,
                 resolve: {
-                    items: function () {
-                        return $scope.documentosSeleccionados;
+                    data: function () {
+                        return  {documentos: $scope.documentosSeleccionados,
+                            idCliente:$stateParams.idCliente,
+                            contactos: $scope.contactos};
                     }
+
                 }
             });
 
@@ -84,57 +90,74 @@ angular.module( 'ngBoilerplate.cliente', [
         };
 }]);
 
-var ModalAgendarCtrl = function ($scope, $modalInstance, items) {
-    console.log($modalInstance);
-    $scope.documentos = items;
+var ModalAgendarCtrl = function ($scope, $modalInstance,$modal, data) {
+    console.log(idCliente);
+    $scope.contactos =
+    $scope.documentos = data.documentos;
+    $scope.idCliente = data.idCliente;
+    $scope.contactos = data.contactos;
     $scope.fechaAgendada = new Date();
     $scope.observacion = "";
     $scope.cargo = "";
     $scope.contacto = {};
 
-    $scope.today = function() {
-        $scope.fechaAgendada = new Date();
-    };
-    $scope.today();
-
-    $scope.clear = function () {
-        $scope.fechaAgendada = null;
-    };
-
-    $scope.hstep = 1;
-    $scope.mstep = 5;
-
-    $scope.ismeridian = true;
-    // Disable weekend selection
-    $scope.disabled = function(date, mode) {
-        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-    };
-
-    $scope.toggleMin = function() {
-        $scope.minDate = $scope.minDate ? null : new Date();
-    };
-    $scope.toggleMin();
-
-    $scope.open = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $scope.opened = true;
-    };
-
-    $scope.dateOptions = {
-        formatYear: 'yy',
-        startingDay: 1
-    };
-
-    $scope.initDate = new Date();
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-    $scope.changed = function () {
-        console.log('Time changed to: ' + $scope.fechaAgendada);
-    };
     $scope.ok = function () {
         $modalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.open = function (size,view) {
+        var modalInstance = $modal.open({
+            templateUrl: view,
+            controller: ModalContactoCtrl,
+            size: size,
+            resolve: {
+                items: function () {
+                    return $scope.documentosSeleccionados;
+                },
+                idCliente: function() {
+                    return $scope.idCliente;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (contacto) {
+
+        }, function () {
+            console.log('Modal dismissed at: ' + new Date());
+        });
+    };
+};
+
+
+var ModalContactoCtrl = function ($scope, $modalInstance,$http, idCliente) {
+    console.log($modalInstance);
+    console.log(idCliente);
+    $scope.contacto = {idCliente: idCliente, nombre:'', cargo:'',email:'',fono:'',idContacto:null};
+    $scope.master = {idCliente: idCliente, nombre:'', cargo:'',email:'',fono:'',idContacto:null};
+    $scope.isUnchanged = function(contacto) {
+        return angular.equals(contacto, $scope.master);
+    };
+    $scope.ok = function () {
+        $scope.master = angular.copy($scope.contacto);
+        $http({
+            url: 'rest/cliente/gestion/guardar-contacto.htm',
+            dataType: 'json',
+            method: 'POST',
+            data: JSON.stringify($scope.contacto),
+            headers: {
+                "Content-Type": "application/json"
+        }}).success(function(data, status, headers, config) {
+            $scope.posts = data;
+            $modalInstance.close($scope.contacto);
+        }).
+        error(function(data, status, headers, config) {
+            alert("Ha ocurrido un error al guardar");
+        });
+
     };
 
     $scope.cancel = function () {

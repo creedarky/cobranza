@@ -58,14 +58,34 @@ public class ClienteRestController {
         return jsonResponse;
     }
 
-    @RequestMapping(value="guardarAgenda", method = RequestMethod.POST)
+    @RequestMapping(value = "contactos/{idCliente}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<ContactoVO> cargarContactos(HttpServletRequest httpRequest,
+                               @PathVariable Long idCliente
+
+    ) {
+        List<ContactoVO> contactoVOList = clienteServiceRemote.getContactosClientes(idCliente);
+        return contactoVOList;
+    }
+
+    @RequestMapping(value="guardar-agenda", method = RequestMethod.POST)
     public @ResponseBody JsonResponse guardarAgenda(@RequestBody final GuardarAgendaVO guardarAgendaVO) {
 
-        System.out.println(guardarAgendaVO.toString());
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setSuccessToTrue();
         return  new JsonResponse();
 
 
 
+    }
+
+    @RequestMapping(value="guardar-contacto", method = RequestMethod.POST)
+    public @ResponseBody JsonResponse guardarContacto(@RequestBody final ContactoVO contactoVO) {
+        System.out.println(contactoVO.toString());
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setSuccessToTrue();
+        jsonResponse.setBody(clienteServiceRemote.guardarContacto(contactoVO));
+        return  jsonResponse;
     }
 
 
