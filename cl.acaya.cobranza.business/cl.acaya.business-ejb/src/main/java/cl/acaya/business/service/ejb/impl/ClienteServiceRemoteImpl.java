@@ -7,10 +7,7 @@ import cl.acaya.business.service.ejb.CobranzaServiceLocal;
 import cl.acaya.api.util.SapConnectionFactory;
 import cl.acaya.api.vo.*;
 import cl.acaya.api.vo.enums.TipoCuentasKupferType;
-import cl.acaya.cobranza.business.daoEjb.dao.CargoUsuarioDAO;
-import cl.acaya.cobranza.business.daoEjb.dao.ClienteDAO;
-import cl.acaya.cobranza.business.daoEjb.dao.ContactoDAO;
-import cl.acaya.cobranza.business.daoEjb.dao.DocumentoDAO;
+import cl.acaya.cobranza.business.daoEjb.dao.*;
 import cl.acaya.cobranza.business.daoEjb.entities.*;
 import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
 import com.sap.conn.jco.JCoFunction;
@@ -18,10 +15,7 @@ import com.sap.conn.jco.JCoTable;
 
 import javax.ejb.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Maximiliano on 11/06/2014.
@@ -46,6 +40,9 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
     @EJB
     CargoUsuarioDAO cargoUsuarioDAO;
+
+    @EJB
+    AgendaDAO agendaDAO;
 
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -168,6 +165,19 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
     }
 
+    public Response guardarAgenda(GuardarAgendaVO guardarAgendaVO) {
+        Agenda agenda = new Agenda();
+        Cliente cliente = clienteDAO.findReference(guardarAgendaVO.getIdCliente());
+        List<Documento> documentoList = documentoDAO.getDocumentosByIdDocumentos(Arrays.asList(guardarAgendaVO.getIdDocumentos()));
+        agenda.getDocumentos().addAll(documentoList);
+        agenda.setFecAgenda(guardarAgendaVO.getFechaAgendada());
+        agenda.setComentario(guardarAgendaVO.getComentario());
+        agenda.setContacto(contactoDAO.find(guardarAgendaVO.getIdContacto()));
+        agenda.setCliente(cliente);
+        agendaDAO.create(agenda);
+        return new Response();
+
+    }
 
     public ContactoVO guardarContacto(ContactoVO contactoVO) {
         ContactoCliente contactoCliente = new ContactoCliente();

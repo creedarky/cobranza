@@ -42,6 +42,11 @@ public abstract class GenericDAOImpl<T, PK extends Serializable> implements Gene
     }
 
     @Override
+    public T findReference(PK id) {
+        return this.em.getReference(type,id);
+    }
+
+    @Override
     public T update(T t) {
         this.em.merge(t);
         this.em.flush();

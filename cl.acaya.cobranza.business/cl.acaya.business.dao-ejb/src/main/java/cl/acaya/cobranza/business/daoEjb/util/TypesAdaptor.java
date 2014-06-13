@@ -145,6 +145,7 @@ public class TypesAdaptor {
 
     public static ContactoVO adaptar(ContactoCliente contactoCliente) {
         ContactoVO contactoVO = new ContactoVO();
+        contactoVO.setIdContacto(contactoCliente.getSystemId());
         contactoVO.setCargo(contactoCliente.getCargo().getCargo());
         contactoVO.setEmail(contactoCliente.getEmailContacto());
         contactoVO.setFono(contactoCliente.getFonoContacto1());

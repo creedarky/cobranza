@@ -3,6 +3,7 @@ package cl.acaya.web.clients;
 import cl.acaya.api.service.ClienteServiceRemote;
 import cl.acaya.api.service.CobranzaServiceRemote;
 import cl.acaya.api.vo.ContactoVO;
+import cl.acaya.api.vo.GuardarAgendaVO;
 import cl.acaya.api.vo.Request;
 import cl.acaya.api.vo.Response;
 
@@ -35,6 +36,11 @@ public class ClienteServiceDelegate extends AbstractServiceDelegate implements C
     @Override
     public List<ContactoVO> getContactosClientes(Long idCliente) {
         return clienteServiceRemote.getContactosClientes(idCliente);
+    }
+
+    @Override
+    public Response guardarAgenda(GuardarAgendaVO guardarAgendaVO) {
+        return clienteServiceRemote.guardarAgenda(guardarAgendaVO);
     }
 }
 

@@ -71,6 +71,7 @@ public class ClienteRestController {
     @RequestMapping(value="guardar-agenda", method = RequestMethod.POST)
     public @ResponseBody JsonResponse guardarAgenda(@RequestBody final GuardarAgendaVO guardarAgendaVO) {
         System.out.println(guardarAgendaVO.toString());
+        clienteServiceRemote.guardarAgenda(guardarAgendaVO);
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccessToTrue();
         return  new JsonResponse();

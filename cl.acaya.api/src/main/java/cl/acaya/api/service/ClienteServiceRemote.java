@@ -1,6 +1,7 @@
 package cl.acaya.api.service;
 
 import cl.acaya.api.vo.ContactoVO;
+import cl.acaya.api.vo.GuardarAgendaVO;
 import cl.acaya.api.vo.Request;
 import cl.acaya.api.vo.Response;
 
@@ -16,4 +17,6 @@ public interface ClienteServiceRemote {
     ContactoVO guardarContacto(ContactoVO contactoVO);
 
     List<ContactoVO> getContactosClientes(Long idCliente);
+
+    Response guardarAgenda(GuardarAgendaVO guardarAgendaVO);
 }

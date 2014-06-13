@@ -1,17 +1,19 @@
 package cl.acaya.api.vo;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 
 /**
  * Created by mcastro on 27-05-14.
  */
-public class GuardarAgendaVO {
+public class GuardarAgendaVO implements Serializable {
 
 
     private Date fechaAgendada;
     private String comentario;
     private Long idContacto;
+    private Long idCliente;
     private String cargo;
     private Long[] idDocumentos;
 
@@ -54,6 +56,14 @@ public class GuardarAgendaVO {
 
     public void setIdDocumentos(Long[] idDocumentos) {
         this.idDocumentos = idDocumentos;
+    }
+
+    public Long getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
     }
 
     @Override

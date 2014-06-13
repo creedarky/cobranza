@@ -97,29 +97,33 @@ var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
     $scope.idCliente = data.idCliente;
     $scope.contactos = data.contactos;
     console.log($scope.contactos);
-    $scope.contactoSeleccionado = data.contactos.length > 0 ? data.contactos[0] : null;
+    $scope.contactoSeleccionado = data.contactos != null && data.contactos.length > 0 ? data.contactos[0] : null;
     $scope.fechaAgendada = new Date();
     $scope.observacion = "";
     $scope.cargo = "";
     $scope.contacto = {};
 
     $scope.ok = function () {
-        $scope.agenda = {fechaAgendada:$scope.fechaAgendada, comentario:$scope.observacion,
-            idContacto: $scope.contactoSeleccionado.idContacto,
-            idDocumentos: function() {
-                var idDocumentos = [];
-                _.each($scope.documentos,function(documento) {
-                    idDocumentos.push(documento.idDocumento);
+        var idDocumentos = [];
+        _.each($scope.documentos,function(documento) {
+            idDocumentos.push(documento.idDocumento);
 
-                });
-                return idDocumentos;
-            }
-        }
+        });
+
+        var agenda = {fechaAgendada:$scope.fechaAgendada, comentario:$scope.observacion,
+            idContacto: $scope.contactoSeleccionado.idContacto,
+            idDocumentos: idDocumentos,idCliente: $scope.idCliente};
+
+        console.log($scope.contactoSeleccionado);
+        console.log($scope.observacion);
+        console.log(idDocumentos);
+        console.log(agenda);
+
         $http({
             url: 'rest/cliente/gestion/guardar-agenda.htm',
             dataType: 'json',
             method: 'POST',
-            data: JSON.stringify($scope.agenda),
+            data: JSON.stringify(agenda),
             headers: {
                 "Content-Type": "application/json"
             }}).success(function(data, status, headers, config) {
@@ -129,7 +133,6 @@ var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
             error(function(data, status, headers, config) {
                 alert("Ha ocurrido un error al guardar la agenda");
             });
-        $modalInstance.close($scope.contactos);
     };
 
     $scope.cancel = function () {

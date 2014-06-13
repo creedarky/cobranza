@@ -13,6 +13,8 @@ public interface GenericDAO<T, PK extends Serializable> {
 
     T find(PK id);
 
+    T findReference(PK id);
+
     T update(T t);
 
 }
