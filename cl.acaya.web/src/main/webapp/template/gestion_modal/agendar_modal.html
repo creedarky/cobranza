@@ -1,9 +1,10 @@
-
+<form name="form">
 <div class="modal-header">
     <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 class="modal-title">AGENDAR</h3>
 </div>
 <div class="modal-body">
+
     <div class="row">
         <div class="col-md-6">
             <label>Fecha Agenda</label>
@@ -17,10 +18,12 @@
             </div>
             <br>
             Observación<br>
-            <textarea rows="4" ng-model="observacion" cols="30" style="margin: 0px; width: 432px; height: 112px;"></textarea><br>
+            <textarea rows="4" name="comentario" ng-model="observacion" cols="30" style="margin: 0px; width: 432px; height: 112px;"></textarea><br>
             Contacto<br>
             <br>
-            <select></select>   <button type="button" class="btn btn-default btn-xs" ng-click="open('sm','template/gestion_modal/contacto_modal.html')"><span class="glyphicon glyphicon-plus"></span></button>
+            <select ng-options="contacto.nombre + ' ' + contacto.cargo for contacto in contactos | orderBy:nombre" ng-model="contactoSeleccionado">
+            </select>
+            <button type="button" class="btn btn-default btn-xs" ng-click="open('sm','template/gestion_modal/contacto_modal.html')"><span class="glyphicon glyphicon-plus"></span></button>
 
         </div>
         <div class="col-md-6">
@@ -45,8 +48,10 @@
             </table>
         </div>
     </div>
+
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-primary" ng-disabled="!form.comentario.$dirty" ng-click="ok()">OK</button>
     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 </div>
+</form>

@@ -7,6 +7,7 @@ import cl.acaya.business.service.ejb.CobranzaServiceLocal;
 import cl.acaya.api.util.SapConnectionFactory;
 import cl.acaya.api.vo.*;
 import cl.acaya.api.vo.enums.TipoCuentasKupferType;
+import cl.acaya.cobranza.business.daoEjb.dao.CargoUsuarioDAO;
 import cl.acaya.cobranza.business.daoEjb.dao.ClienteDAO;
 import cl.acaya.cobranza.business.daoEjb.dao.ContactoDAO;
 import cl.acaya.cobranza.business.daoEjb.dao.DocumentoDAO;
@@ -42,6 +43,9 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
     @EJB
     ContactoDAO contactoDAO;
+
+    @EJB
+    CargoUsuarioDAO cargoUsuarioDAO;
 
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -168,12 +172,16 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
     public ContactoVO guardarContacto(ContactoVO contactoVO) {
         ContactoCliente contactoCliente = new ContactoCliente();
         Cliente cliente = clienteDAO.find(contactoVO.getIdCliente());
+        CargoUsuario cargoUsuario = new CargoUsuario(contactoVO.getCargo());
+        cargoUsuario = cargoUsuarioDAO.create(cargoUsuario);
         contactoCliente.setNombreContacto(contactoVO.getNombre());
         contactoCliente.setCliente(cliente);
-        contactoCliente.setCargo(new CargoUsuario(contactoVO.getCargo()));
+        contactoCliente.setCargo(cargoUsuario);
         contactoCliente.setEmailContacto(contactoVO.getEmail());
         contactoCliente.setFonoContacto1(contactoVO.getFono());
-        contactoVO.setIdCliente(contactoDAO.create(contactoCliente).getSystemId());
+        contactoCliente = contactoDAO.create(contactoCliente);
+        System.out.println(contactoCliente);
+        contactoVO.setIdCliente(contactoCliente.getSystemId());
         return  contactoVO;
 
     }

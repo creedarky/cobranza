@@ -64,7 +64,7 @@ public class ContactoCliente {
 
     @PrePersist @PreUpdate
     public void prepare() {
-        this.toString();
+        System.out.println(this.toString());
     }
 
     public Cliente getCliente() {

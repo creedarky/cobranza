@@ -82,27 +82,54 @@ angular.module( 'ngBoilerplate.cliente', [
                 }
             });
 
-            modalInstance.result.then(function (selectedItem) {
-
+            modalInstance.result.then(function (contactos) {
+                $scope.contactos = contactos;
             }, function () {
                 console.log('Modal dismissed at: ' + new Date());
             });
         };
 }]);
 
-var ModalAgendarCtrl = function ($scope, $modalInstance,$modal, data) {
-    console.log(idCliente);
-    $scope.contactos =
+var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
+
+
     $scope.documentos = data.documentos;
     $scope.idCliente = data.idCliente;
     $scope.contactos = data.contactos;
+    console.log($scope.contactos);
+    $scope.contactoSeleccionado = data.contactos.length > 0 ? data.contactos[0] : null;
     $scope.fechaAgendada = new Date();
     $scope.observacion = "";
     $scope.cargo = "";
     $scope.contacto = {};
 
     $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
+        $scope.agenda = {fechaAgendada:$scope.fechaAgendada, comentario:$scope.observacion,
+            idContacto: $scope.contactoSeleccionado.idContacto,
+            idDocumentos: function() {
+                var idDocumentos = [];
+                _.each($scope.documentos,function(documento) {
+                    idDocumentos.push(documento.idDocumento);
+
+                });
+                return idDocumentos;
+            }
+        }
+        $http({
+            url: 'rest/cliente/gestion/guardar-agenda.htm',
+            dataType: 'json',
+            method: 'POST',
+            data: JSON.stringify($scope.agenda),
+            headers: {
+                "Content-Type": "application/json"
+            }}).success(function(data, status, headers, config) {
+                $scope.posts = data;
+                $modalInstance.close($scope.contactos);
+            }).
+            error(function(data, status, headers, config) {
+                alert("Ha ocurrido un error al guardar la agenda");
+            });
+        $modalInstance.close($scope.contactos);
     };
 
     $scope.cancel = function () {
@@ -125,7 +152,7 @@ var ModalAgendarCtrl = function ($scope, $modalInstance,$modal, data) {
         });
 
         modalInstance.result.then(function (contacto) {
-
+            $scope.contactos.push(contacto);
         }, function () {
             console.log('Modal dismissed at: ' + new Date());
         });

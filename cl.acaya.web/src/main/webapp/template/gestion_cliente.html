@@ -57,14 +57,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="contacto in contactos" ng-show="contactos">
+            <tr ng-repeat="contacto in contactos">
                 <td>{{contacto.nombre}}</td>
                 <td>{{contacto.fono}}</td>
                 <td>{{contacto.email}}</td>
             </tr>
-            <tr ng-show="!contactos">
-                <td colspan="3">No se encontraron contactos</td>
-            </tr>
+
 
             </tbody>
         </table>

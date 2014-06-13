@@ -26,7 +26,7 @@ public abstract class GenericDAOImpl<T, PK extends Serializable> implements Gene
     public T create(T t) {
         this.em.persist(t);
         this.em.flush();
-        this.em.refresh(t);
+        //this.em.refresh(t);
         return t;
     }
 
