@@ -221,4 +221,13 @@ public class Cliente {
     public void setEstadoLinea(String estadoLinea) {
         this.estadoLinea = estadoLinea;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "systemId=" + systemId +
+                ", rutCliente='" + rutCliente + '\'' +
+                ", nombreCliente='" + nombreCliente + '\'' +
+                '}';
+    }
 }

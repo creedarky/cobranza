@@ -1,0 +1,43 @@
+
+<div class="modal-header">
+    <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">Crear Contacto</h3>
+</div>
+<div class="modal-body">
+    <form name="form" class="css-form" novalidate>
+        <div class="form-group">
+            <label for="nombreContacto">Nombre</label>
+            <input name="nombre" type="text" ng-model="contacto.nombre" class="form-control" id="nombreContacto" placeholder="Nombre" required>
+            <div ng-show="form.nombre.$dirty && form.nombre.$error.required">Invalido:
+                <span ng-show="form.nombre.$error.required">Debe ingresar nombre.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="correoContacto">Correo Contacto</label>
+            <input type="email" name="correo" ng-model="contacto.email" class="form-control" id="correoContacto" placeholder="Correo Contacto" required>
+            <div ng-show="form.correo.$dirty && form.correo.$invalid">Invalido:
+                <span ng-show="form.correo.$error.required">Debe ingresar un correo.</span>
+                <span ng-show="form.correo.$error.email">Este no es un mail válido</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="telefonoContacto">Teléfono Contacto</label>
+            <input name="telefono" type="text" ng-model="contacto.fono" class="form-control" id="telefonoContacto" placeholder="Teléfono Contacto" required>
+            <div ng-show="form.telefono.$dirty && form.telefono.$error.required">Invalido:
+                <span ng-show="form.telefono.$error.required">Debe telefono nombre.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cargoContacto">Cargo Contacto</label>
+            <input name="cargo" type="text" class="form-control" ng-model="contacto.cargo" id="cargoContacto" placeholder="Cargo Contacto" required>
+            <div ng-show="form.cargo.$dirty && form.cargo.$error.required">Invalido:
+                <span ng-show="form.cargo.$error.required">Debe ingresar cargo.</span>
+            </div>
+        </div>
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-disabled="form.$invalid || isUnchanged(contacto)" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

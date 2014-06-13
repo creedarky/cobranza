@@ -8,4 +8,5 @@ public interface ContactoDAO extends GenericDAO<ContactoCliente, Long> {
 
         ContactoCliente findOrCreate(ContactoCliente contactoCliente);
 
+    List<ContactoCliente> getContactosByIdCliente(Long idCliente);
 }

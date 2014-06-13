@@ -57,21 +57,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Content Goes Here</td>
-                <td>This is longer cont</td>
-                <td>Content Goes Here</td>
+            <tr ng-repeat="contacto in contactos">
+                <td>{{contacto.nombre}}</td>
+                <td>{{contacto.fono}}</td>
+                <td>{{contacto.email}}</td>
             </tr>
-            <tr>
-                <td>Content Goes Here</td>
-                <td>This is longer Co</td>
-                <td>Content Goes Here</td>
-            </tr>
-            <tr>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-            </tr>
+
+
             </tbody>
         </table>
     </div>
@@ -124,39 +116,5 @@
     </div>
 </div>
 
-<div id="contingencia" class="reveal-modal" data-reveal>
-    <fieldset>
-        <legend>CONTINGENCIA</legend>
-        <div class="row">
-            <div >
-                <label>Documentos Seleccionados</label>
-                <table style="padding-top: 5px;overflow-x: auto" class="table">
-                    <tr>
-                        <th>Al día</th>
-                        <th>1-30 días</th>
-                        <th>31-50 días</th>
-                        <th>61-90 días</th>
-                        <th>< 90 días</th>
-                    </tr>
-                    <tr>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                        <td>$000.000</td>
-                    </tr>
-                </table>
-                <div style="text-align: right;">
-                    <button type="button" class="btn btn-default">Aceptar</button>
-                    <button type="button" class="btn btn-default">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-</div>
-
-<div id="bitacora" class="reveal-modal" data-reveal>
-
-</div>
 
 <script></script>

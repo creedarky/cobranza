@@ -7,8 +7,13 @@ import cl.acaya.business.service.ejb.CobranzaServiceLocal;
 import cl.acaya.api.util.SapConnectionFactory;
 import cl.acaya.api.vo.*;
 import cl.acaya.api.vo.enums.TipoCuentasKupferType;
+import cl.acaya.cobranza.business.daoEjb.dao.CargoUsuarioDAO;
 import cl.acaya.cobranza.business.daoEjb.dao.ClienteDAO;
+<<<<<<< HEAD
 import cl.acaya.cobranza.business.daoEjb.dao.ContingenciaDAO;
+=======
+import cl.acaya.cobranza.business.daoEjb.dao.ContactoDAO;
+>>>>>>> 7ef068a4f36a1358a618e13958ddc557b0869276
 import cl.acaya.cobranza.business.daoEjb.dao.DocumentoDAO;
 import cl.acaya.cobranza.business.daoEjb.entities.*;
 import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
@@ -18,6 +23,7 @@ import com.sap.conn.jco.JCoTable;
 import javax.ejb.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +48,12 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
     @EJB
     CobranzaServiceLocal cobranzaServiceLocal;
 
+    @EJB
+    ContactoDAO contactoDAO;
+
+    @EJB
+    CargoUsuarioDAO cargoUsuarioDAO;
+
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Response getDatosGestionCliente(Request request) {
@@ -51,7 +63,7 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
         request.addParam(BusinessParameter.RUT_CLIENTE, cliente.getRutCliente());
         request.addParam(BusinessParameter.SOCIEDAD, "1000");
         request.addParam(Parametros.CLIENTE, cliente);
-        response = cobranzaServiceLocal.obtenerDocumentosSAP(request);
+        //response = cobranzaServiceLocal.obtenerDocumentosSAP(request);
         List<Object[]> resultList = documentoDAO.getCarteraClienteByIdCliente(idCliente);
         List<DocumentoClienteVO> documentoClienteVOList = new ArrayList<DocumentoClienteVO>(resultList.size());
         System.out.println(resultList.size());
@@ -157,7 +169,39 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
     }
 
+    public List<ContactoVO> getContactosClientes(Long idCliente) {
+        List<ContactoCliente> contactoClienteList = contactoDAO.getContactosByIdCliente(idCliente);
+        List<ContactoVO> contactoVOList;
+        if(contactoClienteList == null || contactoClienteList.isEmpty())
+            contactoVOList = Collections.emptyList();
+        else {
+            contactoVOList = new ArrayList<ContactoVO>(contactoClienteList.size());
+            for(ContactoCliente contactoCliente : contactoClienteList) {
+                ContactoVO contactoVO = TypesAdaptor.adaptar(contactoCliente);
+                contactoVOList.add(contactoVO);
+            }
+        }
+        return contactoVOList;
 
+    }
+
+
+    public ContactoVO guardarContacto(ContactoVO contactoVO) {
+        ContactoCliente contactoCliente = new ContactoCliente();
+        Cliente cliente = clienteDAO.find(contactoVO.getIdCliente());
+        CargoUsuario cargoUsuario = new CargoUsuario(contactoVO.getCargo());
+        cargoUsuario = cargoUsuarioDAO.create(cargoUsuario);
+        contactoCliente.setNombreContacto(contactoVO.getNombre());
+        contactoCliente.setCliente(cliente);
+        contactoCliente.setCargo(cargoUsuario);
+        contactoCliente.setEmailContacto(contactoVO.getEmail());
+        contactoCliente.setFonoContacto1(contactoVO.getFono());
+        contactoCliente = contactoDAO.create(contactoCliente);
+        System.out.println(contactoCliente);
+        contactoVO.setIdCliente(contactoCliente.getSystemId());
+        return  contactoVO;
+
+    }
 
 
 

@@ -33,12 +33,14 @@ public class CargoUsuario {
     @GeneratedValue(generator = "cargoUsuarioSequenceGenerator")
     private Long systemId;
 
-    @Id
-    @Basic(optional = false)
     @Column(name = "cargo")
     private String cargo;
 
     public CargoUsuario() {
+    }
+
+    public CargoUsuario(String cargo) {
+        this.cargo = cargo;
 
     }
 
@@ -56,5 +58,13 @@ public class CargoUsuario {
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
+    }
+
+    @Override
+    public String toString() {
+        return "CargoUsuario{" +
+                "systemId=" + systemId +
+                ", cargo='" + cargo + '\'' +
+                '}';
     }
 }

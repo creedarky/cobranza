@@ -16,6 +16,9 @@ import java.util.List;
 @Stateless
 public class ContactoDAOimpl extends  GenericDAOImpl<ContactoCliente,Long> implements ContactoDAO {
 
+    public ContactoDAOimpl(Class<ContactoCliente> type) {
+        super(ContactoCliente.class);
+    }
 
     public ContactoDAOimpl() {
         super(ContactoCliente.class);
@@ -23,6 +26,12 @@ public class ContactoDAOimpl extends  GenericDAOImpl<ContactoCliente,Long> imple
 
     public ContactoCliente findOrCreate(ContactoCliente contactoCliente) {
         return create(contactoCliente);
+    }
+
+    public List<ContactoCliente> getContactosByIdCliente(Long idCliente) {
+        return em.createQuery("from ContactoCliente cc inner join fetch cc.cargo where cc.cliente.systemId = :idCliente")
+                .setParameter("idCliente", idCliente)
+                .getResultList();
     }
 
 }
