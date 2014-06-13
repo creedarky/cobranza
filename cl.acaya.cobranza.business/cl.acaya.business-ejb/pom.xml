@@ -78,6 +78,8 @@
   </repositories>
 
   <build>
+    <finalName>cobranza-businessmvn clean
+    </finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
