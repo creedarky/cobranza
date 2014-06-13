@@ -47,11 +47,13 @@ public class ClienteRestController {
         ClienteVO clienteVO = response.getResp(Parametros.CLIENTE, ClienteVO.class);
         List<TramoVO> tramoVOList = response.getResp(Parametros.TRAMOS, List.class);
         CarteraVO carteraVO = response.getResp(Parametros.CARTERA_CLIENTE, CarteraVO.class);
+        List<ContingenciaVO> contingenciaVOList = response.getResp(Parametros.CONTINGENCIAS, List.class);
         Map map = new HashMap();
         map.put(Parametros.CLIENTE, clienteVO);
         map.put(Parametros.DOCUMENTOS_CLIENTE, documentoClienteVOList);
         map.put(Parametros.TRAMOS, tramoVOList);
         map.put(Parametros.CARTERA_CLIENTE, carteraVO);
+        map.put(Parametros.CONTINGENCIAS, contingenciaVOList);
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccessToTrue();
         jsonResponse.setBody(map);

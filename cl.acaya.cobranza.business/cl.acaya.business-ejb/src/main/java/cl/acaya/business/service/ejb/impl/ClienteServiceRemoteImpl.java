@@ -8,6 +8,7 @@ import cl.acaya.api.util.SapConnectionFactory;
 import cl.acaya.api.vo.*;
 import cl.acaya.api.vo.enums.TipoCuentasKupferType;
 import cl.acaya.cobranza.business.daoEjb.dao.ClienteDAO;
+import cl.acaya.cobranza.business.daoEjb.dao.ContingenciaDAO;
 import cl.acaya.cobranza.business.daoEjb.dao.DocumentoDAO;
 import cl.acaya.cobranza.business.daoEjb.entities.*;
 import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
@@ -31,6 +32,9 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
     @EJB
     ClienteDAO clienteDAO;
+
+    @EJB
+    ContingenciaDAO contingenciaDAO;
 
     @EJB
     DocumentoDAO documentoDAO;
@@ -89,6 +93,16 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
             }
         }
+
+        List<Contingencia> contingenciaList =  contingenciaDAO.findAll();
+        List<ContingenciaVO> contingenciaVOList = new ArrayList<ContingenciaVO>();
+        for(Contingencia contingencia : contingenciaList) {
+            ContingenciaVO contingenciaVO = new ContingenciaVO();
+            contingenciaVO.setContingencia(contingencia.getContingencia());
+            contingenciaVO.setTipo(contingencia.getTipo());
+            contingenciaVOList.add(contingenciaVO);
+        }
+        response.addResp(Parametros.CONTINGENCIAS, contingenciaVOList);
 
         response.addResp(Parametros.DOCUMENTOS_CLIENTE, documentoClienteVOList);
         Connect connect = SapConnectionFactory.newConecction();
