@@ -37,7 +37,8 @@ public class Hitos {
         this.systemId = systemId;
     }
 
-    @Basic
+    @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_documento")
     public Integer getLinkDocumento() {
         return linkDocumento;
@@ -47,8 +48,9 @@ public class Hitos {
         this.linkDocumento = linkDocumento;
     }
 
-    @Basic
-    @Column(name = "link_cliente")
+    @JoinColumn(name = "linnk_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    @Column(name = "link_tipo_contig")
     public Integer getLinkCliente() {
         return linkCliente;
     }
@@ -57,8 +59,9 @@ public class Hitos {
         this.linkCliente = linkCliente;
     }
 
-    @Basic
-    @Column(name = "link_doc_etapa")
+    @JoinColumn(name = "link_tipo_contig", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    @Column(name = "link_tipo_contig")
     public Integer getLinkDocEtapa() {
         return linkDocEtapa;
     }
@@ -67,7 +70,8 @@ public class Hitos {
         this.linkDocEtapa = linkDocEtapa;
     }
 
-    @Basic
+    @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_usuario")
     public Integer getLinkUsuario() {
         return linkUsuario;
@@ -77,8 +81,13 @@ public class Hitos {
         this.linkUsuario = linkUsuario;
     }
 
-    @Basic
+
+    @JoinColumn(name = "link_contacto", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_contacto")
+
+
+
     public Integer getLinkContacto() {
         return linkContacto;
     }

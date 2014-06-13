@@ -31,7 +31,8 @@ public class RecaudaDoc {
         this.linkRecauda = linkRecauda;
     }
 
-    @Basic
+    @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_documento")
     public Integer getLinkDocumento() {
         return linkDocumento;

@@ -32,8 +32,8 @@ public class JefeUsuario {
         this.systemId = systemId;
     }
 
-    @Basic
-    @Column(name = "link_usuario")
+    @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     public Integer getLinkUsuario() {
         return linkUsuario;
     }
@@ -42,8 +42,8 @@ public class JefeUsuario {
         this.linkUsuario = linkUsuario;
     }
 
-    @Basic
-    @Column(name = "link_jefe")
+    @JoinColumn(name = "link_jefe", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     public Integer getLinkJefe() {
         return linkJefe;
     }

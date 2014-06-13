@@ -44,7 +44,8 @@ public class Contingencia {
         this.contingencia = contingencia;
     }
 
-    @Basic
+    @JoinColumn(name = "link_tipo_contig", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_tipo_contig")
     public Integer getLinkTipoContig() {
         return linkTipoContig;

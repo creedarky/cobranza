@@ -46,8 +46,8 @@ public class Bitacora {
         this.fechaComent = fechaComent;
     }
 
-    @Basic
-    @Column(name = "link_documento")
+    @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     public Integer getLinkDocumento() {
         return linkDocumento;
     }
@@ -56,7 +56,8 @@ public class Bitacora {
         this.linkDocumento = linkDocumento;
     }
 
-    @Basic
+    @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_cliente")
     public Integer getLinkCliente() {
         return linkCliente;
@@ -76,7 +77,8 @@ public class Bitacora {
         this.comentario = comentario;
     }
 
-    @Basic
+    @JoinColumn(name = "cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_usuario")
     public Integer getLinkUsuario() {
         return linkUsuario;

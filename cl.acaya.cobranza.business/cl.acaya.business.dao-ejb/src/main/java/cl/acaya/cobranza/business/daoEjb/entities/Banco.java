@@ -43,8 +43,8 @@ public class Banco {
         this.banco = banco;
     }
 
-    @Basic
-    @Column(name = "link_comuna")
+    @JoinColumn(name = "link_comuna", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     public Integer getLinkComuna() {
         return linkComuna;
     }

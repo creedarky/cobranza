@@ -43,6 +43,8 @@ public class Cliente {
     @Column(name = "condicion_pago")
     private String condicionPago;
 
+    @JoinColumn(name = "linea_credito", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "linea_credito")
     private Long lineaCredito;
 

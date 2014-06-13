@@ -31,10 +31,11 @@ public class Recauda {
         this.systemId = systemId;
     }
 
+
+    @JoinColumn(name = "link_formapago", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     private Integer linkFormapago;
 
-    @Basic
-    @javax.persistence.Column(name = "link_formapago")
     public Integer getLinkFormapago() {
         return linkFormapago;
     }
@@ -43,14 +44,9 @@ public class Recauda {
         this.linkFormapago = linkFormapago;
     }
 
-    private Integer linkCliente;
-
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-
-    
-    private Sociedad sociedad;
-
+    private Integer linkCliente;
 
     public Integer getLinkCliente() {
         return linkCliente;
@@ -72,10 +68,11 @@ public class Recauda {
         this.direccion = direccion;
     }
 
+
+    @JoinColumn(name = "link_comuna", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     private Integer linkComuna;
 
-    @Basic
-    @javax.persistence.Column(name = "link_comuna")
     public Integer getLinkComuna() {
         return linkComuna;
     }
@@ -96,10 +93,10 @@ public class Recauda {
         this.entregaCedible = entregaCedible;
     }
 
+    @JoinColumn(name = "link_usuario_recauda", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     private Integer linkUsuarioRecauda;
 
-    @Basic
-    @javax.persistence.Column(name = "link_usuario_recauda")
     public Integer getLinkUsuarioRecauda() {
         return linkUsuarioRecauda;
     }
@@ -108,10 +105,11 @@ public class Recauda {
         this.linkUsuarioRecauda = linkUsuarioRecauda;
     }
 
+
+    @JoinColumn(name = "link_banco", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     private Integer linkBanco;
 
-    @Basic
-    @javax.persistence.Column(name = "link_banco")
     public Integer getLinkBanco() {
         return linkBanco;
     }
@@ -156,6 +154,9 @@ public class Recauda {
         this.linkSucursalKup = linkSucursalKup;
     }
 
+
+    @JoinColumn(name = "link_sucursal_cli", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     private Integer linkSucursalCli;
 
     @Basic
@@ -168,10 +169,10 @@ public class Recauda {
         this.linkSucursalCli = linkSucursalCli;
     }
 
+    @JoinColumn(name = "link_contacto", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     private Integer linkContacto;
 
-    @Basic
-    @javax.persistence.Column(name = "link_contacto")
     public Integer getLinkContacto() {
         return linkContacto;
     }

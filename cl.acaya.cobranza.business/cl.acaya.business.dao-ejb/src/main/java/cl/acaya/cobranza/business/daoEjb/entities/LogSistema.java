@@ -56,7 +56,8 @@ public class LogSistema {
         this.fechaLog = fechaLog;
     }
 
-    @Basic
+    @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_usuario")
     public Integer getLinkUsuario() {
         return linkUsuario;
@@ -66,7 +67,8 @@ public class LogSistema {
         this.linkUsuario = linkUsuario;
     }
 
-    @Basic
+    @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_documento")
     public Integer getLinkDocumento() {
         return linkDocumento;
@@ -76,7 +78,8 @@ public class LogSistema {
         this.linkDocumento = linkDocumento;
     }
 
-    @Basic
+    @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_cliente")
     public Integer getLinkCliente() {
         return linkCliente;

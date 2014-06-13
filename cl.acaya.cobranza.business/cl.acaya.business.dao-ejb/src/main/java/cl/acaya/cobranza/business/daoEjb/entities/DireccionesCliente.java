@@ -35,7 +35,8 @@ public class DireccionesCliente {
         this.systemId = systemId;
     }
 
-    @Basic
+    @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_cliente")
     public Integer getLinkCliente() {
         return linkCliente;
@@ -55,7 +56,8 @@ public class DireccionesCliente {
         this.direccionCli = direccionCli;
     }
 
-    @Basic
+    @JoinColumn(name = "link_comuna_cli", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_comuna_cli")
     public Integer getLinkComunaCli() {
         return linkComunaCli;
@@ -75,7 +77,8 @@ public class DireccionesCliente {
         this.direccionDesp = direccionDesp;
     }
 
-    @Basic
+    @JoinColumn(name = "link_comuna_desp", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
     @Column(name = "link_comuna_desp")
     public String getLinkComunaDesp() {
         return linkComunaDesp;
