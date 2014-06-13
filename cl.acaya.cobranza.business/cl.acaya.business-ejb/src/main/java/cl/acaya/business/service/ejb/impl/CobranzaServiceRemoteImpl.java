@@ -58,6 +58,9 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
     @EJB
     VendedorDAO vendedorDAO;
 
+    @EJB
+    AgendaDAO agendaDAO;
+
     @Resource
     private UserTransaction userTransaction;
 
@@ -311,34 +314,14 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
         List<AgendaVO> agendaVOList = new ArrayList<AgendaVO>();
         List<CampanhaVO> campanhaVOList = new ArrayList<CampanhaVO>();
         try {
-            AgendaVO agendaVO = new AgendaVO();
-            agendaVO.setUsuarioVO(usuarioVO);
-            agendaVO.setCliente(clienteVO);
-            agendaVO.setIdAgenda(1l);
-            agendaVO.setFechaAgendada(sdf.parse("10-05-2014"));
-            agendaVO.setTipoAgenda("TIPO");
-            agendaVOList.add(agendaVO);
-            agendaVO = new AgendaVO();
-            agendaVO.setUsuarioVO(usuarioVO);
-            agendaVO.setCliente(clienteVO);
-            agendaVO.setIdAgenda(1l);
-            agendaVO.setFechaAgendada(sdf.parse("13-05-2014"));
-            agendaVO.setTipoAgenda("TIPO");
-            agendaVOList.add(agendaVO);
-            agendaVO = new AgendaVO();
-            agendaVO.setUsuarioVO(usuarioVO);
-            agendaVO.setCliente(clienteVO);
-            agendaVO.setIdAgenda(1l);
-            agendaVO.setFechaAgendada(sdf.parse("13-04-2014"));
-            agendaVO.setTipoAgenda("TIPO");
-            agendaVOList.add(agendaVO);
-            agendaVO = new AgendaVO();
-            agendaVO.setUsuarioVO(usuarioVO);
-            agendaVO.setCliente(clienteVO);
-            agendaVO.setIdAgenda(1l);
-            agendaVO.setFechaAgendada(sdf.parse("02-03-2014"));
-            agendaVO.setTipoAgenda("TIPO");
-            agendaVOList.add(agendaVO);
+            List<Agenda> agendaList = agendaDAO.findAll();
+
+            for(Agenda agenda : agendaList) {
+                AgendaVO agendaVO = TypesAdaptor.adaptar(agenda);
+                ClienteVO cliente = TypesAdaptor.adaptar(agenda.getCliente());
+                agendaVO.setCliente(cliente);
+                agendaVOList.add(agendaVO);
+            }
             CampanhaVO campanhaVO = new CampanhaVO();
             campanhaVO.setFechaInicio(sdf.parse("02-03-2014"));
             campanhaVO.setFechaTermino(sdf.parse("06-06-2014"));

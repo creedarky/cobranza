@@ -6,7 +6,7 @@
             <tr>
                 <th>Cliente</th>
                 <th>Fecha Agenda</th>
-                <th>Tipo Agenda</th>
+                <th>Comentario</th>
                 <th>Asignado</th>
             </tr>
             </thead>
@@ -14,8 +14,8 @@
                 <tr ng-repeat="cliente in agendasClientes">
                     <td>{{ cliente.cliente.nombreCliente }}</td>
                     <td> {{ cliente.fechaAgendada | date: 'dd-MM-yyyy'}}</td>
-                    <td> {{ cliente.tipoAgenda }}</td>
-                    <td> {{ getUsuario(cliente) }} </td>
+                    <td> {{ cliente.comentario }}</td>
+                    <td> {{ cliente.usuarioVO.nombreUsuario }} </td>
                 </tr>
             </tbody>
         </table>

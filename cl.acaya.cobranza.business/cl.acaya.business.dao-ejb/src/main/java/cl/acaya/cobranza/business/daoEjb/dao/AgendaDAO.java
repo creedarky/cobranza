@@ -8,4 +8,6 @@ import java.util.List;
 public interface AgendaDAO extends GenericDAO<Agenda, Long> {
 
 
+    List<Agenda> findAll();
+
 }

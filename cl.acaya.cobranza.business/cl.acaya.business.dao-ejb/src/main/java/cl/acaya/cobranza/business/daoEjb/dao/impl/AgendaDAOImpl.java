@@ -25,7 +25,7 @@ public class AgendaDAOImpl extends  GenericDAOImpl<Agenda,Long> implements Agend
     }
 
     public List<Agenda> findAll() {
-        return em.createQuery("from Agenda a").getResultList();
+        return em.createQuery("from Agenda a inner join fetch a.cliente").getResultList();
     }
 
 

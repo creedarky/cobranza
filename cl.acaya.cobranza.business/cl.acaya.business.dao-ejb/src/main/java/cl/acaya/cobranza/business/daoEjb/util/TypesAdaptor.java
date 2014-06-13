@@ -153,4 +153,15 @@ public class TypesAdaptor {
         return contactoVO;
     }
 
+    public static AgendaVO adaptar(Agenda agenda) {
+        AgendaVO agendaVO = new AgendaVO();
+        agendaVO.setComentario(agenda.getComentario());
+        agendaVO.setFechaAgendada(agenda.getFecAgenda());
+        agendaVO.setIdAgenda(agenda.getSystemId());
+        UsuarioVO usuarioVO = new UsuarioVO();
+        usuarioVO.setNombreUsuario("Usuario Prueba");
+        usuarioVO.setCorreoUsuario("usuario1@usuario.cl");
+        agendaVO.setUsuarioVO(usuarioVO);
+        return agendaVO;
+    }
 }

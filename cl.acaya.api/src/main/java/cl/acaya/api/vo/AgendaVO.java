@@ -9,8 +9,8 @@ public class AgendaVO {
 
     private ClienteVO cliente;
     private Date fechaAgendada;
-    private String tipoAgenda;
-    private Long idAgenda;
+    private String comentario;
+    private Integer idAgenda;
     private UsuarioVO usuarioVO;
 
 
@@ -30,19 +30,19 @@ public class AgendaVO {
         this.fechaAgendada = fechaAgendada;
     }
 
-    public String getTipoAgenda() {
-        return tipoAgenda;
+    public String getComentario() {
+        return comentario;
     }
 
-    public void setTipoAgenda(String tipoAgenda) {
-        this.tipoAgenda = tipoAgenda;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
-    public Long getIdAgenda() {
+    public Integer getIdAgenda() {
         return idAgenda;
     }
 
-    public void setIdAgenda(Long idAgenda) {
+    public void setIdAgenda(Integer idAgenda) {
         this.idAgenda = idAgenda;
     }
 
