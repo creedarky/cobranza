@@ -14,9 +14,9 @@ public class LogSistema {
     private Integer systemId;
     private String usuLog;
     private Timestamp fechaLog;
-    private Integer linkUsuario;
-    private Integer linkDocumento;
-    private Integer linkCliente;
+    private Usuario linkUsuario;
+    private Documento linkDocumento;
+    private Cliente linkCliente;
 
     @Id
     @Basic(optional = false)
@@ -59,33 +59,31 @@ public class LogSistema {
     @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
     @Column(name = "link_usuario")
-    public Integer getLinkUsuario() {
+    public Usuario getLinkUsuario() {
         return linkUsuario;
     }
 
-    public void setLinkUsuario(Integer linkUsuario) {
+    public void setLinkUsuario(Usuario linkUsuario) {
         this.linkUsuario = linkUsuario;
     }
 
     @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_documento")
-    public Integer getLinkDocumento() {
+    public Documento getLinkDocumento() {
         return linkDocumento;
     }
 
-    public void setLinkDocumento(Integer linkDocumento) {
+    public void setLinkDocumento(Documento linkDocumento) {
         this.linkDocumento = linkDocumento;
     }
 
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_cliente")
-    public Integer getLinkCliente() {
+    public Cliente getLinkCliente() {
         return linkCliente;
     }
 
-    public void setLinkCliente(Integer linkCliente) {
+    public void setLinkCliente(Cliente linkCliente) {
         this.linkCliente = linkCliente;
     }
 

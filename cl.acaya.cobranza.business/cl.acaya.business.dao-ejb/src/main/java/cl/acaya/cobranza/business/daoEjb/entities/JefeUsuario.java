@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Table(name = "tbl_jefe_usuario", schema = "dbo", catalog = "COBRANZA")
 public class JefeUsuario {
     private Integer systemId;
-    private Integer linkUsuario;
-    private Integer linkJefe;
+    private Usuario linkUsuario;
+    private JefeUsuario linkJefe;
 
     @Id
     @Basic(optional = false)
@@ -34,21 +34,21 @@ public class JefeUsuario {
 
     @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    public Integer getLinkUsuario() {
+    public Usuario getLinkUsuario() {
         return linkUsuario;
     }
 
-    public void setLinkUsuario(Integer linkUsuario) {
+    public void setLinkUsuario(Usuario linkUsuario) {
         this.linkUsuario = linkUsuario;
     }
 
     @JoinColumn(name = "link_jefe", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    public Integer getLinkJefe() {
+    public JefeUsuario getLinkJefe() {
         return linkJefe;
     }
 
-    public void setLinkJefe(Integer linkJefe) {
+    public void setLinkJefe(JefeUsuario linkJefe) {
         this.linkJefe = linkJefe;
     }
 

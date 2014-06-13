@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "tbl_direcciones_cliente", schema = "dbo", catalog = "COBRANZA")
 public class DireccionesCliente {
     private Integer systemId;
-    private Integer linkCliente;
+    private Cliente linkCliente;
     private String direccionCli;
     private Integer linkComunaCli;
     private String direccionDesp;
@@ -37,12 +37,11 @@ public class DireccionesCliente {
 
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_cliente")
-    public Integer getLinkCliente() {
+    public Cliente getLinkCliente() {
         return linkCliente;
     }
 
-    public void setLinkCliente(Integer linkCliente) {
+    public void setLinkCliente(Cliente linkCliente) {
         this.linkCliente = linkCliente;
     }
 
@@ -56,8 +55,7 @@ public class DireccionesCliente {
         this.direccionCli = direccionCli;
     }
 
-    @JoinColumn(name = "link_comuna_cli", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @Basic
     @Column(name = "link_comuna_cli")
     public Integer getLinkComunaCli() {
         return linkComunaCli;
@@ -77,8 +75,7 @@ public class DireccionesCliente {
         this.direccionDesp = direccionDesp;
     }
 
-    @JoinColumn(name = "link_comuna_desp", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @Basic
     @Column(name = "link_comuna_desp")
     public String getLinkComunaDesp() {
         return linkComunaDesp;

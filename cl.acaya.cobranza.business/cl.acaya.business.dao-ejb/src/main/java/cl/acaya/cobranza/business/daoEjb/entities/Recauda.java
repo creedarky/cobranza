@@ -34,25 +34,25 @@ public class Recauda {
 
     @JoinColumn(name = "link_formapago", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    private Integer linkFormapago;
+    private FormaPago linkFormapago;
 
-    public Integer getLinkFormapago() {
+    public FormaPago getLinkFormapago() {
         return linkFormapago;
     }
 
-    public void setLinkFormapago(Integer linkFormapago) {
+    public void setLinkFormapago(FormaPago linkFormapago) {
         this.linkFormapago = linkFormapago;
     }
 
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    private Integer linkCliente;
+    private Cliente linkCliente;
 
-    public Integer getLinkCliente() {
+    public Cliente getLinkCliente() {
         return linkCliente;
     }
 
-    public void setLinkCliente(Integer linkCliente) {
+    public void setLinkCliente(Cliente linkCliente) {
         this.linkCliente = linkCliente;
     }
 
@@ -69,8 +69,7 @@ public class Recauda {
     }
 
 
-    @JoinColumn(name = "link_comuna", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
+    @Column(name = "link_comuna")
     private Integer linkComuna;
 
     public Integer getLinkComuna() {

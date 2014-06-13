@@ -12,13 +12,13 @@ import java.sql.Date;
 @Table(name = "tbl_lista_conting", schema = "dbo", catalog = "COBRANZA")
 public class ListaConting {
     private Integer systemId;
-    private Integer linkDocumento;
-    private Integer linkCliente;
-    private Integer linkContingencia;
+    private Documento linkDocumento;
+    private Cliente linkCliente;
+    private Contingencia linkContingencia;
     private Date fecha;
     private Boolean revisada;
     private Date fechaRevision;
-    private Integer linkUsuario;
+    private Usuario linkUsuario;
 
     @Id
     @Basic(optional = false)
@@ -40,34 +40,31 @@ public class ListaConting {
 
     @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_documento")
-    public Integer getLinkDocumento() {
+    public Documento getLinkDocumento() {
         return linkDocumento;
     }
 
-    public void setLinkDocumento(Integer linkDocumento) {
+    public void setLinkDocumento(Documento linkDocumento) {
         this.linkDocumento = linkDocumento;
     }
 
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_cliente")
-    public Integer getLinkCliente() {
+    public Cliente getLinkCliente() {
         return linkCliente;
     }
 
-    public void setLinkCliente(Integer linkCliente) {
+    public void setLinkCliente(Cliente linkCliente) {
         this.linkCliente = linkCliente;
     }
 
     @JoinColumn(name = "link_contingencia", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_contingencia")
-    public Integer getLinkContingencia() {
+    public Contingencia getLinkContingencia() {
         return linkContingencia;
     }
 
-    public void setLinkContingencia(Integer linkContingencia) {
+    public void setLinkContingencia(Contingencia linkContingencia) {
         this.linkContingencia = linkContingencia;
     }
 
@@ -103,14 +100,12 @@ public class ListaConting {
 
     @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_usuario")
 
-
-    public Integer getLinkUsuario() {
+    public Usuario getLinkUsuario() {
         return linkUsuario;
     }
 
-    public void setLinkUsuario(Integer linkUsuario) {
+    public void setLinkUsuario(Usuario linkUsuario) {
         this.linkUsuario = linkUsuario;
     }
 

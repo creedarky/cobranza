@@ -12,11 +12,11 @@ import java.sql.Timestamp;
 @Table(name = "tbl_hitos", schema = "dbo", catalog = "COBRANZA")
 public class Hitos {
     private Integer systemId;
-    private Integer linkDocumento;
-    private Integer linkCliente;
-    private Integer linkDocEtapa;
-    private Integer linkUsuario;
-    private Integer linkContacto;
+    private Documento linkDocumento;
+    private Cliente linkCliente;
+    private DocumentoEtapas linkDocEtapa;
+    private Usuario linkUsuario;
+    private ContactoCliente linkContacto;
     private Timestamp fechaHito;
 
     @Id
@@ -39,60 +39,53 @@ public class Hitos {
 
     @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_documento")
-    public Integer getLinkDocumento() {
+    public Documento getLinkDocumento() {
         return linkDocumento;
     }
 
-    public void setLinkDocumento(Integer linkDocumento) {
+    public void setLinkDocumento(Documento linkDocumento) {
         this.linkDocumento = linkDocumento;
     }
 
-    @JoinColumn(name = "linnk_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_tipo_contig")
-    public Integer getLinkCliente() {
+    public Cliente getLinkCliente() {
         return linkCliente;
     }
 
-    public void setLinkCliente(Integer linkCliente) {
+    public void setLinkCliente(Cliente linkCliente) {
         this.linkCliente = linkCliente;
     }
 
     @JoinColumn(name = "link_tipo_contig", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_tipo_contig")
-    public Integer getLinkDocEtapa() {
+    public DocumentoEtapas getLinkDocEtapa() {
         return linkDocEtapa;
     }
 
-    public void setLinkDocEtapa(Integer linkDocEtapa) {
+    public void setLinkDocEtapa(DocumentoEtapas linkDocEtapa) {
         this.linkDocEtapa = linkDocEtapa;
     }
 
     @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_usuario")
-    public Integer getLinkUsuario() {
+    public Usuario getLinkUsuario() {
         return linkUsuario;
     }
 
-    public void setLinkUsuario(Integer linkUsuario) {
+    public void setLinkUsuario(Usuario linkUsuario) {
         this.linkUsuario = linkUsuario;
     }
 
 
     @JoinColumn(name = "link_contacto", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne
-    @Column(name = "link_contacto")
 
-
-
-    public Integer getLinkContacto() {
+    public ContactoCliente getLinkContacto() {
         return linkContacto;
     }
 
-    public void setLinkContacto(Integer linkContacto) {
+    public void setLinkContacto(ContactoCliente linkContacto) {
         this.linkContacto = linkContacto;
     }
 
