@@ -105,7 +105,6 @@ var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
     $scope.fechaAgendada = new Date();
     $scope.observacion = "";
     $scope.cargo = "";
-    $scope.contactoSeleccionado = {};
 
 
     $scope.validarContingencia = function(documento) {
