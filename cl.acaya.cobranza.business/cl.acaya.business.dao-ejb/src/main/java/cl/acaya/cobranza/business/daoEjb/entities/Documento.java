@@ -95,6 +95,9 @@ public class Documento {
     @ManyToMany(mappedBy="documentos")
     private Set<Agenda> agendas = new HashSet<Agenda>();
 
+    @ManyToMany(mappedBy="documentos")
+    private Set<Recauda> recaudaciones = new HashSet<Recauda>();
+
 
     public Documento(){
 
@@ -258,6 +261,14 @@ public class Documento {
 
     public void setAgendas(Set<Agenda> agendas) {
         this.agendas = agendas;
+    }
+
+    public Set<Recauda> getRecaudaciones() {
+        return recaudaciones;
+    }
+
+    public void setRecaudaciones(Set<Recauda> recaudaciones) {
+        this.recaudaciones = recaudaciones;
     }
 
     public Date getLastUpdate() {

@@ -44,7 +44,6 @@ public class PartidasSAPVO implements Cloneable {
     }
 
 
-
     public String getCodigoSociedad() {
         return codigoSociedad;
     }

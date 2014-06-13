@@ -11,11 +11,6 @@ import javax.persistence.*;
 @Table(name = "tbl_contingencia", schema = "dbo", catalog = "COBRANZA")
 @NamedQueries({@NamedQuery(name="Contingencia.findAll",query = "Select cn From Contingencia cn order by cn.contingencia asc")})
 public class Contingencia {
-    private Integer systemId;
-    private String contingencia;
-    private Integer linkTipoContig;
-    private String tipo;
-
     @Id
     @Basic(optional = false)
     @Column(name = "system_id")
@@ -26,6 +21,21 @@ public class Contingencia {
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
                     @org.hibernate.annotations.Parameter(name = "increment_size", value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_contingencia")
+    private Integer systemId;
+
+    @Basic
+    @Column(name = "contingencia")
+    private String contingencia;
+
+    @JoinColumn(name = "link_tipo_contig", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
+    @ManyToOne
+    private TipoContingencia tipoContingencia;
+
+    @Basic
+    @Column(name = "tipo")
+    private String tipo;
+
+
     public Integer getSystemId() {
         return systemId;
     }
@@ -34,8 +44,7 @@ public class Contingencia {
         this.systemId = systemId;
     }
 
-    @Basic
-    @Column(name = "contingencia")
+
     public String getContingencia() {
         return contingencia;
     }
@@ -44,19 +53,16 @@ public class Contingencia {
         this.contingencia = contingencia;
     }
 
-    @JoinColumn(name = "link_tipo_contig", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne
-    @Column(name = "link_tipo_contig")
-    public Integer getLinkTipoContig() {
-        return linkTipoContig;
+
+    public TipoContingencia getTipoContingencia() {
+        return tipoContingencia;
     }
 
-    public void setLinkTipoContig(Integer linkTipoContig) {
-        this.linkTipoContig = linkTipoContig;
+    public void setTipoContingencia(TipoContingencia linkTipoContig) {
+        this.tipoContingencia = linkTipoContig;
     }
 
-    @Basic
-    @Column(name = "tipo")
+
     public String getTipo() {
         return tipo;
     }
@@ -73,7 +79,7 @@ public class Contingencia {
         Contingencia that = (Contingencia) o;
 
         if (contingencia != null ? !contingencia.equals(that.contingencia) : that.contingencia != null) return false;
-        if (linkTipoContig != null ? !linkTipoContig.equals(that.linkTipoContig) : that.linkTipoContig != null)
+        if (tipoContingencia != null ? !tipoContingencia.equals(that.tipoContingencia) : that.tipoContingencia != null)
             return false;
         if (systemId != null ? !systemId.equals(that.systemId) : that.systemId != null) return false;
         if (tipo != null ? !tipo.equals(that.tipo) : that.tipo != null) return false;
@@ -85,7 +91,7 @@ public class Contingencia {
     public int hashCode() {
         int result = systemId != null ? systemId.hashCode() : 0;
         result = 31 * result + (contingencia != null ? contingencia.hashCode() : 0);
-        result = 31 * result + (linkTipoContig != null ? linkTipoContig.hashCode() : 0);
+        result = 31 * result + (tipoContingencia != null ? tipoContingencia.hashCode() : 0);
         result = 31 * result + (tipo != null ? tipo.hashCode() : 0);
         return result;
     }
