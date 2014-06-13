@@ -60,7 +60,7 @@ public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements
         return em.createNativeQuery(
                 "select cast(c.nom_cliente as varchar) as nom_cliente,cast(c.rut as varchar) as rut," +
                 "cast(vw.tramo as varchar) as tramo ,vw.dias as dias, vw.monto as monto, " +
-                "cast(vw.num_doc as varchar) as num_doc, cast(v.cod_vendedor as varchar) as vendedor, " +
+                "cast(vw.folio_sii as varchar) as num_doc, cast(v.cod_vendedor as varchar) as vendedor, " +
                 "cast(td.cod_tipo as varchar) as codTipo, vw.fecha_emision, vw.fecha_vencimiento, vw.system_id " +
                 "FROM cobranza.dbo.vw_docs_tramos vw " +
                 "inner join cobranza.dbo.tbl_dm_cliente dm on dm.system_id = vw.link_dm " +

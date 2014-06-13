@@ -69,7 +69,7 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
         request.addParam(BusinessParameter.RUT_CLIENTE, cliente.getRutCliente());
         request.addParam(BusinessParameter.SOCIEDAD, "1000");
         request.addParam(Parametros.CLIENTE, cliente);
-        //response = cobranzaServiceLocal.obtenerDocumentosSAP(request);
+        response = cobranzaServiceLocal.obtenerDocumentosSAP(request);
         List<Object[]> resultList = documentoDAO.getCarteraClienteByIdCliente(idCliente);
         List<DocumentoClienteVO> documentoClienteVOList = new ArrayList<DocumentoClienteVO>(resultList.size());
         System.out.println(resultList.size());
