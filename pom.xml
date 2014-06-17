@@ -322,6 +322,7 @@
     </dependencyManagement>
     <!--
     cp cl.acaya.cobranza.business/cl.acaya.business-ear/target/cobranza-business-ear.ear /Users/mcastro/Documents/Desarrollo/java/appsrv/jboss-5.1.0.GA/server/default/deploy/cobranza-business-ear.ear
+    -->
     <build>
         <plugins>
             <plugin>
@@ -353,22 +354,40 @@
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12.2</version>
-                <configuration>
-                    <forkMode>pertest</forkMode>
-                    <argLine>-Xmx1024m</argLine>
-                    <skipTests>true</skipTests>
-                    <classpathDependencyExcludes>
-                        <classpathDependencyExcludes>javaee:javaee-api</classpathDependencyExcludes>
-                    </classpathDependencyExcludes>
-                </configuration>
-            </plugin>
+
         </plugins>
     </build>
 
+<!--
+<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>cl.acaya</groupId>
+                                    <artifactId>cl.acaya.business-ws</artifactId>
+                                    <version>1.0-SNAPSHOT</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${basedir}/target/cobranza</outputDirectory>
+                                    <outputDirectory>${basedir}/cl.acaya.cobranza.business/cl.acaya.business-ear/target/cobranza</outputDirectory>
+    <destFileName>cobranza-ws.jar</destFileName>
+</artifactItem>
+        </artifactItems>
+<overWriteReleases>false</overWriteReleases>
+<overWriteSnapshots>true</overWriteSnapshots>
+        </configuration>
+        </execution>
+        </executions>
+        </plugin>
     <profiles>
         <profile>
             <id>develop</id>
@@ -381,14 +400,14 @@
         </profile>
     </profiles>
 
+
      -->
     <modules>
         <module>cl.acaya.cobranza.business</module>
         <module>integration-test</module>
         <module>cl.acaya.api</module>
-
         <!--<module>cl.acaya.business-ejbClient</module> -->
-    <module>cl.acaya.web</module>
+        <module>cl.acaya.web</module>
   </modules>
 
 </project>

@@ -19,15 +19,17 @@
 
       <dependency>
           <groupId>${project.groupId}</groupId>
+          <artifactId>cl.acaya.api</artifactId>
+          <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>${project.groupId}</groupId>
           <artifactId>cl.acaya.business.dao-ejb</artifactId>
           <version>${project.version}</version>
           <scope>provided</scope>
       </dependency>
-      <dependency>
-          <groupId>${project.groupId}</groupId>
-          <artifactId>cl.acaya.api</artifactId>
-          <version>${project.version}</version>
-      </dependency>
+
       <dependency>
           <groupId>log4j</groupId>
           <artifactId>log4j</artifactId>
@@ -78,8 +80,7 @@
   </repositories>
 
   <build>
-    <finalName>cobranza-businessmvn clean
-    </finalName>
+    <finalName>cobranza-business</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -25,24 +25,12 @@
           <artifactId>junit</artifactId>
       </dependency>
       <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-context-support</artifactId>
-          <version>${spring.version}</version>
-          <scope>compile</scope>
-      </dependency>
-      <dependency>
           <groupId>commons-io</groupId>
           <artifactId>commons-io</artifactId>
       </dependency>
       <dependency>
           <artifactId>sap-jco</artifactId>
           <groupId>com.sap</groupId>
-      </dependency>
-      <dependency>
-          <groupId>org.codehaus.jackson</groupId>
-          <artifactId>jackson-mapper-asl</artifactId>
-          <version>${jackson.mapper.asl.version}</version>
-          <scope>test</scope>
       </dependency>
   </dependencies>
   <build>

@@ -1,4 +1,4 @@
-package cl.acaya.business.service.ws.response;
+package cl.acaya.business.webservice.ws.response;
 
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;

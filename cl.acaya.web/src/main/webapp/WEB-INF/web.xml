@@ -47,21 +47,21 @@
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
 
-
+    <!--
     <servlet>
         <servlet-name>jaxws-servlet</servlet-name>
-        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSSpringServlet</servlet-class>
+        <servlet-class>com.sun.xml.cl.acaya.business.webservice.ws.transport.http.servlet.WSSpringServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>jaxws-servlet</servlet-name>
         <url-pattern>/acepta</url-pattern>
     </servlet-mapping>
-    <!--
+
     <servlet>
         <servlet-name>jaxws-servlet</servlet-name>
         <servlet-class>
-            com.sun.xml.ws.transport.http.servlet.WSSpringServlet
+            com.sun.xml.cl.acaya.business.webservice.ws.transport.http.servlet.WSSpringServlet
         </servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
@@ -71,7 +71,7 @@
 
     <servlet-mapping>
         <servlet-name>jaxws-servlet</servlet-name>
-        <url-pattern>/ws</url-pattern>
+        <url-pattern>/cl.acaya.business.webservice.ws</url-pattern>
     </servlet-mapping>
               -->
 

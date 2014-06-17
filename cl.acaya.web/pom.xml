@@ -65,19 +65,19 @@
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
         </dependency>
-
+        <!--
         <dependency>
-            <groupId>com.sun.xml.ws</groupId>
+            <groupId>com.sun.xml.cl.acaya.business.webservice.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
             <version>2.2.3</version>
         </dependency>
 
         <dependency>
-            <groupId>org.jvnet.jax-ws-commons.spring</groupId>
+            <groupId>org.jvnet.jax-cl.acaya.business.webservice.ws-commons.spring</groupId>
             <artifactId>jaxws-spring</artifactId>
             <version>1.9</version>
         </dependency>
-
+            -->
 
 
     </dependencies>
