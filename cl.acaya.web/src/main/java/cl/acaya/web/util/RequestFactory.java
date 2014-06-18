@@ -1,6 +1,5 @@
 package cl.acaya.web.util;
 
-import cl.acaya.api.sap.SapSystem;
 import cl.acaya.api.vo.Context;
 import cl.acaya.api.vo.Request;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -22,7 +21,7 @@ public final class RequestFactory {
             {
                 context.setLocale(LocaleContextHolder.getLocale());
                 context.setRemoteHost(httpRequest.getRemoteHost());
-                context.setUsername((httpRequest.getUserPrincipal() != null ? httpRequest.getUserPrincipal().getName() : ""));
+                context.setUsername((httpRequest.getUserPrincipal() != null ? httpRequest.getUserPrincipal().getName() : "userPrueba"));
             }
 
             request.setContext(context);

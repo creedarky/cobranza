@@ -1,10 +1,10 @@
 package cl.acaya.business.service.ejb.impl;
 
 import cl.acaya.api.business.BusinessParameter;
-import cl.acaya.api.sap.Connect;
+import cl.acaya.business.sap.Connect;
 import cl.acaya.api.service.ClienteServiceRemote;
 import cl.acaya.business.service.ejb.CobranzaServiceLocal;
-import cl.acaya.api.util.SapConnectionFactory;
+import cl.acaya.business.sap.SapConnectionFactory;
 import cl.acaya.api.vo.*;
 import cl.acaya.api.vo.enums.TipoCuentasKupferType;
 import cl.acaya.cobranza.business.daoEjb.dao.*;

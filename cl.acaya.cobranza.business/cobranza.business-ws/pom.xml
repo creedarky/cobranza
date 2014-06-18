@@ -39,11 +39,6 @@
           <artifactId>junit</artifactId>
       </dependency>
       <dependency>
-          <artifactId>sap-jco</artifactId>
-          <groupId>com.sap</groupId>
-      </dependency>
-
-      <dependency>
           <groupId>org.apache.openejb</groupId>
           <artifactId>javaee-api</artifactId>
           <version>6.0-5</version>

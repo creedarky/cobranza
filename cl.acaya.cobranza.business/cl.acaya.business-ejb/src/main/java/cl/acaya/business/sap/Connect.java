@@ -1,4 +1,4 @@
-package cl.acaya.api.sap;
+package cl.acaya.business.sap;
 
 import com.sap.conn.jco.JCoContext;
 import com.sap.conn.jco.JCoDestination;

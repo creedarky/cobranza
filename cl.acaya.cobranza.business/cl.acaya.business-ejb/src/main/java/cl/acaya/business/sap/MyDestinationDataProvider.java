@@ -1,4 +1,4 @@
-package cl.acaya.api.sap;
+package cl.acaya.business.sap;
 
 import java.util.Properties;
 

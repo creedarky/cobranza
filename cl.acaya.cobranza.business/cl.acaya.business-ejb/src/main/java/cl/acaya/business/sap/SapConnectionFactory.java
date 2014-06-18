@@ -1,8 +1,8 @@
-package cl.acaya.api.util;
+package cl.acaya.business.sap;
 
 import cl.acaya.api.business.BusinessParameter;
-import cl.acaya.api.sap.Connect;
-import cl.acaya.api.sap.SapSystem;
+import cl.acaya.business.sap.Connect;
+import cl.acaya.business.sap.SapSystem;
 
 /**
  * Created by mcastro on 05-06-14.
