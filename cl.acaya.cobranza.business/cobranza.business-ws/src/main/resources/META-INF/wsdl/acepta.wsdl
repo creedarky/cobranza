@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AceptaWS" targetNamespace="http://localhost/aceptaws" xmlns:ns2="/model/NotificarFacturaAceptaRequest" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="/model/NotificarFacturaAceptaResponse" xmlns:tns="http://localhost/aceptaws" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <xs:schema targetNamespace="/model/NotificarFacturaAceptaRequest" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:complexType name="NotificarFacturaAceptaRequest">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="duennoEvento" type="xs:string"/>
+     <xs:element minOccurs="0" name="estadoEvento" type="xs:string"/>
+     <xs:element minOccurs="0" name="evento" type="xs:string"/>
+     <xs:element minOccurs="0" name="fechaHoraEvento" type="xs:dateTime"/>
+     <xs:element minOccurs="0" name="numFactura" type="xs:string"/>
+     <xs:element minOccurs="0" name="observacion" type="xs:string"/>
+     <xs:element minOccurs="0" name="urlFactura" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+    <xs:schema targetNamespace="http://localhost/aceptaws" version="1.0" xmlns:ns1="/model/NotificarFacturaAceptaRequest" xmlns:ns2="/model/NotificarFacturaAceptaResponse" xmlns:tns="http://localhost/aceptaws" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:import namespace="/model/NotificarFacturaAceptaRequest"/>
+   <xs:import namespace="/model/NotificarFacturaAceptaResponse"/>
+   <xs:element name="notificarFactura" type="tns:notificarFactura"/>
+   <xs:element name="notificarFacturaResponse" type="tns:notificarFacturaResponse"/>
+   <xs:complexType name="notificarFactura">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="arg0" type="ns1:NotificarFacturaAceptaRequest"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="notificarFacturaResponse">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="notificarFactura" type="ns2:NotificarFacturaAceptaResponse"/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+    <xs:schema targetNamespace="/model/NotificarFacturaAceptaResponse" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:complexType name="NotificarFacturaAceptaResponse">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="errorMensaje" type="xs:string"/>
+     <xs:element minOccurs="0" name="success" type="xs:boolean"/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+  </types>
+  <message name="AceptaWS_notificarFactura">
+    <part name="notificarFactura" element="tns:notificarFactura">
+    </part>
+  </message>
+  <message name="AceptaWS_notificarFacturaResponse">
+    <part name="notificarFacturaResponse" element="tns:notificarFacturaResponse">
+    </part>
+  </message>
+  <portType name="AceptaWS">
+    <operation name="notificarFactura" parameterOrder="notificarFactura">
+      <input message="tns:AceptaWS_notificarFactura">
+    </input>
+      <output message="tns:AceptaWS_notificarFacturaResponse">
+    </output>
+    </operation>
+  </portType>
+  <binding name="AceptaWSBinding" type="tns:AceptaWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="notificarFactura">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="AceptaWS">
+    <port name="AceptaWSPort" binding="tns:AceptaWSBinding">
+      <soap:address location="http://localhost:8080/cobranza-ws/aceptaws"/>
+    </port>
+  </service>
+</definitions>
