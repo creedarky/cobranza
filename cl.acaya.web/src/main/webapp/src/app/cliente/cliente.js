@@ -7,7 +7,7 @@ angular.module( 'ngBoilerplate.cliente', [
 
 .config(function config( $stateProvider ) {
   $stateProvider.state( 'cliente', {
-  url: '/cliente/:idCliente',
+  url: '/cliente/:idCliente?idAgenda',
     views: {
       "main": {
         controller: 'ClienteCtrl',
@@ -16,6 +16,8 @@ angular.module( 'ngBoilerplate.cliente', [
     },
     data:{ pageTitle: 'Gesti\u00f3n cliente' }
   });
+
+
 })
 
 

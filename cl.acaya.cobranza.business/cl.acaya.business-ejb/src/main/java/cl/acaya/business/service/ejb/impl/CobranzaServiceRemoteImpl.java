@@ -314,7 +314,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
         List<AgendaVO> agendaVOList = new ArrayList<AgendaVO>();
         List<CampanhaVO> campanhaVOList = new ArrayList<CampanhaVO>();
         try {
-            List<Agenda> agendaList = agendaDAO.findAll();
+            List<Agenda> agendaList = agendaDAO.getAgendaUsuario();
 
             for(Agenda agenda : agendaList) {
                 AgendaVO agendaVO = TypesAdaptor.adaptar(agenda);

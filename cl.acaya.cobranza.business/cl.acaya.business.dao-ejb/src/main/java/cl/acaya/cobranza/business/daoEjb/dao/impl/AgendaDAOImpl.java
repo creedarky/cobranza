@@ -24,8 +24,14 @@ public class AgendaDAOImpl extends  GenericDAOImpl<Agenda,Long> implements Agend
         super(Agenda.class);
     }
 
-    public List<Agenda> findAll() {
-        return em.createQuery("from Agenda a inner join fetch a.cliente").getResultList();
+    public List<Agenda> getAgendaUsuario() {
+        return em.createQuery("select a.systemId, a.comentario,a.fecAgenda,c.systemId, c.nombreCliente, " +
+                "a.fecAgenda,u.systemId, u.nombreUsuario, u.nombreCompleto   from Agenda a inner join a.cliente c " +
+                "left join a.usuario u  " +
+                "where a.realizada = :noRealizada " +
+                "group by c.systemId,a.fecAgenda,a.systemId, a.comentario," +
+                "c.systemId, c.nombreCliente, " +
+                "a.fecAgenda,u.systemId, u.nombreUsuario, u.nombreCompleto").setParameter("noRealizada",Boolean.FALSE).getResultList();
     }
 
 
