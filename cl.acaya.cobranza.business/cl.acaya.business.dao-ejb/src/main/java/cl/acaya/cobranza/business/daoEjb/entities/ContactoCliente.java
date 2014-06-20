@@ -52,7 +52,7 @@ public class ContactoCliente {
     @JoinColumn(name = "link_cargo")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne(fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
-    private CargoUsuario cargo;
+    private CargoContacto cargo;
 
     @JoinColumn(name = "link_cliente")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne(fetch = FetchType.LAZY)
@@ -123,11 +123,11 @@ public class ContactoCliente {
         this.fonoContacto3 = fonoContacto3;
     }
 
-    public CargoUsuario getCargo() {
+    public CargoContacto getCargo() {
         return cargo;
     }
 
-    public void setCargo(CargoUsuario cargo) {
+    public void setCargo(CargoContacto cargo) {
         this.cargo = cargo;
     }
 

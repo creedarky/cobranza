@@ -3,8 +3,6 @@ package cl.acaya.web.clients;
 import cl.acaya.api.service.ClienteServiceRemote;
 import cl.acaya.api.vo.*;
 
-import java.util.List;
-
 /**
  * Created by mcastro on 22-05-14.
  */
@@ -30,8 +28,8 @@ public class ClienteServiceDelegate extends AbstractServiceDelegate implements C
     }
 
     @Override
-    public List<ContactoVO> getContactosClientes(Long idCliente) {
-        return clienteServiceRemote.getContactosClientes(idCliente);
+    public Response getContactosClientes(Request request) {
+        return clienteServiceRemote.getContactosClientes(request);
     }
 
     @Override

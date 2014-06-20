@@ -14,7 +14,6 @@ public interface BusinessParameter {
     String SYSTEM_NUMBER = "0";
     String USER_SAP = "SPKII";
     String PASSWORD_SAP = "acero2013";
-
-
-
+    String RFC_DATOSCLIENTE = "ZSDFN_DATOS_CLIENTE_11";
+    String RFC_CARGOS_SAP = "ZFIFN_SCKFUNCION";
 }

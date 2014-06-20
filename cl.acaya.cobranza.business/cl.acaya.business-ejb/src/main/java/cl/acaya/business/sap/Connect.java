@@ -18,8 +18,7 @@ public class Connect {
 
 	public Connect(SapSystem system) {
 		MyDestinationDataProvider myProvider = new MyDestinationDataProvider(system);
-		//com.sap.conn.jco.ext.Environment.registerDestinationDataProvider(myProvider);
-                
+
                 if (!com.sap.conn.jco.ext.Environment.isDestinationDataProviderRegistered()) {
                     com.sap.conn.jco.ext.Environment.registerDestinationDataProvider(myProvider);
 		}

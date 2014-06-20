@@ -17,4 +17,6 @@ public interface CobranzaServiceLocal {
     ResumenInicialVO getCarteraPorTramos(List<Object[]> resultList);
 
     Response obtenerDocumentosSAP(Request request);
+
+    Response getCargosSAP(Request request);
 }

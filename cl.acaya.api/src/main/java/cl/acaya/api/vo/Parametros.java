@@ -22,4 +22,6 @@ public interface Parametros {
     String CONTINGENCIAS = "contingencia";
     String BANCOS = "bancos";
     String FORMAS_PAGO = "formasPago";
+    String CARGOS_CONTACTO = "cargosContacto";
+    String CONTACTOS_CLIENTE = "contactosCliente";
 }

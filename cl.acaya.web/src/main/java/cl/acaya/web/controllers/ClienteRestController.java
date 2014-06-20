@@ -61,12 +61,18 @@ public class ClienteRestController {
 
     @RequestMapping(value = "contactos/{idCliente}", method = RequestMethod.GET)
     public @ResponseBody
-    List<ContactoVO> cargarContactos(HttpServletRequest httpRequest,
-                               @PathVariable Long idCliente
+    JsonResponse cargarContactos(HttpServletRequest httpRequest,
+                               @PathVariable Long idCliente) {
+        Request request = RequestFactory.newRequest(httpRequest);
+        request.addParam(Parametros.ID_CLIENTE,idCliente);
+        JsonResponse jsonResponse = new JsonResponse();
+        Response response = clienteServiceRemote.getContactosClientes(request);
+        System.out.println("cargando clientes");
+        if(response.isOK()) {
+            jsonResponse.setBody(response.getAllResp());
+        }
+        return jsonResponse;
 
-    ) {
-        List<ContactoVO> contactoVOList = clienteServiceRemote.getContactosClientes(idCliente);
-        return contactoVOList;
     }
 
     @RequestMapping(value="guardar-agenda", method = RequestMethod.POST)

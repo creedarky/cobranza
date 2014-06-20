@@ -28,6 +28,10 @@ public class Response implements Serializable {
         return resp.get(prm);
     }
 
+    public Map<String, Object> getAllResp() {
+        return resp;
+    }
+
     public <T extends Object> T getResp(String valueName, Class<T> type) {
         try {
             return type.cast(resp.get(valueName));

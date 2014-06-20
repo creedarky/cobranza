@@ -46,6 +46,9 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
     CargoUsuarioDAO cargoUsuarioDAO;
 
     @EJB
+    CargoContactoDAO cargoContactoDAO;
+
+    @EJB
     AgendaDAO agendaDAO;
 
     @EJB
@@ -125,7 +128,7 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
         response.addResp(Parametros.DOCUMENTOS_CLIENTE, documentoClienteVOList);
         Connect connect = SapConnectionFactory.newConecction();
-        JCoFunction functionDatosClientes = connect.getFunction("ZSDFN_DATOS_CLIENTE_11"); // Nombre RFC
+        JCoFunction functionDatosClientes = connect.getFunction(BusinessParameter.RFC_DATOSCLIENTE); // Nombre RFC
         functionDatosClientes.getImportParameterList().setValue("RUTCLIENTE", cliente.getRutCliente().toUpperCase()); // Paso
         connect.execute(functionDatosClientes);
         JCoTable datosCliente = functionDatosClientes.getTableParameterList().getTable("DATOS_CLIE");
@@ -176,7 +179,8 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
     }
 
-    public List<ContactoVO> getContactosClientes(Long idCliente) {
+    public Response getContactosClientes(Request request) {
+        Long idCliente = request.getParam(Parametros.ID_CLIENTE, Long.class);
         List<ContactoCliente> contactoClienteList = contactoDAO.getContactosByIdCliente(idCliente);
         List<ContactoVO> contactoVOList;
         if(contactoClienteList == null || contactoClienteList.isEmpty())
@@ -188,24 +192,30 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
                 contactoVOList.add(contactoVO);
             }
         }
-        return contactoVOList;
 
+        Response response = cobranzaServiceLocal.getCargosSAP(request);
+        if(response.isOK()) {
+            response.addResp(Parametros.CONTACTOS_CLIENTE,contactoVOList );
+        }
+        return response;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public ContactoVO guardarContacto(ContactoVO contactoVO) {
         ContactoCliente contactoCliente = new ContactoCliente();
         Cliente cliente = clienteDAO.find(contactoVO.getIdCliente());
-        CargoUsuario cargoUsuario = new CargoUsuario(contactoVO.getCargo());
-        cargoUsuario = cargoUsuarioDAO.create(cargoUsuario);
+        //CargoContacto cargoContacto = new CargoContacto(contactoVO.getCargo());
+        CargoContacto cargoContacto = cargoContactoDAO.find(contactoVO.getIdCargo());
+        //cargoUsuario = cargoUsuarioDAO.create(cargoUsuario);
         contactoCliente.setNombreContacto(contactoVO.getNombre());
         contactoCliente.setCliente(cliente);
-        contactoCliente.setCargo(cargoUsuario);
+        contactoCliente.setCargo(cargoContacto);
         contactoCliente.setEmailContacto(contactoVO.getEmail());
         contactoCliente.setFonoContacto1(contactoVO.getFono());
         contactoCliente = contactoDAO.create(contactoCliente);
         System.out.println(contactoCliente);
         contactoVO.setIdCliente(contactoCliente.getSystemId());
+        contactoVO.setCargo(cargoContacto.getCargoContacto());
         return  contactoVO;
 
     }

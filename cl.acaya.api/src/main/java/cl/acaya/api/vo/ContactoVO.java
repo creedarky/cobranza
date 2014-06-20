@@ -12,6 +12,7 @@ public class ContactoVO implements Serializable {
     private String nombre;
     private String email;
     private String fono;
+    private Long idCargo;
     private String cargo;
     private Long idContacto;
     private Long idCliente;
@@ -38,6 +39,14 @@ public class ContactoVO implements Serializable {
 
     public void setFono(String fono) {
         this.fono = fono;
+    }
+
+    public Long getIdCargo() {
+        return idCargo;
+    }
+
+    public void setIdCargo(Long idCargo) {
+        this.idCargo = idCargo;
     }
 
     public String getCargo() {
@@ -70,7 +79,7 @@ public class ContactoVO implements Serializable {
                 "nombre='" + nombre + '\'' +
                 ", email='" + email + '\'' +
                 ", fono='" + fono + '\'' +
-                ", cargo='" + cargo + '\'' +
+                ", cargo='" + idCargo + '\'' +
                 ", idContacto=" + idContacto +
                 ", idCliente=" + idCliente +
                 '}';

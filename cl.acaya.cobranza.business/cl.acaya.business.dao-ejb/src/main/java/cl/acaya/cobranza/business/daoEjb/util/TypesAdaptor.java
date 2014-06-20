@@ -146,7 +146,7 @@ public class TypesAdaptor {
     public static ContactoVO adaptar(ContactoCliente contactoCliente) {
         ContactoVO contactoVO = new ContactoVO();
         contactoVO.setIdContacto(contactoCliente.getSystemId());
-        contactoVO.setCargo(contactoCliente.getCargo().getCargo());
+        contactoVO.setCargo(contactoCliente.getCargo().getCargoContacto());
         contactoVO.setEmail(contactoCliente.getEmailContacto());
         contactoVO.setFono(contactoCliente.getFonoContacto1());
         contactoVO.setNombre(contactoCliente.getNombreContacto());
@@ -185,5 +185,12 @@ public class TypesAdaptor {
         recauda.setPagoVie(recauda.getPagoVie());
         return recauda;
 
+    }
+
+    public static CargoContactoVO adaptar(CargoContacto cargoContacto) {
+        CargoContactoVO cargoContactoVO = new CargoContactoVO();
+        cargoContactoVO.setIdCargo(cargoContacto.getSystemId());
+        cargoContactoVO.setCargo(cargoContacto.getCargoContacto());
+        return  cargoContactoVO;
     }
 }

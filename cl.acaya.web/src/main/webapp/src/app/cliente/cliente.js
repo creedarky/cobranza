@@ -21,9 +21,10 @@ angular.module( 'ngBoilerplate.cliente', [
 })
 
 
-.controller( 'ClienteCtrl', ['$scope', '$stateParams', '$http','$modal',function($scope,$stateParams,$http, $modal ) {
+.controller( 'ClienteCtrl', ['$scope','$rootScope', '$stateParams', '$http','$modal',function($scope,$rootScope,$stateParams,$http, $modal ) {
         console.log($stateParams.idCliente);
         $http.get('rest/cliente/gestion/'+$stateParams.idCliente).success(function(data) {
+            $rootScope.idcliente = $stateParams.idCliente;
             $scope.body = data.body;
             $scope.success = data.success;
             $scope.cliente = data.body.cliente;
@@ -33,10 +34,12 @@ angular.module( 'ngBoilerplate.cliente', [
             $scope.documentos = data.body.documentosCliente;
             $scope.contingencias = data.body.contingencia;
             console.log($scope.contingencias);
+            $http.get('rest/cliente/gestion/contactos/'+$stateParams.idCliente).success(function(data) {
+                $scope.contactos = data.body.contactosCliente;
+                $rootScope.cargos = data.body.cargosContacto;
+            });
         });
-        $http.get('rest/cliente/gestion/contactos/'+$stateParams.idCliente).success(function(data) {
-            $scope.contactos = data;
-        });
+
         $scope.documentosSeleccionados = [];
         $scope.selectedAll = false;
         $scope.selectAll  = function() {
@@ -95,7 +98,7 @@ angular.module( 'ngBoilerplate.cliente', [
 
 }]);
 
-var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
+var ModalAgendarCtrl = function ($scope,$rootScope, $modalInstance,$modal,$http, data) {
 
     console.log(data);
     $scope.documentos = data.documentos;
@@ -111,14 +114,13 @@ var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
 
     $scope.validarContingencia = function(documento) {
         if(documento.contingencia) {
-            documento.validar = false;
             documento.recaudar = false;
         }
         documento.contingenciaSeleccionada = null;
     };
 
     $scope.validarRecaudar = function(documento) {
-        if(documento.recaudar || documento.validar) {
+        if(documento.recaudar) {
             documento.contingencia = false;
         }
         documento.contingenciaSeleccionada = null;
@@ -256,26 +258,28 @@ var ModalAgendarCtrl = function ($scope, $modalInstance,$modal,$http, data) {
 };
 
 
-var ModalContactoCtrl = function ($scope, $modalInstance,$http, idCliente) {
+var ModalContactoCtrl = function ($scope,$rootScope, $modalInstance,$http, idCliente) {
     console.log($modalInstance);
     console.log(idCliente);
-    $scope.contactoSeleccionado = {idCliente: idCliente, nombre:'', cargo:'',email:'',fono:'',idContacto:null};
-    $scope.master = {idCliente: idCliente, nombre:'', cargo:'',email:'',fono:'',idContacto:null};
+    $scope.contacto = {idCliente: $rootScope.idcliente, nombre:'', idCargo: null ,cargo:'',email:'',fono:'',idContacto:null};
+    $scope.master = angular.copy($scope.contacto);
+    $scope.cargoSeleccionado = null;
     $scope.isUnchanged = function(contacto) {
         return angular.equals(contacto, $scope.master);
     };
     $scope.ok = function () {
-        $scope.master = angular.copy($scope.contactoSeleccionado);
+        $scope.master = angular.copy($scope.contacto);
+
         $http({
             url: 'rest/cliente/gestion/guardar-contacto.htm',
             dataType: 'json',
             method: 'POST',
-            data: JSON.stringify($scope.contactoSeleccionado),
+            data: JSON.stringify($scope.contacto),
             headers: {
                 "Content-Type": "application/json"
         }}).success(function(data, status, headers, config) {
             $scope.posts = data;
-            $modalInstance.close($scope.contactoSeleccionado);
+            $modalInstance.close($scope.contacto);
         }).
         error(function(data, status, headers, config) {
             alert("Ha ocurrido un error al guardar");
@@ -288,7 +292,7 @@ var ModalContactoCtrl = function ($scope, $modalInstance,$http, idCliente) {
     };
 };
 
-var ModalRecaudaCtrl = function ($scope, $modalInstance,$http, params) {
+var ModalRecaudaCtrl = function ($scope,$rootScope, $modalInstance,$http, params) {
     $scope.contactos = params.contactos;
     $http.get('rest/cliente/gestion/bancos').success(function(data) {
         $scope.bancos = data.body.bancos;

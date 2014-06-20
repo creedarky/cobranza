@@ -13,7 +13,7 @@ public interface ClienteServiceRemote {
 
     ContactoVO guardarContacto(ContactoVO contactoVO);
 
-    List<ContactoVO> getContactosClientes(Long idCliente);
+    Response getContactosClientes(Request request);
 
     Response guardarAgenda(GuardarAgendaVO guardarAgendaVO);
 

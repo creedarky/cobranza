@@ -61,6 +61,9 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
     @EJB
     AgendaDAO agendaDAO;
 
+    @EJB
+    CargoContactoDAO cargoContactoDAO;
+
     @Resource
     private UserTransaction userTransaction;
 
@@ -583,5 +586,37 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
 
         return resumenInicialVO;
 
+    }
+
+
+    public Response getCargosSAP(Request request) {
+        Response response = new Response();
+        Connect connect = SapConnectionFactory.newConecction();
+        JCoFunction function = connect.getFunction(BusinessParameter.RFC_CARGOS_SAP); // Nombre RFC
+        connect.execute(function);
+        JCoTable table = function.getTableParameterList().getTable("T_FUNCION"); //Tabla de Salida
+        List<CargoContactoVO> cargoContactoVOList = new ArrayList<CargoContactoVO>(table.getNumRows());
+        System.out.println(table);
+        try {
+            userTransaction.begin();
+            for (int i = 0; i < table.getNumRows(); i++) {
+                table.setRow(i);
+                CargoContacto cargoContacto = new CargoContacto();
+                cargoContacto.setCargoContacto(table.getString("VTEXT"));
+                cargoContacto.setPafkt(table.getString("PAFKT"));
+                cargoContacto.setSpras(table.getString("SPRAS"));
+                cargoContacto.setMandato(table.getString("MANDT"));
+                cargoContacto = cargoContactoDAO.findOrCreate(cargoContacto);
+                CargoContactoVO cargoContactoVO = TypesAdaptor.adaptar(cargoContacto);
+                cargoContactoVOList.add(cargoContactoVO);
+            }
+            userTransaction.commit();
+            response.addResp(Parametros.CARGOS_CONTACTO, cargoContactoVOList);
+            response.success();
+        }catch (Exception e){
+            e.printStackTrace();
+            response.fail();
+        }
+        return response;
     }
 }
