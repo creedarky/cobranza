@@ -180,6 +180,7 @@ public class TypesAdaptor {
         ContactoVO contactoVO = new ContactoVO();
         contactoVO.setIdContacto(contactoCliente.getSystemId());
         contactoVO.setCargo(contactoCliente.getCargo().getCargoContacto());
+        contactoVO.setIdCargo(contactoCliente.getCargo().getSystemId());
         contactoVO.setEmail(contactoCliente.getEmailContacto());
         contactoVO.setFono(contactoCliente.getFonoContacto1());
         contactoVO.setNombre(contactoCliente.getNombreContacto());
@@ -196,6 +197,7 @@ public class TypesAdaptor {
         usuarioVO.setCorreoUsuario("usuario1@usuario.cl");
         agendaVO.setUsuarioVO(usuarioVO);
         return agendaVO;
+
     }
 
     public static BancoVO adaptar(Banco banco) {
@@ -225,5 +227,17 @@ public class TypesAdaptor {
         cargoContactoVO.setIdCargo(cargoContacto.getSystemId());
         cargoContactoVO.setCargo(cargoContacto.getCargoContacto());
         return  cargoContactoVO;
+    }
+
+
+
+    public static HitoVO adaptar(Hitos hitos) {
+        HitoVO hitoVO = new HitoVO();
+        hitoVO.setEtapa(hitos.getEtapa());
+        hitoVO.setFechaHito(hitos.getFechaHito());
+        hitoVO.setContacto(TypesAdaptor.adaptar(hitos.getContacto()));
+        hitoVO.setDocumento(TypesAdaptor.adaptar(hitos.getDocumento()));
+        hitoVO.setUsuario(null);
+        return hitoVO;
     }
 }

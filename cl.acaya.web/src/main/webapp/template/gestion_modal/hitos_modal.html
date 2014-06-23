@@ -1,0 +1,34 @@
+
+<div class="modal-header">
+    <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">Hitos</h3>
+</div>
+<div class="modal-body">
+    <table class="table-bordered table">
+        <thead>
+            <tr>
+                <th>Documento</th>
+                <th>Contacto</th>
+                <th>Cargo</th>
+                <th>Etapa</th>
+                <th>Usuario</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="hito in hitos">
+                <td>{{ hito.documento.folioSII }}</td>
+                <td>{{hito.contacto.nombre}}</td>
+                <td>{{hito.contacto.cargo}}</td>
+                <td>{{hito.etapa}}</td>
+                <td>{{hito.usuario.nombreUsuario}}</td>
+                <td>{{hito.fechaHito }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"  ng-click="ok()">OK</button>
+
+</div>

@@ -12,7 +12,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_SUCURSAL", schema = BusinessParameter.DB_SCHEMA)
-@NamedQueries({@NamedQuery(name="Sucursal.findAll",query = "Select cn From Sucursal cn")})
+@NamedQueries({@NamedQuery(name="Sucursal.findAll",query = "Select cn From Sucursal cn"),
+@NamedQuery(name = "Sucursal.findbyCodigo", query = "from Sucursal where codigoSucursal = :codigoSucursal")})
 //@SequenceGenerator(name = "SucursalSeq",
 //        sequenceName = "SEQ_Sucursal", allocationSize = 1, initialValue = 1)
 

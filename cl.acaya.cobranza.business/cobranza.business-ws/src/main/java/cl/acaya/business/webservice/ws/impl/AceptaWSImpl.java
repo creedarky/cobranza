@@ -7,9 +7,12 @@ package cl.acaya.business.webservice.ws.impl;
 import cl.acaya.business.webservice.ws.AceptaWS;
 import cl.acaya.business.webservice.ws.request.NotificarFacturaAceptaRequest;
 import cl.acaya.business.webservice.ws.response.NotificarFacturaAceptaResponse;
+import cl.acaya.cobranza.business.daoEjb.dao.IntegracionAceptaDAO;
+import cl.acaya.cobranza.business.daoEjb.entities.IntegracionAcepta;
 import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
@@ -25,11 +28,8 @@ public class AceptaWSImpl implements AceptaWS {
 
     private static final Logger LOGGER = Logger.getLogger(AceptaWSImpl.class);
 
-    @PostConstruct
-    public void postConstruct() {
-        String workingDir = System.getProperty("user.dir");
-        System.out.println("Current working directory : " + workingDir);
-    }
+    @EJB
+    IntegracionAceptaDAO integracionAceptaDAO;
 
     @Override
     @WebMethod
@@ -38,16 +38,18 @@ public class AceptaWSImpl implements AceptaWS {
         NotificarFacturaAceptaResponse response = new NotificarFacturaAceptaResponse();
 
         try {
+            boolean resultado = integracionAceptaDAO.crearIntegracionAcepta(request.getNumFactura(), request.getDuennoEvento(),
+                    request.getEstadoEvento(),request.getFechaHoraEvento(), request.getObservacion(), request.getUrlFactura());
 
-            if (true) {
+            if (resultado) {
                 response.setSuccess(true);
             } else {
                 response.setSuccess(false);
                 response.setErrorMensaje("No se pudo notificar factura");
             }
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             response.setSuccess(false);
-            response.setErrorMensaje("error al parsear datos");
+            response.setErrorMensaje("Ha ocurrido un error al recibir los datos");
         }
 
 

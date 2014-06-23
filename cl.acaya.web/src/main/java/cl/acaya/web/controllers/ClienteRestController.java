@@ -118,4 +118,20 @@ public class ClienteRestController {
     }
 
 
+    @RequestMapping(value = "hitos/{idCliente}", method = RequestMethod.GET)
+    public @ResponseBody
+    JsonResponse cargarHitos(HttpServletRequest httpRequest,
+                                 @PathVariable Long idCliente) {
+        Request request = RequestFactory.newRequest(httpRequest);
+        request.addParam(Parametros.ID_CLIENTE,idCliente);
+        JsonResponse jsonResponse = new JsonResponse();
+        Response response = clienteServiceRemote.getHitosCliente(request);
+        System.out.println("cargando clientes");
+        if(response.isOK()) {
+            jsonResponse.setBody(response.getAllResp());
+        }
+        return jsonResponse;
+
+    }
+
 }

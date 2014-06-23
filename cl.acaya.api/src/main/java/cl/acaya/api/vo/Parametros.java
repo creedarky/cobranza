@@ -24,4 +24,5 @@ public interface Parametros {
     String FORMAS_PAGO = "formasPago";
     String CARGOS_CONTACTO = "cargosContacto";
     String CONTACTOS_CLIENTE = "contactosCliente";
+    String HITOS = "hitos";
 }

@@ -46,6 +46,11 @@ public class ClienteServiceDelegate extends AbstractServiceDelegate implements C
     public Response guardarGestion(GestionVO gestionVO) {
         return clienteServiceRemote.guardarGestion(gestionVO);
     }
+
+    @Override
+    public Response getHitosCliente(Request request) {
+        return clienteServiceRemote.getHitosCliente(request);
+    }
 }
 
 
