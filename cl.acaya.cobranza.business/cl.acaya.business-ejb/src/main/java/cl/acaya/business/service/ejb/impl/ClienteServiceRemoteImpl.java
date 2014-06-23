@@ -1,6 +1,7 @@
 package cl.acaya.business.service.ejb.impl;
 
 import cl.acaya.api.business.BusinessParameter;
+import cl.acaya.api.enums.EtapasDocumentoType;
 import cl.acaya.business.sap.Connect;
 import cl.acaya.api.service.ClienteServiceRemote;
 import cl.acaya.business.service.ejb.CobranzaServiceLocal;
@@ -63,6 +64,9 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
     @EJB
     private ListaContingenciaDAO listaContingenciaDAO;
 
+    @EJB
+    private HitosDAO hitosDAO;
+
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Response getDatosGestionCliente(Request request) {
@@ -89,6 +93,11 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
             Date fechaEmision = (Date) result[8];
             Date fechaVencimiento = (Date) result[9];
             Long idDocumento = ((BigDecimal) result[10]).longValue();
+            Date fechaQr = (Date) result[11];
+            String urlAcepta = (String) result[12];
+            String serviEntrega = (String) result[13];
+            Long idDM = ((BigDecimal) result[14]).longValue();
+            String dm = (String) result[15];
             DocumentoClienteVO documentoClienteVO = new DocumentoClienteVO();
             documentoClienteVO.setNumDoc(numDoc);
             documentoClienteVO.setTramo(tramo);
@@ -101,6 +110,16 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
             documentoClienteVO.setFechaVencimiento(fechaVencimiento);
             documentoClienteVO.setFechaEmision(fechaEmision);
             documentoClienteVO.setIdDocumento(idDocumento);
+            documentoClienteVO.setFechaQR(fechaQr);
+            documentoClienteVO.setUrlAcepta(urlAcepta);
+            documentoClienteVO.setServiEntrega(serviEntrega);
+            documentoClienteVO.setDM(dm);
+            documentoClienteVO.setIdDM(idDM);
+            Hitos ultimoHito = hitosDAO.getUltimoHitoDocumento(idDocumento);
+            if(ultimoHito != null) {
+                documentoClienteVO.setEstado(ultimoHito.getEtapa().getLabel());
+                documentoClienteVO.setUltimaGestion(ultimoHito.getFechaHito());
+            }
             documentoClienteVOList.add(documentoClienteVO);
         }
         System.out.println("Size " + documentoClienteVOList.size());
@@ -228,9 +247,13 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
         agenda.getDocumentos().addAll(documentoList);
         agenda.setFecAgenda(guardarAgendaVO.getFechaAgendada());
         agenda.setComentario(guardarAgendaVO.getComentario());
-        agenda.setContacto(contactoDAO.find(guardarAgendaVO.getIdContacto()));
+        ContactoCliente contactoCliente = contactoDAO.find(guardarAgendaVO.getIdContacto());
+        agenda.setContacto(contactoCliente);
         agenda.setCliente(cliente);
         agendaDAO.create(agenda);
+        for(Documento d: documentoList) {
+            hitosDAO.crearHito(null, d, contactoCliente, cliente, EtapasDocumentoType.AGENDADO );
+        }
         return new Response();
 
     }
@@ -258,22 +281,33 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response guardarGestion(GestionVO gestionVO) {
+        Cliente cliente = clienteDAO.find(gestionVO.getIdCliente());
+
         if(gestionVO.getIdDocumentosValidados() != null && gestionVO.getIdDocumentosValidados().length > 0) {
             documentoDAO.validarPorId(Arrays.asList(gestionVO.getIdDocumentosValidados()));
+            ContactoCliente contacto = contactoDAO.find(gestionVO.getIdContacto());
+            List<Documento> documentoList = documentoDAO.getDocumentosByIdDocumentos(Arrays.asList(gestionVO.getIdDocumentosValidados()));
+            for(Documento d: documentoList) {
+                hitosDAO.crearHito(null, d, contacto, cliente, EtapasDocumentoType.VALIDADO);
+            }
         }
-        Cliente cliente = clienteDAO.find(gestionVO.getIdCliente());
+
         if(gestionVO.getRecaudaVO() != null) {
             RecaudaVO recaudaVO = gestionVO.getRecaudaVO();
             Recauda  recauda = TypesAdaptor.adaptar(gestionVO.getRecaudaVO());
             Banco banco = bancoDAO.find(recaudaVO.getIdBanco());
             FormaPago formaPago = formaPagoDAO.find(recaudaVO.getIdFormaPago());
             ContactoCliente contactoCliente = contactoDAO.find(recaudaVO.getIdContacto());
-
+            List<Documento> documentoList = documentoDAO.getDocumentosByIdDocumentos(Arrays.asList(gestionVO.getIdDocumentosRecaudados()));
             recauda.setBanco(banco);
             recauda.setCliente(cliente);
             recauda.setFormaPago(formaPago);
             recauda.setContactoCliente(contactoCliente);
+            recauda.getDocumentos().addAll(documentoList);
             recaudaDAO.create(recauda);
+            for(Documento d: documentoList) {
+                hitosDAO.crearHito(null, d, contactoCliente, cliente, EtapasDocumentoType.RECAUDADO);
+            }
         }
         if(gestionVO.getIdDocumentosContingencia() != null && gestionVO.getIdDocumentosContingencia().length > 0) {
             int i = 0;
@@ -288,6 +322,8 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
                 listaConting.setFecha(new Date());
                 listaConting.setCliente(cliente);
                 listaContingenciaDAO.create(listaConting);
+                ContactoCliente contacto = contactoDAO.find(gestionVO.getIdContacto());
+                hitosDAO.crearHito(null, d, contacto, cliente, EtapasDocumentoType.CONTIGENCIA);
                 i++;
             }
         }

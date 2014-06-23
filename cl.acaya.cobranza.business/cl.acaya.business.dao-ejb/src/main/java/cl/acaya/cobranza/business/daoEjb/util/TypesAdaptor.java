@@ -27,6 +27,20 @@ public class TypesAdaptor {
         d.setFechaCompensacion(documentoVO.getFechaCompensacion());
         d.setMontoDocumento(documentoVO.getMontoCobrar());
         d.setFacturaRelacionada(documentoVO.getFacturaRelacionada());
+        d.setClavePago(documentoVO.getClavePago());
+        d.setCodigoCobrador(documentoVO.getCodigoCobrador());
+        d.setCodigoCuenta(documentoVO.getCodigoCuenta());
+        d.setCodigoOperacion(documentoVO.getCodigoCuenta());
+        d.setIndicadorCME(documentoVO.getIndicacionOperacion());
+        d.setNumeroAsignacion(documentoVO.getNumeroAsignacion());
+        d.setNumeroEjercicio(documentoVO.getNumeroEjercicio());
+        d.setNumeroContable(documentoVO.getNumeroContable());
+        d.setNumeroApunte(documentoVO.getNumeroApunte());
+        d.setNombreResponsable(documentoVO.getNombreResponsable());
+        d.setOficinaResponsable(documentoVO.getOficinaResponsable());
+        d.setGrupoMateriales(documentoVO.getGrupoMateriales());
+        d.setOrdenCompra(documentoVO.getOrdenCompra());
+
         // TODO por definir el resto de los campos
         return d;
     }
@@ -45,6 +59,25 @@ public class TypesAdaptor {
         documentoOriginal.setMontoDocumento(documentoNuevo.getMontoDocumento());
         documentoOriginal.setFacturaRelacionada(documentoNuevo.getFacturaRelacionada());
         documentoOriginal.setLastUpdate(documentoNuevo.getLastUpdate());
+        documentoOriginal.setFechaEmision(documentoNuevo.getFechaEmision());
+        documentoOriginal.setFechaVencimiento(documentoNuevo.getFechaVencimiento());
+        documentoOriginal.setDocumentoCompensacion(documentoNuevo.getDocumentoCompensacion());
+        documentoOriginal.setFechaCompensacion(documentoNuevo.getFechaCompensacion());
+        documentoOriginal.setMontoDocumento(documentoNuevo.getMontoDocumento());
+        documentoOriginal.setFacturaRelacionada(documentoNuevo.getFacturaRelacionada());
+        documentoOriginal.setClavePago(documentoNuevo.getClavePago());
+        documentoOriginal.setCodigoCobrador(documentoNuevo.getCodigoCobrador());
+        documentoOriginal.setCodigoCuenta(documentoNuevo.getCodigoCuenta());
+        documentoOriginal.setCodigoOperacion(documentoNuevo.getCodigoCuenta());
+        documentoOriginal.setIndicadorCME(documentoNuevo.getIndicadorCME());
+        documentoOriginal.setNumeroAsignacion(documentoNuevo.getNumeroAsignacion());
+        documentoOriginal.setNumeroEjercicio(documentoNuevo.getNumeroEjercicio());
+        documentoOriginal.setNumeroContable(documentoNuevo.getNumeroContable());
+        documentoOriginal.setNumeroApunte(documentoNuevo.getNumeroApunte());
+        documentoOriginal.setNombreResponsable(documentoNuevo.getNombreResponsable());
+        documentoOriginal.setOficinaResponsable(documentoNuevo.getOficinaResponsable());
+        documentoOriginal.setGrupoMateriales(documentoNuevo.getGrupoMateriales());
+        documentoOriginal.setOrdenCompra(documentoNuevo.getOrdenCompra());
         // TODO por definir el resto de los campos
         return documentoOriginal;
     }

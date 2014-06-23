@@ -80,11 +80,12 @@
 
 <div id="cuerpo_inferior" style="padding-top: 10px;">
     <div style="padding-left:15px;padding-left: 15px;padding-right: 15px;">
-        <table style="width: 100%" class="table">
+        <table datatable="ng" dt-options="dtOptions" style="width: 100%" class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
                 <th><input type="checkbox" ng-model="selectedAll" ng-change="selectAll()"/></th>
                 <th>Nº Documento</th>
+                <th>DM</th>
                 <th>Tipo</th>
                 <th>Monto Factura</th>
                 <th>Fecha Emisión</th>
@@ -93,14 +94,16 @@
                 <th>Tramo</th>
                 <th>Vendedor</th>
                 <th>Estado</th>
+                <th>Fecha Ultima Gestion</th>
                 <th>Acción</th>
             </tr>
             </thead>
-            <tbody>
-            <tr ng-repeat="documento in documentos">
+            <tbody class="table-striped table-hover">
+            <tr dt-rows ng-repeat="documento in documentos">
 
                 <td style="text-align: center"><input type="checkbox" ng-change="selectElement(documento);" ng-model="documento.seleccionado"/></td>
-                <td>{{ documento.numDoc }}</td>
+                <td>{{ documento.numDoc | cleanNumber }}</td>
+                <td>{{ documento.dm }}</td>
                 <td>{{ documento.codigoTipo}}</td>
                 <td>{{ documento.monto | currency }}</td>
                 <td>{{ documento.fechaEmision }}</td>
@@ -108,8 +111,17 @@
                 <td>{{ documento.diasVencidos | lessThanZero }}</td>
                 <td>{{ documento.tramo}}</td>
                 <td>{{ documento.vendedor }}</td>
-                <td> </td>
-                <td></td>
+                <td>{{ documento.estado}} </td>
+                <td>{{ documento.ultimaGestion}} </td>
+                <td>
+                    <a href="http://10.1.1.176/SERVYENTREGA/imagenes/{{documento.numDoc | cleanNumber }}.pdf" ng-show="documento.serviEntrega == 'SI'"
+                       target="_blank">ServiEntrega</a>
+                    <a href="{{documento.urlAcepta}}" ng-show="documento.urlAcepta != null"
+                       target="_blank">Acepta</a>
+                    <a href="javascript:void(0)" ng-click="abrirDocumento(documento.numDoc)">
+                        Valuetech
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>

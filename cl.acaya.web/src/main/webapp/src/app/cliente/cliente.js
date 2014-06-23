@@ -2,7 +2,9 @@ angular.module( 'ngBoilerplate.cliente', [
   'ui.router',
   'placeholders',
   'ui.bootstrap',
-  'cobranzaFilters'
+  'cobranzaFilters',
+  'datatables'
+
 ])
 
 .config(function config( $stateProvider ) {
@@ -21,8 +23,26 @@ angular.module( 'ngBoilerplate.cliente', [
 })
 
 
-.controller( 'ClienteCtrl', ['$scope','$rootScope', '$stateParams', '$http','$modal',function($scope,$rootScope,$stateParams,$http, $modal ) {
+.controller( 'ClienteCtrl', ['$scope','$rootScope', '$stateParams', '$http','$modal','DTOptionsBuilder','DTColumnBuilder',function($scope,$rootScope,$stateParams,$http, $modal,
+                                                                                                                 DTOptionsBuilder,DTColumnBuilder ) {
         console.log($stateParams.idCliente);
+        $scope.documentos = [];
+        $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(10).withBootstrap();
+        /*
+        $scope.dtColumns = [
+            DTColumnBuilder.newColumn('0').notSortable(),
+            DTColumnBuilder.newColumn('1').withTitle(''),
+            DTColumnBuilder.newColumn('2'),
+            DTColumnBuilder.newColumn('3'),
+            DTColumnBuilder.newColumn('4'),
+            DTColumnBuilder.newColumn('5'),
+            DTColumnBuilder.newColumn('6'),
+            DTColumnBuilder.newColumn('7'),
+            DTColumnBuilder.newColumn('8'),
+            DTColumnBuilder.newColumn('9'),
+            DTColumnBuilder.newColumn('10'),
+            DTColumnBuilder.newColumn('11')
+        ];          */
         $http.get('rest/cliente/gestion/'+$stateParams.idCliente).success(function(data) {
             $rootScope.idcliente = $stateParams.idCliente;
             $scope.body = data.body;
@@ -66,6 +86,9 @@ angular.module( 'ngBoilerplate.cliente', [
             console.log($scope.documentos);
             console.log($scope.documentosSeleccionados);
         };
+        $scope.abrirDocumento = function(numDocumento) {
+            OpenDocument('http://www.valueweb.cl/vwnet_kupfer/cgi/dwis.pl',numDocumento,'','','600','500');
+        }
 
         $scope.open = function (size,view) {
             if($scope.documentosSeleccionados.length == 0) {
@@ -248,7 +271,7 @@ var ModalAgendarCtrl = function ($scope,$rootScope, $modalInstance,$modal,$http,
                 "Content-Type": "application/json"
             }}).success(function(data, status, headers, config) {
             $scope.posts = data;
-            $modalInstance.close($scope.contactoSeleccionado);
+            $modalInstance.close($scope.contactos);
         }).
         error(function(data, status, headers, config) {
             alert("Ha ocurrido un error al guardar la gestión");

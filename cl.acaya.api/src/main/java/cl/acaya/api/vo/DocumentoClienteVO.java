@@ -22,6 +22,13 @@ public class DocumentoClienteVO {
     private String tipoDocumento;
     private String indicadorSentido;
     private String observacion;
+    private String urlAcepta;
+    private String serviEntrega;
+    private Date fechaQR;
+    private Long idDM;
+    private String DM;
+    private String estado;
+    private Date ultimaGestion;
 
     public DocumentoClienteVO() {
         observacion = "";
@@ -137,5 +144,61 @@ public class DocumentoClienteVO {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+
+    public String getUrlAcepta() {
+        return urlAcepta;
+    }
+
+    public void setUrlAcepta(String urlAcepta) {
+        this.urlAcepta = urlAcepta;
+    }
+
+    public String getServiEntrega() {
+        return serviEntrega;
+    }
+
+    public void setServiEntrega(String serviEntrega) {
+        this.serviEntrega = serviEntrega;
+    }
+
+    public Date getFechaQR() {
+        return fechaQR;
+    }
+
+    public void setFechaQR(Date fechaQR) {
+        this.fechaQR = fechaQR;
+    }
+
+    public void setIdDM(Long idDM) {
+        this.idDM = idDM;
+    }
+
+    public Long getIdDM() {
+        return idDM;
+    }
+
+    public void setDM(String DM) {
+        this.DM = DM;
+    }
+
+    public String getDM() {
+        return DM;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setUltimaGestion(Date ultimaGestion) {
+        this.ultimaGestion = ultimaGestion;
+    }
+
+    public Date getUltimaGestion() {
+        return ultimaGestion;
     }
 }

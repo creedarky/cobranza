@@ -1,9 +1,11 @@
 package cl.acaya.cobranza.business.daoEjb.entities;
 
+import cl.acaya.api.enums.EtapasDocumentoType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by darkmoorx on 12-06-14.
@@ -11,13 +13,14 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "tbl_hitos", schema = "dbo", catalog = "COBRANZA")
 public class Hitos {
+
     private Integer systemId;
-    private Documento linkDocumento;
-    private Cliente linkCliente;
-    private DocumentoEtapas linkDocEtapa;
-    private Usuario linkUsuario;
-    private ContactoCliente linkContacto;
-    private Timestamp fechaHito;
+    private Documento documento;
+    private Cliente Cliente;
+    private EtapasDocumentoType etapa;
+    private Usuario usuario;
+    private ContactoCliente contacto;
+    private Date fechaHito;
 
     @Id
     @Basic(optional = false)
@@ -39,65 +42,67 @@ public class Hitos {
 
     @JoinColumn(name = "link_documento", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne(fetch = FetchType.LAZY)
-    public Documento getLinkDocumento() {
-        return linkDocumento;
+    public Documento getDocumento() {
+        return documento;
     }
 
-    public void setLinkDocumento(Documento linkDocumento) {
-        this.linkDocumento = linkDocumento;
+    public void setDocumento(Documento linkDocumento) {
+        this.documento = linkDocumento;
     }
 
     @JoinColumn(name = "link_cliente", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne(fetch = FetchType.LAZY)
-    public Cliente getLinkCliente() {
-        return linkCliente;
+    public Cliente getCliente() {
+        return Cliente;
     }
 
-    public void setLinkCliente(Cliente linkCliente) {
-        this.linkCliente = linkCliente;
+    public void setCliente(Cliente linkCliente) {
+        this.Cliente = linkCliente;
     }
 
-    @JoinColumn(name = "link_tipo_contig", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
-    @ManyToOne(fetch = FetchType.LAZY)
-    public DocumentoEtapas getLinkDocEtapa() {
-        return linkDocEtapa;
+    @Column(name = "link_doc_etapa")
+    public EtapasDocumentoType getEtapa() {
+        return etapa;
     }
 
-    public void setLinkDocEtapa(DocumentoEtapas linkDocEtapa) {
-        this.linkDocEtapa = linkDocEtapa;
+    public void setEtapa(EtapasDocumentoType etapa) {
+        this.etapa = etapa;
     }
 
     @JoinColumn(name = "link_usuario", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne(fetch = FetchType.LAZY)
-    public Usuario getLinkUsuario() {
-        return linkUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setLinkUsuario(Usuario linkUsuario) {
-        this.linkUsuario = linkUsuario;
+    public void setUsuario(Usuario linkUsuario) {
+        this.usuario = linkUsuario;
     }
 
 
     @JoinColumn(name = "link_contacto", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne(fetch = FetchType.LAZY)
 
-    public ContactoCliente getLinkContacto() {
-        return linkContacto;
+    public ContactoCliente getContacto() {
+        return contacto;
     }
 
-    public void setLinkContacto(ContactoCliente linkContacto) {
-        this.linkContacto = linkContacto;
+    public void setContacto(ContactoCliente linkContacto) {
+        this.contacto = linkContacto;
     }
 
     @Basic
     @Column(name = "fecha_hito")
-    public Timestamp getFechaHito() {
+    public Date getFechaHito() {
         return fechaHito;
     }
 
-    public void setFechaHito(Timestamp fechaHito) {
+    public void setFechaHito(Date fechaHito) {
         this.fechaHito = fechaHito;
     }
+
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -107,12 +112,12 @@ public class Hitos {
         Hitos hitos = (Hitos) o;
 
         if (fechaHito != null ? !fechaHito.equals(hitos.fechaHito) : hitos.fechaHito != null) return false;
-        if (linkCliente != null ? !linkCliente.equals(hitos.linkCliente) : hitos.linkCliente != null) return false;
-        if (linkContacto != null ? !linkContacto.equals(hitos.linkContacto) : hitos.linkContacto != null) return false;
-        if (linkDocEtapa != null ? !linkDocEtapa.equals(hitos.linkDocEtapa) : hitos.linkDocEtapa != null) return false;
-        if (linkDocumento != null ? !linkDocumento.equals(hitos.linkDocumento) : hitos.linkDocumento != null)
+        if (Cliente != null ? !Cliente.equals(hitos.Cliente) : hitos.Cliente != null) return false;
+        if (contacto != null ? !contacto.equals(hitos.contacto) : hitos.contacto != null) return false;
+        if (etapa != null ? !etapa.equals(hitos.etapa) : hitos.etapa != null) return false;
+        if (documento != null ? !documento.equals(hitos.documento) : hitos.documento != null)
             return false;
-        if (linkUsuario != null ? !linkUsuario.equals(hitos.linkUsuario) : hitos.linkUsuario != null) return false;
+        if (usuario != null ? !usuario.equals(hitos.usuario) : hitos.usuario != null) return false;
         if (systemId != null ? !systemId.equals(hitos.systemId) : hitos.systemId != null) return false;
 
         return true;
@@ -121,11 +126,11 @@ public class Hitos {
     @Override
     public int hashCode() {
         int result = systemId != null ? systemId.hashCode() : 0;
-        result = 31 * result + (linkDocumento != null ? linkDocumento.hashCode() : 0);
-        result = 31 * result + (linkCliente != null ? linkCliente.hashCode() : 0);
-        result = 31 * result + (linkDocEtapa != null ? linkDocEtapa.hashCode() : 0);
-        result = 31 * result + (linkUsuario != null ? linkUsuario.hashCode() : 0);
-        result = 31 * result + (linkContacto != null ? linkContacto.hashCode() : 0);
+        result = 31 * result + (documento != null ? documento.hashCode() : 0);
+        result = 31 * result + (Cliente != null ? Cliente.hashCode() : 0);
+        result = 31 * result + (etapa != null ? etapa.hashCode() : 0);
+        result = 31 * result + (usuario != null ? usuario.hashCode() : 0);
+        result = 31 * result + (contacto != null ? contacto.hashCode() : 0);
         result = 31 * result + (fechaHito != null ? fechaHito.hashCode() : 0);
         return result;
     }

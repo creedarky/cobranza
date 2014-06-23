@@ -39,5 +39,10 @@ angular.module('cobranzaFilters', []).filter('lessThanZero', function() {
     return function(input) {
         return input.length > 25 ? input.substring(0, 25) + "..." : input;
     };
-});
+}).filter('cleanNumber', function() {
+    return function(input) {
+        input = input.replace(/^0+/, '');
+        return input.length > 25 ? input.substring(0, 25) + "..." : input;
+    };
+});;
 

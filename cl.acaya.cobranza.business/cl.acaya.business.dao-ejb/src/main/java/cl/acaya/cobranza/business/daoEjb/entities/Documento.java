@@ -99,11 +99,51 @@ public class Documento {
     @Column(name =  "last_update")
     private Date lastUpdate;
 
+    @Column(name = "codigo_cobrador")
+    private Integer codigoCobrador;
+
+    @Column(name = "codigo_cuenta")
+    private String codigoCuenta;
+
+    @Column(name = "codigo_operacion")
+    private String codigoOperacion;
+
+    @Column(name = "num_asignacion")
+    private String numeroAsignacion;
+
+    @Column(name = "num_apunte")
+    private Integer numeroApunte;
+
+    @Column(name = "num_ejercicio")
+    private Integer numeroEjercicio;
+
+    @Column(name = "num_contable")
+    private String numeroContable;
+
+    @Column(name = "oficina_responsable")
+    private String oficinaResponsable;
+
+    @Column(name = "nom_responsable")
+    private String nombreResponsable;
+
+    @Column(name = "clave_pago")
+    private String clavePago;
+
+    @Column(name = "orden_compra")
+    private String ordenCompra;
+
+    @Column(name = "grupo_materiales")
+    private String grupoMateriales;
+
+    @Column(name = "ind_cme")
+    private String indicadorCME;
+
     @ManyToMany(mappedBy="documentos")
     private Set<Agenda> agendas = new HashSet<Agenda>();
 
     @ManyToMany(mappedBy="documentos")
     private Set<Recauda> recaudaciones = new HashSet<Recauda>();
+
 
 
     public Documento(){
@@ -301,4 +341,110 @@ public class Documento {
     public void setFechaValidado(Date fechaValidada) {
         this.fechaValidado = fechaValidada;
     }
+
+    public Integer getCodigoCobrador() {
+        return codigoCobrador;
+    }
+
+    public void setCodigoCobrador(Integer codigoCobrador) {
+        this.codigoCobrador = codigoCobrador;
+    }
+
+    public String getCodigoCuenta() {
+        return codigoCuenta;
+    }
+
+    public void setCodigoCuenta(String codigoCuenta) {
+        this.codigoCuenta = codigoCuenta;
+    }
+
+    public String getCodigoOperacion() {
+        return codigoOperacion;
+    }
+
+    public void setCodigoOperacion(String codigoOperacion) {
+        this.codigoOperacion = codigoOperacion;
+    }
+
+    public String getNumeroAsignacion() {
+        return numeroAsignacion;
+    }
+
+    public void setNumeroAsignacion(String numeroAsignacion) {
+        this.numeroAsignacion = numeroAsignacion;
+    }
+
+    public Integer getNumeroApunte() {
+        return numeroApunte;
+    }
+
+    public void setNumeroApunte(Integer numeroApumte) {
+        this.numeroApunte = numeroApumte;
+    }
+
+    public Integer getNumeroEjercicio() {
+        return numeroEjercicio;
+    }
+
+    public void setNumeroEjercicio(Integer numeroEjercicio) {
+        this.numeroEjercicio = numeroEjercicio;
+    }
+
+    public String getOficinaResponsable() {
+        return oficinaResponsable;
+    }
+
+    public void setOficinaResponsable(String oficinaResponsable) {
+        this.oficinaResponsable = oficinaResponsable;
+    }
+
+    public String getNombreResponsable() {
+        return nombreResponsable;
+    }
+
+    public void setNombreResponsable(String nombreResponsable) {
+        this.nombreResponsable = nombreResponsable;
+    }
+
+    public String getClavePago() {
+        return clavePago;
+    }
+
+    public void setClavePago(String clavePago) {
+        this.clavePago = clavePago;
+    }
+
+    public String getOrdenCompra() {
+        return ordenCompra;
+    }
+
+    public void setOrdenCompra(String ordenCompra) {
+        this.ordenCompra = ordenCompra;
+    }
+
+    public String getGrupoMateriales() {
+        return grupoMateriales;
+    }
+
+    public void setGrupoMateriales(String grupoMateriales) {
+        this.grupoMateriales = grupoMateriales;
+    }
+
+    public void setIndicadorCME(String indicadorCME) {
+        this.indicadorCME = indicadorCME;
+    }
+
+    public String getIndicadorCME() {
+        return indicadorCME;
+    }
+
+    public String getNumeroContable() {
+        return numeroContable;
+    }
+
+    public void setNumeroContable(String numeroContable) {
+        this.numeroContable = numeroContable;
+    }
 }
+
+
