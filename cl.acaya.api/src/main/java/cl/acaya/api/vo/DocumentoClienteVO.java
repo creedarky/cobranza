@@ -30,9 +30,11 @@ public class DocumentoClienteVO {
     private String estado;
     private Date ultimaGestion;
     private boolean valueTech;
+    private boolean seleccionado;
 
     public DocumentoClienteVO() {
         observacion = "";
+        seleccionado = false;
     }
 
     public String getTramo() {
@@ -209,5 +211,13 @@ public class DocumentoClienteVO {
 
     public boolean isValueTech() {
         return valueTech;
+    }
+
+    public boolean isSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(boolean seleccionado) {
+        this.seleccionado = seleccionado;
     }
 }

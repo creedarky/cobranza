@@ -25,4 +25,5 @@ public interface Parametros {
     String CARGOS_CONTACTO = "cargosContacto";
     String CONTACTOS_CLIENTE = "contactosCliente";
     String HITOS = "hitos";
+    String IDS_AGENDA = "idsAgenda";
 }

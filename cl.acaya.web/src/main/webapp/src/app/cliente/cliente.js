@@ -26,6 +26,11 @@ angular.module( 'ngBoilerplate.cliente', [
 .controller( 'ClienteCtrl', ['$scope','$rootScope', '$stateParams', '$http','$modal','DTOptionsBuilder','$filter',function($scope,$rootScope,$stateParams,$http, $modal,
                                                                                                                  DTOptionsBuilder,$filter) {
         console.log($stateParams.idCliente);
+        console.log($stateParams);
+        if(angular.isUndefined($stateParams.idAgenda) || $stateParams.idAgenda != null)
+            $scope.idAgenda = $stateParams.idAgenda;
+        else
+            $scope.idAgenda = [];
         $scope.documentos = [];
         $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(10).withBootstrap();
         /*
@@ -43,7 +48,7 @@ angular.module( 'ngBoilerplate.cliente', [
             DTColumnBuilder.newColumn('10'),
             DTColumnBuilder.newColumn('11')
         ];          */
-        $http.get('rest/cliente/gestion/'+$stateParams.idCliente).success(function(data) {
+        $http.get('rest/cliente/gestion/'+$stateParams.idCliente+'?idsAgenda='+$scope.idAgenda).success(function(data) {
             $rootScope.idCliente = $stateParams.idCliente;
             $scope.body = data.body;
             $scope.success = data.success;
@@ -52,6 +57,9 @@ angular.module( 'ngBoilerplate.cliente', [
             $scope.carteraCliente = data.body.carteraCliente;
             $scope.tramos = data.body.tramos;
             $scope.documentos = data.body.documentosCliente;
+            _.each($scope.documentos,function(documento) {
+                updateSelected(documento)
+            })
             $scope.contingencias = data.body.contingencia;
             console.log($scope.contingencias);
             $http.get('rest/cliente/gestion/contactos/'+$stateParams.idCliente).success(function(data) {

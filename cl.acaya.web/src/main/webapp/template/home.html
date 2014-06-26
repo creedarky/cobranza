@@ -14,7 +14,7 @@
                 <tr ng-repeat="cliente in agendasClientes">
 
                     <td>
-                        <a href="#/cliente/{{cliente.cliente.idCliente}}">{{cliente.cliente.nombreCliente}}</a>
+                        <a href="#/cliente/{{cliente.cliente.idCliente}}?idAgenda={{cliente.idAgenda}}">{{cliente.cliente.nombreCliente}}</a>
                     </td>
                     <td> {{ cliente.fechaAgendada | date: 'dd-MM-yyyy'}}</td>
                     <td> {{ cliente.comentario }}</td>

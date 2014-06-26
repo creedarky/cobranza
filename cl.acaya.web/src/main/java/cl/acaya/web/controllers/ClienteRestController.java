@@ -36,11 +36,14 @@ public class ClienteRestController {
     @RequestMapping(value = "{idCliente}", method = RequestMethod.GET)
     public @ResponseBody
     JsonResponse cargarCliente(HttpServletRequest httpRequest,
-                                   @PathVariable Long idCliente
-
+                                   @PathVariable Long idCliente,
+                                   @RequestParam Integer[] idsAgenda
                                    ) {
         Request request = RequestFactory.newRequest(httpRequest);
         request.addParam(Parametros.ID_CLIENTE, idCliente);
+        request.addParam(Parametros.IDS_AGENDA, idsAgenda);
+        System.out.println(idsAgenda);
+
         Response response = clienteServiceRemote.getDatosGestionCliente(request);
         List<DocumentoClienteVO> documentoClienteVOList = response.getResp(Parametros.DOCUMENTOS_CLIENTE, List.class);
         ClienteVO clienteVO = response.getResp(Parametros.CLIENTE, ClienteVO.class);

@@ -72,11 +72,15 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
     public Response getDatosGestionCliente(Request request) {
         Response response = new Response();
         Long idCliente = request.getParam(Parametros.ID_CLIENTE, Long.class);
+        Integer[] idsAgenda = request.getParam(Parametros.IDS_AGENDA, Integer[].class);
         Cliente cliente = clienteDAO.find(idCliente);
         request.addParam(BusinessParameter.RUT_CLIENTE, cliente.getRutCliente());
         request.addParam(BusinessParameter.SOCIEDAD, "1000");
         request.addParam(Parametros.CLIENTE, cliente);
         response = cobranzaServiceLocal.obtenerDocumentosSAP(request);
+        List<Long> idsDocumento = new ArrayList<Long>();
+        if(idsAgenda != null && idsAgenda.length > 0)
+            idsDocumento = agendaDAO.getIdDocumentosByAgendaList(Arrays.asList(idsAgenda));
         List<Object[]> resultList = documentoDAO.getCarteraClienteByIdCliente(idCliente);
         List<DocumentoClienteVO> documentoClienteVOList = new ArrayList<DocumentoClienteVO>(resultList.size());
         System.out.println(resultList.size());
@@ -117,6 +121,9 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
             documentoClienteVO.setDM(dm);
             documentoClienteVO.setIdDM(idDM);
             documentoClienteVO.setValueTech(valueTech != null && valueTech.toLowerCase().equals("si") ? true : false);
+            if(idsDocumento != null && idsDocumento.contains(documentoClienteVO.getIdDocumento())){
+                documentoClienteVO.setSeleccionado(true);
+            }
             Hitos ultimoHito = hitosDAO.getUltimoHitoDocumento(idDocumento);
             if(ultimoHito != null) {
                 documentoClienteVO.setEstado(ultimoHito.getEtapa().getLabel());
@@ -350,4 +357,6 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
         return response;
 
     }
+
+
 }

@@ -1,7 +1,6 @@
 package cl.acaya.cobranza.business.daoEjb.dao.impl;
 
 import cl.acaya.cobranza.business.daoEjb.dao.AgendaDAO;
-import cl.acaya.cobranza.business.daoEjb.dao.ContactoDAO;
 import cl.acaya.cobranza.business.daoEjb.entities.Agenda;
 import cl.acaya.cobranza.business.daoEjb.entities.ContactoCliente;
 
@@ -29,6 +28,12 @@ public class AgendaDAOImpl extends  GenericDAOImpl<Agenda,Long> implements Agend
                 "left join a.usuario u  " +
                 "where a.realizada = :noRealizada "
                 ).setParameter("noRealizada",Boolean.FALSE).getResultList();
+    }
+
+    public List<Long> getIdDocumentosByAgendaList(List<Integer> idsAgenda) {
+        return em.createQuery("select d.systemId from Agenda a join a.documentos d where a.systemId in (:idsAgenda)")
+                .setParameter("idsAgenda", idsAgenda)
+                .getResultList();
     }
 
 
