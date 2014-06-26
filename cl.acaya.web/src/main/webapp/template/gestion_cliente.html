@@ -95,7 +95,7 @@
                 <th>Vendedor</th>
                 <th>Estado</th>
                 <th>Fecha Ultima Gestion</th>
-                <th>Acción</th>
+                <th>Imágenes</th>
             </tr>
             </thead>
             <tbody class="table-striped table-hover">
@@ -119,9 +119,6 @@
                     <a href="{{documento.urlAcepta}}" ng-show="documento.urlAcepta != null"
                        target="_blank">Acepta</a>
                     <a href="javascript:void(0)" ng-show="documento.valueTech" ng-click="abrirDocumento(documento.numDoc)">
-                        Valuetech
-                    </a>
-                    <a href="javascript:void(0)" ng-show="documento.valueTech" ng-click="abrirDocumento2(documento.numDoc)">
                         Valuetech
                     </a>
                 </td>

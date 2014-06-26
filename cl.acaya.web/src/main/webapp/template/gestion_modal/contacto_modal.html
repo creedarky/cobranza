@@ -34,7 +34,6 @@
                     ng-options="cargo.idCargo as cargo.cargo for cargo in $root.cargos | orderBy:cargo"
                     ng-model="contacto.idCargo">
             </select>
-            {{contacto | json}}
             <div ng-show="form.cargo.$dirty && form.cargo.$error.required">Invalido:
                 <span ng-show="form.cargo.$error.required">Debe seleccionar cargo.</span>
             </div>
