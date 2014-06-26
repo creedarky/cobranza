@@ -9,6 +9,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by mcastro on 23-05-14.
@@ -42,5 +43,13 @@ public class HitosDAOImpl extends  GenericDAOImpl<Hitos,Integer> implements Hito
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Hitos> getHitosByIdCliente(Long idCliente) {
+        return em.createNamedQuery("Hitos.findByCliente").setParameter("idCliente", idCliente).getResultList();
+    }
+
+    public List<Hitos> getHitosByIdDocumentos(List<Long> idDocumentos) {
+        return em.createNamedQuery("Hitos.findDocumentos").setParameter("idDocumentos", idDocumentos).getResultList();
     }
 }

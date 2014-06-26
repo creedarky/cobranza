@@ -332,4 +332,22 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
 
        return new Response();
     }
+
+    public Response getHitosCliente(Request request) {
+        Response response = new Response();
+        Long idCliente = request.getParam(Parametros.ID_CLIENTE,Long.class);
+        List<Hitos> hitosList = hitosDAO.getHitosByIdCliente(idCliente);
+        if(hitosList != null &&!hitosList.isEmpty() ) {
+            List<HitoVO> hitoVOList = new ArrayList<HitoVO>(hitosList.size());
+            for(Hitos hitos: hitosList) {
+                hitoVOList.add(TypesAdaptor.adaptar(hitos));
+            }
+            response.addResp(Parametros.HITOS, hitoVOList);
+            response.success();
+        }else {
+            response.fail();
+        }
+        return response;
+
+    }
 }

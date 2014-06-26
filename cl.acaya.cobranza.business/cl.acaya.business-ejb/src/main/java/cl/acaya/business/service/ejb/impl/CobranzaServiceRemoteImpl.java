@@ -53,6 +53,9 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
     SociedadDAO sociedadDAO;
 
     @EJB
+    SucursalDAO sucursalDAO;
+
+    @EJB
     AsignacionClienteDAO asignacionClienteDAO;
 
     @EJB
@@ -147,6 +150,10 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
                         Vendedor vendedor = new Vendedor();
                         vendedor.setCodigoVendedor(documentoVO.getNombreResponsable());
                         vendedor = vendedorDAO.findOrCreate(vendedor);
+                        Sucursal sucursal = new Sucursal();
+                        sucursal.setCodigoSucursal(documentoVO.getOficinaResponsable());
+                        sucursal = sucursalDAO.findOrCreate(sucursal);
+                        d.setSucursal(sucursal);
                         d.setVendedor(vendedor);
                         d.setDmCliente(dmCliente);
                         d.setSociedad(sociedad);
@@ -262,6 +269,10 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
                         Vendedor vendedor = new Vendedor();
                         vendedor.setCodigoVendedor(documentoVO.getNombreResponsable());
                         vendedor = vendedorDAO.findOrCreate(vendedor);
+                        Sucursal sucursal = new Sucursal();
+                        sucursal.setCodigoSucursal(documentoVO.getOficinaResponsable());
+                        sucursal = sucursalDAO.findOrCreate(sucursal);
+                        d.setSucursal(sucursal);
                         d.setVendedor(vendedor);
                         d.setDmCliente(dmCliente);
                         d.setSociedad(sociedad);
@@ -602,4 +613,6 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
         }
         return response;
     }
+
+
 }

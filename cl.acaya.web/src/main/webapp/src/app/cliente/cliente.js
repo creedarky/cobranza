@@ -44,7 +44,7 @@ angular.module( 'ngBoilerplate.cliente', [
             DTColumnBuilder.newColumn('11')
         ];          */
         $http.get('rest/cliente/gestion/'+$stateParams.idCliente).success(function(data) {
-            $rootScope.idcliente = $stateParams.idCliente;
+            $rootScope.idCliente = $stateParams.idCliente;
             $scope.body = data.body;
             $scope.success = data.success;
             $scope.cliente = data.body.cliente;
@@ -116,6 +116,19 @@ angular.module( 'ngBoilerplate.cliente', [
                     }
 
                 }
+            });
+
+            modalInstance.result.then(function (contactos) {
+                $scope.contactos = contactos;
+            }, function () {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        };
+        $scope.verHitos = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'template/gestion_modal/hitos_modal.html',
+                controller: ModalHitosCtrl,
+                size: 'lg'
             });
 
             modalInstance.result.then(function (contactos) {
@@ -291,7 +304,7 @@ var ModalAgendarCtrl = function ($scope,$rootScope, $modalInstance,$modal,$http,
 var ModalContactoCtrl = function ($scope,$rootScope, $modalInstance,$http, idCliente) {
     console.log($modalInstance);
     console.log(idCliente);
-    $scope.contacto = {idCliente: $rootScope.idcliente, nombre:'', idCargo: null ,cargo:'',email:'',fono:'',idContacto:null};
+    $scope.contacto = {idCliente: $rootScope.idCliente, nombre:'', idCargo: null ,cargo:'',email:'',fono:'',idContacto:null};
     $scope.master = angular.copy($scope.contacto);
     $scope.cargoSeleccionado = null;
     $scope.isUnchanged = function(contacto) {
@@ -343,6 +356,17 @@ var ModalRecaudaCtrl = function ($scope,$rootScope, $modalInstance,$http, params
     };
 
     $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
+
+
+var ModalHitosCtrl = function ($scope,$rootScope, $modalInstance,$http) {
+
+    $http.get('rest/cliente/gestion/hitos/'+$rootScope.idCliente).success(function(data) {
+        $scope.hitos = data.body.hitos;
+    });
+    $scope.ok = function () {
         $modalInstance.dismiss('cancel');
     };
 };

@@ -12,6 +12,10 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "tbl_hitos", schema = "dbo", catalog = "COBRANZA")
+@NamedQueries({@NamedQuery(name = "Hitos.findByCliente", query = "from Hitos h left join fetch h.documento d " +
+        "left join fetch h.usuario u left join fetch h.contacto cn left join fetch cn.cargo cr " +
+        "where h.cliente.systemId = :idCliente"),
+@NamedQuery(name = "Hitos.findDocumentos", query = "from Hitos  where documento.systemId in (:idDocumentos)")})
 public class Hitos {
 
     private Integer systemId;

@@ -20,4 +20,6 @@ public interface ClienteServiceRemote {
      Response getBancosYFormasdePago();
 
     Response guardarGestion(GestionVO gestionVO);
+
+    Response getHitosCliente(Request request);
 }
