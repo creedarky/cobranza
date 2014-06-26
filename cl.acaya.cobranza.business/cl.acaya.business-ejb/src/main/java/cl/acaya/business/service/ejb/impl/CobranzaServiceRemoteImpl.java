@@ -88,12 +88,8 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
 
             function.getImportParameterList().setValue("SOCIEDAD", codigoSociedad); //Paso de parametros
             function.getImportParameterList().setValue("RUTCLIE", rutCliente); //Paso de parametros
-            System.out.println(function + "no ejecutada");
             connect.execute(function);
-            System.out.println(function + "ejecutada");
             JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
-            System.out.println("filas " + table.getNumRows());
-            //System.out.println(table);
             Cliente cliente = request.getParam(Parametros.CLIENTE, Cliente.class);
             DmCliente dmCliente = null;
             List<PartidasSAPVO> documentosList = new ArrayList<PartidasSAPVO>(table.getNumRows());
@@ -204,9 +200,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
 
             function.getImportParameterList().setValue("IND1", inicio.toString()); //Paso de parametros
             function.getImportParameterList().setValue("IND2", fin.toString()); //Paso de parametros
-            System.out.println(function + "no ejecutada");
             connect.execute(function);
-            System.out.println(function + "ejecutada");
             JCoTable table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
             Cliente cliente = null;
             DmCliente dmCliente = null;
@@ -289,9 +283,7 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
 
                 function.getImportParameterList().setValue("IND1", inicio.toString()); //Paso de parametros
                 function.getImportParameterList().setValue("IND2", fin.toString()); //Paso de parametros
-                System.out.println(function + "no ejecutada");
                 connect.execute(function);
-                System.out.println(function + "ejecutada");
                 table = function.getTableParameterList().getTable("TSALIDA"); //Tabla de Salida
 
             }while (table != null && table.getNumRows() > 0);
@@ -385,10 +377,6 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
     public Response guardarDatosAsignacion(Request request) {
         List<Long> idClienteList = request.getParam(Parametros.CLIENTES, List.class);
         Long idUsuario = request.getParam(Parametros.USUARIO, Long.class);
-        System.out.println(idUsuario);
-        for(Long id: idClienteList) {
-            System.out.println(id);
-        }
         Usuario usuario = usuarioDAO.findById(idUsuario);
         List<Cliente> clienteList = clienteDAO.findAllByIds(idClienteList);
         for(Cliente cliente: clienteList) {
@@ -413,7 +401,6 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
         //response = obtenerDocumentosSAP(request);
         List<Object[]> resultList = documentoDAO.getCarteraClienteByIdCliente(idCliente);
         List<DocumentoClienteVO> documentoClienteVOList = new ArrayList<DocumentoClienteVO>(resultList.size());
-        System.out.println(resultList.size());
         for(Object[] result: resultList) {
             String razonSocial = (String) result[0];
             //Long res = ((BigDecimal) result[1]).longValue();
@@ -441,7 +428,6 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
             documentoClienteVO.setIdDocumento(idDocumento);
             documentoClienteVOList.add(documentoClienteVO);
         }
-        System.out.println("Size " + documentoClienteVOList.size());
         if(documentoClienteVOList.size() > 0 ) {
             List<Object[]> resultadoCartera = documentoDAO.getTotalCarteraClientesByIdCliente(idCliente);
             ResumenInicialVO resumenInicialVO = getCarteraPorTramos(resultadoCartera);
@@ -522,8 +508,6 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
         List<TramoVO> tramoVOList = new ArrayList<TramoVO>();
         List<CarteraVO> carteraVOList = new ArrayList<CarteraVO>();
         for(Object[] result: resultList) {
-            System.out.println("0 " + result[0] + " 1" + result [1] + " 2" + result[2] + " 3 " + result[3]
-                    + " 4 " + result[4] + " 5 " + result[5]);
             ClienteVO clienteVO = new ClienteVO();
             clienteVO.setIdCliente(((BigDecimal) result[1]).longValue());
             CarteraVO carteraVO = new CarteraVO();
@@ -596,7 +580,6 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
         connect.execute(function);
         JCoTable table = function.getTableParameterList().getTable("T_FUNCION"); //Tabla de Salida
         List<CargoContactoVO> cargoContactoVOList = new ArrayList<CargoContactoVO>(table.getNumRows());
-        System.out.println(table);
         try {
             userTransaction.begin();
             for (int i = 0; i < table.getNumRows(); i++) {

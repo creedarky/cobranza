@@ -98,6 +98,7 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
             String serviEntrega = (String) result[13];
             Long idDM = ((BigDecimal) result[14]).longValue();
             String dm = (String) result[15];
+            String valueTech = (String) result[16];
             DocumentoClienteVO documentoClienteVO = new DocumentoClienteVO();
             documentoClienteVO.setNumDoc(numDoc);
             documentoClienteVO.setTramo(tramo);
@@ -115,6 +116,7 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
             documentoClienteVO.setServiEntrega(serviEntrega);
             documentoClienteVO.setDM(dm);
             documentoClienteVO.setIdDM(idDM);
+            documentoClienteVO.setValueTech(valueTech != null && valueTech.toLowerCase().equals("si") ? true : false);
             Hitos ultimoHito = hitosDAO.getUltimoHitoDocumento(idDocumento);
             if(ultimoHito != null) {
                 documentoClienteVO.setEstado(ultimoHito.getEtapa().getLabel());

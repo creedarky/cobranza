@@ -29,6 +29,7 @@ public class DocumentoClienteVO {
     private String DM;
     private String estado;
     private Date ultimaGestion;
+    private boolean valueTech;
 
     public DocumentoClienteVO() {
         observacion = "";
@@ -200,5 +201,13 @@ public class DocumentoClienteVO {
 
     public Date getUltimaGestion() {
         return ultimaGestion;
+    }
+
+    public void setValueTech(boolean valueTech) {
+        this.valueTech = valueTech;
+    }
+
+    public boolean isValueTech() {
+        return valueTech;
     }
 }

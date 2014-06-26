@@ -23,8 +23,8 @@ angular.module( 'ngBoilerplate.cliente', [
 })
 
 
-.controller( 'ClienteCtrl', ['$scope','$rootScope', '$stateParams', '$http','$modal','DTOptionsBuilder','DTColumnBuilder',function($scope,$rootScope,$stateParams,$http, $modal,
-                                                                                                                 DTOptionsBuilder,DTColumnBuilder ) {
+.controller( 'ClienteCtrl', ['$scope','$rootScope', '$stateParams', '$http','$modal','DTOptionsBuilder','$filter',function($scope,$rootScope,$stateParams,$http, $modal,
+                                                                                                                 DTOptionsBuilder,$filter) {
         console.log($stateParams.idCliente);
         $scope.documentos = [];
         $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(10).withBootstrap();
@@ -86,7 +86,14 @@ angular.module( 'ngBoilerplate.cliente', [
             console.log($scope.documentos);
             console.log($scope.documentosSeleccionados);
         };
+        $scope.abrirDocumento2 = function(numDocumento) {
+            var data = $filter('cleanNumber')(numDocumento);
+            console.log(data);
+            OpenDocument('http://www.valueweb.cl/vwnet_kupfer/cgi/dwis.pl',data,'','','600','500');
+        }
         $scope.abrirDocumento = function(numDocumento) {
+            var data = $filter('cleanNumber')(numDocumento);
+            console.log(data);
             OpenDocument('http://www.valueweb.cl/vwnet_kupfer/cgi/dwis.pl',numDocumento,'','','600','500');
         }
 

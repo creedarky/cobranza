@@ -63,7 +63,7 @@ public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements
                 "cast(vw.folio_sii as varchar) as num_doc, cast(v.cod_vendedor as varchar) as vendedor, " +
                 "cast(td.cod_tipo as varchar) as codTipo, vw.fecha_emision, vw.fecha_vencimiento, vw.system_id, " +
                 "vw.QRDig, cast(vw.urlAceptaServi as varchar(1000)) as urlAcepta, cast(vw.digServientrega as varchar) as serviEntrega, " +
-                "vw.link_dm, cast(dm.dm as varchar) as dm " +
+                "vw.link_dm, cast(dm.dm as varchar) as dm, cast(vw.digvaluetech as varchar) as valuetech " +
                 "FROM cobranza.dbo.vw_docs_tramos vw " +
                 "inner join cobranza.dbo.tbl_dm_cliente dm on dm.system_id = vw.link_dm " +
                 "inner join cobranza.dbo.tbl_cliente c on dm.link_cliente = c.system_id "  +
