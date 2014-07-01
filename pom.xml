@@ -57,6 +57,7 @@
         <freemarker.version>2.3.19</freemarker.version>
         <!-- sap jco -->
         <sapjco.version>3.0.3</sapjco.version>
+        <spring.security.version>3.2.4.RELEASE</spring.security.version>
         <!-- sap jco -->
         <!-- angel com -->
         <angecom.version>na</angecom.version>
@@ -317,6 +318,16 @@
                 <type>jar</type>
                 <version>${sapjco.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${spring.security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${spring.security.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
