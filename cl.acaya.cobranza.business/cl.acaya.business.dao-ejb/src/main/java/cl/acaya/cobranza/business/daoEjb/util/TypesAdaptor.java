@@ -213,11 +213,13 @@ public class TypesAdaptor {
         recauda.setEntregaCedible(recaudaVO.getEntregaCopia());
         recauda.setDireccion(recaudaVO.getDireccion());
         recauda.setFecPago(recaudaVO.getFecha());
-        recauda.setPagoLun(recauda.getPagoLun());
-        recauda.setPagoMar(recauda.getPagoMar());
-        recauda.setPagoMie(recauda.getPagoMie());
-        recauda.setPagoJue(recauda.getPagoJue());
-        recauda.setPagoVie(recauda.getPagoVie());
+        recauda.setPagoLun(recaudaVO.getPagoLun());
+        recauda.setPagoMar(recaudaVO.getPagoMar());
+        recauda.setPagoMie(recaudaVO.getPagoMie());
+        recauda.setPagoJue(recaudaVO.getPagoJue());
+        recauda.setPagoVie(recaudaVO.getPagoVie());
+        recauda.setHorarioPago(recaudaVO.getHorarioPago());
+        recauda.setInstrucciones(recaudaVO.getInstrucciones());
         return recauda;
 
     }

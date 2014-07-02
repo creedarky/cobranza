@@ -1,0 +1,8 @@
+<jboss-app>
+
+    <module>
+        <service>cobranza-ds.xml</service>
+    </module>
+
+</jboss-app>
+

@@ -1,6 +1,5 @@
 package cl.acaya.web.config;
 
-import cl.acaya.cobranza.security.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -17,11 +16,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
 
-import javax.inject.Inject;
 
-@Configuration
-@EnableWebSecurity
-@EnableWebMvcSecurity
+//@Configuration
+//@EnableWebSecurity
+//@EnableWebMvcSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /*
@@ -45,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Inject
     private RememberMeServices rememberMeServices;
-    */
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -124,4 +122,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
     private static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
     }
+    */
 }

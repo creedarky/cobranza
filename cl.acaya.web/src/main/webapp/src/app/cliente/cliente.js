@@ -360,6 +360,8 @@ var ModalRecaudaCtrl = function ($scope,$rootScope, $modalInstance,$http, params
         $scope.recauda.idBanco = $scope.bancoSeleccionado.idBanco;
         $scope.recauda.idContacto = $scope.contactoSeleccionado.idContacto;
         $scope.recauda.idFormaPago = $scope.formaPagoSeleccionado.systemId;
+        $scope.recauda.horario = $scope.horario;
+        $scope.recauda.instrucciones = $scope.instrucciones;
         $modalInstance.close($scope.recauda);
     };
 

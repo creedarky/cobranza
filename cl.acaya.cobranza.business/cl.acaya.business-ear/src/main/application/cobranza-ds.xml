@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	
+    <local-tx-datasource>
+      <jndi-name>cobranza</jndi-name>
+      <use-java-context>true</use-java-context>
+      <connection-url>jdbc:sqlserver://10.1.1.189:1433;databaseName=Cobranza</connection-url>
+      <driver-class>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver-class>
+      <user-name>sa</user-name>
+      <password>Kupfer2011</password>
+      <autoReconnect>true</autoReconnect>
+      <maxReconnects>50</maxReconnects>
+      <min-pool-size>0</min-pool-size>
+      <max-pool-size>60</max-pool-size>
+      <idle-timeout-minutes>30</idle-timeout-minutes>
+      <query-timeout>1200</query-timeout>
+<!-- <check-valid-connection-sql>select count(*) from spk.USUARIO</check-valid-connection-sql> -->      
+   </local-tx-datasource>
+
+</datasources>

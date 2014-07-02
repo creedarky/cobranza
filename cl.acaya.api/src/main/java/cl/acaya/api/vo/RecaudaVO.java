@@ -19,6 +19,8 @@ public class RecaudaVO implements Serializable{
     private Boolean pagoJue;
     private Boolean pagoVie;
     private Date fecha;
+    private String horarioPago;
+    private String instrucciones;
 
     public Long getIdContacto() {
         return idContacto;
@@ -106,6 +108,22 @@ public class RecaudaVO implements Serializable{
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public String getHorarioPago() {
+        return horarioPago;
+    }
+
+    public void setHorarioPago(String horarioPago) {
+        this.horarioPago = horarioPago;
+    }
+
+    public String getInstrucciones() {
+        return instrucciones;
+    }
+
+    public void setInstrucciones(String instrucciones) {
+        this.instrucciones = instrucciones;
     }
 
     @Override

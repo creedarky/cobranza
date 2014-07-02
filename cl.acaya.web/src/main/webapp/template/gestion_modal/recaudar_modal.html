@@ -19,19 +19,7 @@
                 <select ng-options="contacto.nombre + ' ' + contacto.cargo for contacto in contactos | orderBy:nombre" ng-model="contacto">
                 </select>
             </div>
-            <!--
-            <div style="float:left;">
-                <label>Sucursal Kupfer</label>
-                <input type="text" style="padding-right: 10px;width: 180px;"/>
-                <label>Contacto</label>
-                <input type="text" style="width: 180px;padding-right: 10px;"/>
-            </div>
-            <div style="float:right;">
-                <label>Sucursal Cliente</label>
-                <input type="text" style="width: 180px;"/>
-                <label>Cargo</label>
-                <input type="text" style="width: 180px;"/>
-            </div>-->
+
         </div>
         <div class="col-md-5">
             <fieldset>
@@ -55,6 +43,14 @@
                 <ul class="dropdown-menu" role="menu">
                     <datetimepicker data-ng-model="recauda.fecha" data-datetdadaimepicker-config="{ dropdownSelector: '#dropdown1' }"/>
                 </ul>
+            </div>
+            <div class="col-md-5">
+                <label for="horarioPago">Horario Pago</label>
+                <textarea name="horarioPago" id="horarioPago" class="" ng-model="$parent.horario" rows="4" cols="35" ></textarea><br>
+            </div>
+            <div class="col-md-5">
+                <label for="instrucciones">Instrucciones</label>
+                <textarea name="instrucciones" id="instrucciones" class="" ng-model="$parent.instrucciones" rows="4" cols="35" ></textarea><br>
             </div>
             </div>
         </div>

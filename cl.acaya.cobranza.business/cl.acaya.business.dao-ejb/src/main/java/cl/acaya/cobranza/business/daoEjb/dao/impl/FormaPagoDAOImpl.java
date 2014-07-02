@@ -23,7 +23,7 @@ public class FormaPagoDAOImpl extends  GenericDAOImpl<FormaPago,Integer> impleme
     }
 
     public List<FormaPago> findAll() {
-        return em.createQuery("from FormaPago").getResultList();
+        return em.createQuery("from FormaPago order by systemId asc ").getResultList();
     }
 
 

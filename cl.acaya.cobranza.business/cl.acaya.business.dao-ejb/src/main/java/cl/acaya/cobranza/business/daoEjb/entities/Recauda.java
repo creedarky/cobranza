@@ -53,9 +53,11 @@ public class Recauda {
     @Column(name = "fec_pago")
     private Date fecPago;
 
-
     @Column(name = "horario_pago")
     private String horarioPago;
+
+    @Column(name = "instrucciones")
+    private String instrucciones;
 
     @JoinColumn(name = "link_sucursal_kup", referencedColumnName = "system_id")  // COD_TIPO_NEGOCIO_PE_FK
     @ManyToOne(fetch = FetchType.LAZY)
@@ -243,6 +245,14 @@ public class Recauda {
 
     public void setValidada(Boolean validada) {
         this.validada = validada;
+    }
+
+    public String getInstrucciones() {
+        return instrucciones;
+    }
+
+    public void setInstrucciones(String instrucciones) {
+        this.instrucciones = instrucciones;
     }
 
     public Set<Documento> getDocumentos() {
