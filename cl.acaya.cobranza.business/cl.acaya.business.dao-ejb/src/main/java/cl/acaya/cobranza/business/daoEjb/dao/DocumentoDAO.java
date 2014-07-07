@@ -2,6 +2,7 @@ package cl.acaya.cobranza.business.daoEjb.dao;
 
 import cl.acaya.cobranza.business.daoEjb.entities.Documento;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -21,4 +22,6 @@ public interface DocumentoDAO extends GenericDAO<Documento, Long> {
     List<Documento> getDocumentosByIdDocumentos(List<Long> idDocumentosList);
 
     Integer validarPorId(List<Long> idDocumentList);
+
+    Integer compensarPorFechaCliente(Date lastUpdate, Long idCliente);
 }

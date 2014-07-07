@@ -4,6 +4,7 @@ import cl.acaya.api.vo.CarteraVO;
 import cl.acaya.cobranza.business.daoEjb.dao.ClienteDAO;
 import cl.acaya.cobranza.business.daoEjb.dao.DocumentoDAO;
 import cl.acaya.cobranza.business.daoEjb.entities.Cliente;
+import cl.acaya.cobranza.business.daoEjb.entities.DmCliente;
 import cl.acaya.cobranza.business.daoEjb.entities.Documento;
 import cl.acaya.cobranza.business.daoEjb.util.TypesAdaptor;
 
@@ -78,8 +79,9 @@ public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements
 
 
     public Documento findOrCreate(Documento documento) {
-        List<Documento> documentoList = em.createNamedQuery("Documento.findByNumeroFactura")
-                .setParameter("numeroFactura", documento.getNumeroFactura())
+        List<Documento> documentoList = em.createNamedQuery("Documento.findByNumeroAsignacionAndFechaAsignacion")
+                .setParameter("numeroAsignacion", documento.getNumeroAsignacion())
+                .setParameter("fechaVencimiento", documento.getFechaVencimiento())
                 .setMaxResults(1)
                 .getResultList();
 
@@ -111,6 +113,14 @@ public class DocumentoDAOImpl extends  GenericDAOImpl<Documento,Long> implements
         return em.createQuery("update Documento  set fechaValidado = :fecha,  validado = :validado")
                 .setParameter("fecha", new Date())
                 .setParameter("validado", Boolean.TRUE)
+                .executeUpdate();
+    }
+
+    public Integer compensarPorFechaCliente(Date lastUpdate, Long idCliente) {
+        return em.createQuery("update Documento set estadoDocumento = true where lastUpdate < :lastUpdate and " +
+                "dmCliente.systemId in (select dm.systemId from DmCliente dm where cliente.systemId = :idCliente)")
+                .setParameter("lastUpdate", lastUpdate)
+                .setParameter("idCliente", idCliente)
                 .executeUpdate();
     }
 }

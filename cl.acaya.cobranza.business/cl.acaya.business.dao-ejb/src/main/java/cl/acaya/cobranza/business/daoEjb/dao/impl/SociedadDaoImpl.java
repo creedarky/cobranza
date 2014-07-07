@@ -29,4 +29,10 @@ public class SociedadDaoImpl extends  GenericDAOImpl<Sociedad,Long> implements S
         return sociedad;
     }
 
+    public List<String> findAllCodesByUsername(String username) {
+        List<String> codigos = em.createQuery("select s.codigoSociedad from Sociedad  s")
+                .getResultList();
+        return codigos;
+    }
+
 }

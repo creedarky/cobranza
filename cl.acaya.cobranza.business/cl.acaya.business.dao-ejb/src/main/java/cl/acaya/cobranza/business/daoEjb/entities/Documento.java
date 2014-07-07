@@ -15,7 +15,8 @@ import java.util.Set;
 @Entity
 @Table(name = "TBL_DOCUMENTO", schema = "dbo")
 @NamedQueries({@NamedQuery(name="Documento.findAll",query = "Select cn From Documento cn"),
-@NamedQuery(name="Documento.findByNumeroFactura",query = "from Documento where numeroFactura = :numeroFactura")})
+@NamedQuery(name="Documento.findByNumeroFactura",query = "from Documento where numeroFactura = :numeroFactura"),
+@NamedQuery(name="Documento.findByNumeroAsignacionAndFechaAsignacion",query = "from Documento where numeroAsignacion = :numeroAsignacion and fechaVencimiento = :fechaVencimiento")})
 public class Documento {
 
     @Id
