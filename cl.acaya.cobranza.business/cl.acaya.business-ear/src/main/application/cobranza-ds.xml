@@ -6,8 +6,8 @@
       <use-java-context>true</use-java-context>
       <connection-url>jdbc:sqlserver://10.1.1.189:1433;databaseName=Cobranza</connection-url>
       <driver-class>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver-class>
-      <user-name>sa</user-name>
-      <password>Kupfer2011</password>
+      <user-name>prueba</user-name>
+      <password>prueba_prueba</password>
       <autoReconnect>true</autoReconnect>
       <maxReconnects>50</maxReconnects>
       <min-pool-size>0</min-pool-size>
