@@ -83,7 +83,6 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
             idsDocumento = agendaDAO.getIdDocumentosByAgendaList(Arrays.asList(idsAgenda));
         List<Object[]> resultList = documentoDAO.getCarteraClienteByIdCliente(idCliente);
         List<DocumentoClienteVO> documentoClienteVOList = new ArrayList<DocumentoClienteVO>(resultList.size());
-        System.out.println(resultList.size());
         for(Object[] result: resultList) {
             String razonSocial = (String) result[0];
             //Long res = ((BigDecimal) result[1]).longValue();
@@ -131,7 +130,6 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
             }
             documentoClienteVOList.add(documentoClienteVO);
         }
-        System.out.println("Size " + documentoClienteVOList.size());
         if(documentoClienteVOList.size() > 0 ) {
             List<Object[]> resultadoCartera = documentoDAO.getTotalCarteraClientesByIdCliente(idCliente);
             ResumenInicialVO resumenInicialVO = cobranzaServiceLocal.getCarteraPorTramos(resultadoCartera);
@@ -241,7 +239,6 @@ public class ClienteServiceRemoteImpl implements  ClienteServiceRemote{
         contactoCliente.setEmailContacto(contactoVO.getEmail());
         contactoCliente.setFonoContacto1(contactoVO.getFono());
         contactoCliente = contactoDAO.create(contactoCliente);
-        System.out.println(contactoCliente);
         contactoVO.setIdCliente(contactoCliente.getSystemId());
         contactoVO.setCargo(cargoContacto.getCargoContacto());
         return  contactoVO;

@@ -42,7 +42,6 @@ public class ClienteRestController {
         Request request = RequestFactory.newRequest(httpRequest);
         request.addParam(Parametros.ID_CLIENTE, idCliente);
         request.addParam(Parametros.IDS_AGENDA, idsAgenda);
-        System.out.println(idsAgenda);
 
         Response response = clienteServiceRemote.getDatosGestionCliente(request);
         List<DocumentoClienteVO> documentoClienteVOList = response.getResp(Parametros.DOCUMENTOS_CLIENTE, List.class);
@@ -70,7 +69,6 @@ public class ClienteRestController {
         request.addParam(Parametros.ID_CLIENTE,idCliente);
         JsonResponse jsonResponse = new JsonResponse();
         Response response = clienteServiceRemote.getContactosClientes(request);
-        System.out.println("cargando clientes");
         if(response.isOK()) {
             jsonResponse.setBody(response.getAllResp());
         }
@@ -80,7 +78,6 @@ public class ClienteRestController {
 
     @RequestMapping(value="guardar-agenda", method = RequestMethod.POST)
     public @ResponseBody JsonResponse guardarAgenda(@RequestBody final GuardarAgendaVO guardarAgendaVO) {
-        System.out.println(guardarAgendaVO.toString());
         clienteServiceRemote.guardarAgenda(guardarAgendaVO);
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccessToTrue();
@@ -92,7 +89,6 @@ public class ClienteRestController {
 
     @RequestMapping(value="guardar-contacto", method = RequestMethod.POST)
     public @ResponseBody JsonResponse guardarContacto(@RequestBody final ContactoVO contactoVO) {
-        System.out.println(contactoVO.toString());
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccessToTrue();
         jsonResponse.setBody(clienteServiceRemote.guardarContacto(contactoVO));
@@ -113,7 +109,6 @@ public class ClienteRestController {
 
     @RequestMapping(value="guardar-gestion", method = RequestMethod.POST)
     public @ResponseBody JsonResponse guardarGestion(@RequestBody final GestionVO gestionVO) {
-        System.out.println(gestionVO.toString());
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccessToTrue();
         jsonResponse.setBody(clienteServiceRemote.guardarGestion(gestionVO));
@@ -129,7 +124,6 @@ public class ClienteRestController {
         request.addParam(Parametros.ID_CLIENTE,idCliente);
         JsonResponse jsonResponse = new JsonResponse();
         Response response = clienteServiceRemote.getHitosCliente(request);
-        System.out.println("cargando clientes");
         if(response.isOK()) {
             jsonResponse.setBody(response.getAllResp());
         }

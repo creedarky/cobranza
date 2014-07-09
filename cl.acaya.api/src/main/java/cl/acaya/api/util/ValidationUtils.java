@@ -25,7 +25,6 @@ public class ValidationUtils {
         //System.out.println(cadena.isEmpty());
 
         String rut = "23423";
-        System.out.println(haveOnlyNums(rut));
     }
 
     public static boolean isNotNullNotEmpty(String texto) {

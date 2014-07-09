@@ -75,8 +75,6 @@ public class DocumentoController {
         Request request = RequestFactory.newRequest(httpServletRequest);
         request.addParam(Parametros.CLIENTES, Arrays.asList(clientes));
         request.addParam(Parametros.USUARIO, usuario);
-        System.out.println("usuario " + usuario);
-        System.out.println("clientes" + clientes);
         Response response = cobranzaServiceRemote.guardarDatosAsignacion(request);
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccess(response.isOK());
@@ -88,7 +86,6 @@ public class DocumentoController {
     JsonResponse cargarDocumentos2(HttpServletRequest httpRequest,
                                    @RequestParam("cliente") String cliente,
                                    @RequestParam("sociedad") String sociedad)  {
-        System.out.println("rut :  " + cliente + " sociedad " + sociedad);
         Request request = RequestFactory.newRequest(httpRequest);
         request.addParam(BusinessParameter.RUT_CLIENTE,cliente);
         request.addParam(BusinessParameter.SOCIEDAD, sociedad);

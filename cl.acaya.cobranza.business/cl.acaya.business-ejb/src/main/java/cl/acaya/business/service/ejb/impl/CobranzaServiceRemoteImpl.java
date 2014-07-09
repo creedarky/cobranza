@@ -164,14 +164,12 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
                     }
                 }
                 int total = documentoDAO.compensarPorFechaCliente(lastUpdate,cliente.getSystemId());
-                System.out.println("total " + total);
             }catch (Exception e) {
                 userTransaction.rollback();
             }
 
 
         } catch (Exception e) {
-            System.out.println(e.toString());
         }
 
         try {
@@ -298,7 +296,6 @@ public class CobranzaServiceRemoteImpl implements CobranzaServiceRemote, Cobranz
             }while (table != null && table.getNumRows() > 0);
 
         } catch (Exception e) {
-            System.out.println(e.toString());
         }
 
         return new Response();
